@@ -21,12 +21,14 @@ quattro reel e la GIF del marchio animato.
 | `video-02.mp4` | sfondo a tutta pagina della frase |
 | `marchio.gif` | l'emblema che gira in sei punti del sito |
 
-**Manca ancora:**
+**Manca ancora** (il posto nel sito c'è già, aspetta solo il file):
 
 | File | Cosa ci va |
 |---|---|
-| `barbiere-jd.jpg` | ritratto verticale di JD |
-| `barbiere-baudena.jpg` | ritratto verticale di Baudena |
+| `work-04.jpg` | treccine con schiariture bionde |
+| `work-05.jpg` | cornrows, vista di lato |
+| `barbiere-jd.jpg` | ritratto di JD |
+| `barbiere-baudena.jpg` | ritratto di Baudena |
 | `og-cover.jpg` | 1200 × 630 px, l'anteprima quando si manda il link su WhatsApp |
 | `apple-touch-icon.png` | 180 × 180 px, il logo tondo per la home del telefono |
 
