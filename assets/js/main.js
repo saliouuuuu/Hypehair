@@ -124,9 +124,14 @@ $$('[data-split]').forEach(el => {
         </g>
       </g>`;
 
-  const corpo = `
+  // Ordine di preferenza: il video del marchio, poi il PNG, poi il disegno
+  // qui sotto. Video e PNG vanno in "screen": il fondo nero sparisce e
+  // resta solo l'elemento verde.
+  const corpo = (conVideo) => `
     <span class="emblem__halo"></span>
     <span class="emblem__body">
+      ${conVideo ? `<video class="emblem__video" src="assets/img/marchio.mp4"
+             autoplay muted loop playsinline preload="metadata" disablepictureinpicture></video>` : ''}
       <img src="assets/img/marchio.png" alt="" loading="lazy" onerror="this.hidden=true">
       <svg class="emblem__svg" viewBox="0 0 200 200" aria-hidden="true">
         ${anello(1, 0,  1,   15)}
@@ -138,8 +143,23 @@ $$('[data-split]').forEach(el => {
   const tutti = $$('[data-emblem]');
   tutti.forEach(el => {
     el.classList.add('emblem');
-    el.innerHTML = corpo;
+    el.innerHTML = corpo(el.hasAttribute('data-video'));
   });
+
+  // se il video non c'è (o il telefono non lo vuole) si torna al PNG/SVG
+  const video = $$('.emblem__video');
+  video.forEach(v => {
+    v.addEventListener('error', () => v.hidden = true);
+    v.play?.().catch(() => {});          // qualche browser rifiuta l'autoplay
+  });
+
+  // fuori dallo schermo il video si ferma: batteria e CPU ringraziano
+  if (video.length) {
+    const io = new IntersectionObserver(voci => {
+      voci.forEach(v => v.isIntersecting ? v.target.play?.().catch(() => {}) : v.target.pause?.());
+    }, { rootMargin:'120px' });
+    video.forEach(v => io.observe(v));
+  }
 
   // quelli con data-spin girano seguendo lo scroll
   const mobili = tutti.filter(el => parseFloat(el.dataset.spin) > 0);

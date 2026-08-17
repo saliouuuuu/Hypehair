@@ -16,7 +16,8 @@ del salone accesa e senza filtri Instagram (li mette già il sito).
 
 | Nome del file        | Cosa deve esserci                                   | Formato consigliato |
 |----------------------|-----------------------------------------------------|---------------------|
-| `marchio.png`        | **Solo l'elemento di vetro verde** del logo, senza la scritta | quadrata, fondo nero o trasparente, 1000 px |
+| `marchio.mp4`        | **Il video dell'elemento di vetro** che si muove (se ce l'hai) | quadrato, 3–6 secondi, in loop, max ~2 MB |
+| `marchio.png`        | **Solo l'elemento di vetro verde** del logo, senza la scritta | quadrata, 1000 px |
 | `hero.jpg`           | La foto d'apertura: il salone o un barbiere al lavoro | verticale o quadrata, molto larga (2000 px) |
 | `atelier.jpg`        | Foto larga d'atmosfera: mani al lavoro, dettaglio    | orizzontale |
 | `finale.jpg`         | Insegna, vetrina o poltrona vuota                    | orizzontale |
@@ -32,10 +33,21 @@ schermata d'apertura, tondo in alto a sinistra, sigillo a metà pagina,
 filigrana dietro alla prenotazione, timbro sulla conferma e firma nel footer.
 Gira sempre piano su sé stesso e accelera quando scorri.
 
-Per ora è ridisegnato in SVG (tre nastri sovrapposti). **Appena mandi
-`marchio.png`** — la sola forma di vetro, quella del secondo file che mi hai
-inviato — il sito usa quella vera in tutti e sei i punti, senza toccare
-nient'altro. Il fondo nero del PNG viene tolto in automatico.
+Per ora è ridisegnato in SVG (tre nastri sovrapposti). Il sito prende il
+primo file che trova, in quest'ordine:
+
+1. `marchio.mp4` — il **video** dell'elemento che si muove
+2. `marchio.png` — l'elemento fermo
+3. il disegno SVG, se non c'è nessuno dei due
+
+**Lo sfondo non è un problema.** Nero, bianco o trasparente: il sito lo
+toglie da solo e lascia solo l'elemento verde luminoso, che si stacca dal
+fondo scuro come nel logo. Il file può arrivare così com'è, senza ritagli.
+
+Il video parte da solo, senza audio, in loop e senza comandi a vista; fuori
+dallo schermo si mette in pausa per non consumare batteria. Se il telefono
+si rifiuta di farlo partire, si torna al PNG o al disegno senza che si veda
+niente di strano.
 
 **Come si caricano:** metti il file dentro `assets/img/` con esattamente
 quel nome. Il riquadro grigio con la scritta sparisce da solo.

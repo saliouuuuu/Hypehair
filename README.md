@@ -38,9 +38,11 @@ python3 -m http.server 8899
   ricostruito in SVG (tre nastri sovrapposti in `screen`, gradienti definiti
   una volta sola in `index.html`) e ricompare in sei punti: apertura, nav,
   sigillo di metà pagina, filigrana della prenotazione, conferma, footer.
-  Gira di suo e accelera con lo scroll (`data-spin`). Se in `assets/img/`
-  compare `marchio.png`, ogni emblema passa alla foto vera senza altre
-  modifiche.
+  Gira di suo e accelera con lo scroll (`data-spin`). Ogni emblema prende il
+  primo file disponibile — `marchio.mp4`, poi `marchio.png`, poi il disegno —
+  e `mix-blend-mode: screen` toglie il fondo: resta solo l'elemento verde,
+  qualunque sfondo abbia il file. I video partono in autoplay muto e si
+  mettono in pausa fuori dallo schermo.
 - **Palette e tipografia dal logo**: nero, bianco e i verdi iridescenti del
   vetro; serif in stile lettering del marchio.
 - **Animazioni sobrie**: comparse allo scroll, parallasse leggera, testo che

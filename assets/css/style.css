@@ -194,7 +194,6 @@ body.cursor-hot .cursor__ring{ width:56px; height:56px; background:rgba(34,214,1
 .nav__mark{
   width:38px; height:38px; flex:none;
   border:1.5px solid rgba(243,247,245,.85); border-radius:50%;
-  background:#000;
 }
 .nav__mark .emblem__body{ inset:5px; }
 .nav__mark .emblem__halo{ display:none; }
@@ -335,11 +334,22 @@ body.cursor-hot .cursor__ring{ width:56px; height:56px; background:rgba(34,214,1
   will-change:transform;
 }
 .emblem__body{ position:absolute; inset:0; animation:embGira 44s linear infinite; }
+/* "screen" toglie il nero: sullo schermo resta solo l'elemento verde,
+   qualunque sia il fondo del file di partenza. */
+.emblem video,
 .emblem img{
   width:100%; height:100%; object-fit:contain;
-  mix-blend-mode:screen;           /* il PNG ha il fondo nero: così sparisce */
+  mix-blend-mode:screen;
+  background:none;
 }
+.emblem video{ pointer-events:none; }
+/* prima il video, poi il PNG, poi il disegno: vince il primo che c'è */
+.emblem video:not([hidden]) ~ img,
+.emblem video:not([hidden]) ~ .emblem__svg,
 .emblem img:not([hidden]) ~ .emblem__svg{ display:none; }
+/* col file vero il marchio si muove già da sé: niente rotazione aggiunta */
+.emblem:has(video:not([hidden])) .emblem__body,
+.emblem:has(img:not([hidden])) .emblem__body{ animation:none; }
 .emblem__svg{ position:absolute; inset:0; width:100%; height:100%; }
 .emblem__r{ transform-box:fill-box; transform-origin:50% 50%; }
 .emblem__r--1{ animation:embGira 27s linear infinite; }
