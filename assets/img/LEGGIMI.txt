@@ -5,47 +5,35 @@ I nomi devono essere ESATTAMENTE questi (tutto minuscolo).
 Appena il file è dentro, il segnaposto sul sito sparisce da solo.
 
 
-VETRINA — 9 foto verticali 4:5 (come Instagram)
+GIÀ DENTRO — non serve rifare niente
 
-  work-01.jpg   sfumatura alta, vista di 3/4
-  work-02.jpg   hair tattoo: disegno sulla nuca
-  work-03.jpg   barba modellata, primo piano
-  work-04.jpg   il salone: interno, luci accese
-  work-05.jpg   taglio con forbici, lavorazione
-  work-06.jpg   colore / schiaritura
-  work-07.jpg   taglio bimbo
-  work-08.jpg   prima/dopo o cliente soddisfatto
-  work-09.jpg   dettaglio: rasoio, contorno collo
-
-
-BARBIERI — ritratti verticali
-
-  barbiere-jd.jpg
-  barbiere-baudena.jpg
+  hero.jpg        apertura
+  work-01.jpg     mullet & taper
+  work-02.jpg     frangia texturizzata
+  work-03.jpg     locs & taper
+  video-01.mp4    vetrina
+  video-02.mp4    sfondo della frase a tutta pagina
+  video-03.mp4    vetrina
+  video-04.mp4    vetrina
+  marchio.gif     l'elemento di vetro animato
 
 
-LE TRE GRANDI
+ANCORA DA MANDARE
 
-  hero.jpg      apertura: il salone o un barbiere al lavoro
-  atelier.jpg   orizzontale: mani al lavoro, dettaglio
-  finale.jpg    orizzontale: insegna, vetrina o poltrona
+  barbiere-jd.jpg        ritratto verticale di JD
+  barbiere-baudena.jpg   ritratto verticale di Baudena
 
-
-IL MARCHIO
-
-  marchio.mp4   il video dell'elemento di vetro che si muove
-  marchio.png   la versione ferma, se non c'è il video
-                (lo sfondo non conta: nero, bianco o trasparente,
-                 il sito lo toglie e lascia solo il verde)
+  og-cover.jpg           1200x630, l'anteprima quando mandi il link
+                         su WhatsApp: senza, il link arriva nudo
+  apple-touch-icon.png   180x180, il logo tondo per la home del telefono
 
 
-CONDIVISIONE
+SE VUOI AGGIUNGERE ALTRI LAVORI
 
-  og-cover.jpg          1200x630, l'anteprima quando mandi il link
-  apple-touch-icon.png  180x180, il logo tondo per la home del telefono
+  work-04.jpg, work-05.jpg... e altri video-05.mp4, video-06.mp4:
+  mandali e li metto nel mosaico.
 
-
-Peso: meglio sotto i 400 KB a foto. Se sono pesanti mandale comunque,
-si comprimono dopo.
+  Foto verticali 4:5 (come Instagram), meglio sotto i 400 KB.
+  Video: vanno bene i reel così come sono.
 
 Non serve nessun ritocco: filtri e sfumature li mette il sito.

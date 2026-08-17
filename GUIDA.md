@@ -8,53 +8,36 @@ Il sito è fatto di tre file: `index.html` (i testi), `assets/css/style.css`
 
 ## 1. Cosa devi mandarmi
 
-### Le foto — la parte più importante
+### Le foto e i video
 
-Il sito è pensato come una vetrina: **le foto sono il sito**. Servono
-scattate col telefono in orizzontale o verticale come indicato, con la luce
-del salone accesa e senza filtri Instagram (li mette già il sito).
+**Quello che hai già mandato è dentro e funziona:** quattro foto dei tagli,
+quattro reel e la GIF del marchio animato.
 
-| Nome del file        | Cosa deve esserci                                   | Formato consigliato |
-|----------------------|-----------------------------------------------------|---------------------|
-| `marchio.mp4`        | **Il video dell'elemento di vetro** che si muove (se ce l'hai) | quadrato, 3–6 secondi, in loop, max ~2 MB |
-| `marchio.png`        | **Solo l'elemento di vetro verde** del logo, senza la scritta | quadrata, 1000 px |
-| `hero.jpg`           | La foto d'apertura: il salone o un barbiere al lavoro | verticale o quadrata, molto larga (2000 px) |
-| `atelier.jpg`        | Foto larga d'atmosfera: mani al lavoro, dettaglio    | orizzontale |
-| `finale.jpg`         | Insegna, vetrina o poltrona vuota                    | orizzontale |
-| `barbiere-jd.jpg`    | Ritratto di JD                                       | verticale |
-| `barbiere-baudena.jpg` | Ritratto di Baudena                                | verticale |
-| `work-01.jpg` → `work-09.jpg` | I tagli: fade, hair tattoo, barba, colore, forbice, bimbi, il salone | verticale 4:5 (come Instagram) |
-| `og-cover.jpg`       | L'immagine che si vede quando mandi il link su WhatsApp | 1200 × 630 px |
-| `apple-touch-icon.png` | Il logo tondo completo, su fondo nero              | 180 × 180 px |
+| Già dentro | Dove finisce |
+|---|---|
+| `hero.jpg` | apertura del sito |
+| `work-01.jpg` `work-02.jpg` `work-03.jpg` | vetrina |
+| `video-01.mp4` `video-03.mp4` `video-04.mp4` | vetrina, partono da soli senza audio |
+| `video-02.mp4` | sfondo a tutta pagina della frase |
+| `marchio.gif` | l'emblema che gira in sei punti del sito |
 
-**Il marchio.** Il sito è costruito sui colori del logo — nero, bianco e il
-verde iridescente del vetro — e quell'elemento di vetro torna in sei punti:
-schermata d'apertura, tondo in alto a sinistra, sigillo a metà pagina,
-filigrana dietro alla prenotazione, timbro sulla conferma e firma nel footer.
-Gira sempre piano su sé stesso e accelera quando scorri.
+**Manca ancora:**
 
-Per ora è ridisegnato in SVG (tre nastri sovrapposti). Il sito prende il
-primo file che trova, in quest'ordine:
-
-1. `marchio.mp4` — il **video** dell'elemento che si muove
-2. `marchio.png` — l'elemento fermo
-3. il disegno SVG, se non c'è nessuno dei due
-
-**Lo sfondo non è un problema.** Nero, bianco o trasparente: il sito lo
-toglie da solo e lascia solo l'elemento verde luminoso, che si stacca dal
-fondo scuro come nel logo. Il file può arrivare così com'è, senza ritagli.
-
-Il video parte da solo, senza audio, in loop e senza comandi a vista; fuori
-dallo schermo si mette in pausa per non consumare batteria. Se il telefono
-si rifiuta di farlo partire, si torna al PNG o al disegno senza che si veda
-niente di strano.
+| File | Cosa ci va |
+|---|---|
+| `barbiere-jd.jpg` | ritratto verticale di JD |
+| `barbiere-baudena.jpg` | ritratto verticale di Baudena |
+| `og-cover.jpg` | 1200 × 630 px, l'anteprima quando si manda il link su WhatsApp |
+| `apple-touch-icon.png` | 180 × 180 px, il logo tondo per la home del telefono |
 
 **Come si caricano:** metti il file dentro `assets/img/` con esattamente
-quel nome. Il riquadro grigio con la scritta sparisce da solo.
-Finché la foto non c'è, il sito mostra un segnaposto elegante con scritto
-cosa ci va: non si rompe niente.
+quel nome. Il riquadro col segnaposto sparisce da solo.
 
-> Consiglio: peso massimo ~400 KB a foto. Se sono pesanti le comprimo io.
+**Se vuoi aggiungere altri lavori** manda pure `work-04.jpg`, `video-05.mp4`
+e così via: li aggiungo io al mosaico con la loro didascalia.
+
+> Peso: le foto meglio sotto i 400 KB. I video pesanti si aprono comunque
+> solo quando entrano nello schermo, ma se hai versioni più leggere è meglio.
 
 ### I dati del salone
 

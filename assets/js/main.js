@@ -124,15 +124,15 @@ $$('[data-split]').forEach(el => {
         </g>
       </g>`;
 
-  // Ordine di preferenza: il video del marchio, poi il PNG, poi il disegno
-  // qui sotto. Video e PNG vanno in "screen": il fondo nero sparisce e
-  // resta solo l'elemento verde.
-  const corpo = (conVideo) => `
+  // Il marchio vero (video o GIF) va solo sugli emblemi grandi: sui
+  // tondini piccoli resta il disegno, che è più nitido e non pesa nulla.
+  // Video e immagine vanno in "screen": il fondo sparisce e resta il verde.
+  const corpo = (ricco) => `
     <span class="emblem__halo"></span>
     <span class="emblem__body">
-      ${conVideo ? `<video class="emblem__video" src="assets/img/marchio.mp4"
-             autoplay muted loop playsinline preload="metadata" disablepictureinpicture></video>` : ''}
-      <img src="assets/img/marchio.png" alt="" loading="lazy" onerror="this.hidden=true">
+      ${ricco ? `<video class="emblem__video" src="assets/img/marchio.mp4"
+             autoplay muted loop playsinline preload="metadata" disablepictureinpicture></video>
+      <img class="emblem__img" src="assets/img/marchio.gif" alt="">` : ''}
       <svg class="emblem__svg" viewBox="0 0 200 200" aria-hidden="true">
         ${anello(1, 0,  1,   15)}
         ${anello(2, 30, .93, 17)}
@@ -146,14 +146,18 @@ $$('[data-split]').forEach(el => {
     el.innerHTML = corpo(el.hasAttribute('data-video'));
   });
 
-  // se il video non c'è (o il telefono non lo vuole) si torna al PNG/SVG
-  const video = $$('.emblem__video');
-  video.forEach(v => {
-    v.addEventListener('error', () => v.hidden = true);
-    v.play?.().catch(() => {});          // qualche browser rifiuta l'autoplay
+  // niente video? si scende alla GIF; niente GIF? si prova il PNG;
+  // se manca tutto resta il disegno, e non si vede nessun buco
+  $$('.emblem__video').forEach(v => v.addEventListener('error', () => v.hidden = true));
+  $$('.emblem__img').forEach(img => {
+    img.addEventListener('error', () => {
+      if (img.src.endsWith('.gif')) img.src = 'assets/img/marchio.png';
+      else img.hidden = true;
+    });
   });
 
   // fuori dallo schermo il video si ferma: batteria e CPU ringraziano
+  const video = $$('.emblem__video');
   if (video.length) {
     const io = new IntersectionObserver(voci => {
       voci.forEach(v => v.isIntersecting ? v.target.play?.().catch(() => {}) : v.target.pause?.());
@@ -218,14 +222,6 @@ $$('[data-split]').forEach(el => {
   $$('#menu a').forEach(a => a.addEventListener('click', chiudi));
   addEventListener('keydown', e => { if (e.key === 'Escape' && menu.classList.contains('is-open')) chiudi(); });
 
-  // quando sei già dentro la prenotazione la barra in basso si toglie di
-  // mezzo: sotto ci sono i bottoni del modulo, non deve coprirli
-  const dock = $('#dock'), sez = $('#prenota');
-  if (dock && sez) {
-    new IntersectionObserver(([v]) => {
-      dock.classList.toggle('is-away', v.isIntersecting);
-    }, { threshold:.15 }).observe(sez);
-  }
 })();
 
 /* ============================================================
@@ -374,6 +370,41 @@ $$('[data-split]').forEach(el => {
 })();
 
 /* ============================================================
+   8bis — I video della vetrina
+   Pesano: non si scaricano finché non stanno per entrare nello schermo,
+   partono da soli senza audio e si fermano appena escono.
+   ============================================================ */
+(function videoVetrina(){
+  const video = $$('video[data-src]');
+  if (!video.length) return;
+
+  // il file si aggancia solo quando manca poco: niente megabyte sprecati
+  const carica = new IntersectionObserver((voci) => {
+    voci.forEach(v => {
+      if (!v.isIntersecting) return;
+      const el = v.target;
+      if (!el.src) { el.src = el.dataset.src; el.load(); }
+      carica.unobserve(el);
+    });
+  }, { rootMargin:'400px' });
+
+  // in vista parte, fuori vista si ferma
+  const gioca = new IntersectionObserver((voci) => {
+    voci.forEach(v => {
+      const el = v.target;
+      if (v.isIntersecting && !RIDOTTO) el.play?.().catch(() => {});
+      else el.pause?.();
+    });
+  }, { threshold:.2 });
+
+  video.forEach(el => {
+    el.addEventListener('loadeddata', () => el.classList.add('is-ready'), { once:true });
+    carica.observe(el);
+    gioca.observe(el);
+  });
+})();
+
+/* ============================================================
    9 — Vetrina a schermo intero
    ============================================================ */
 (function lightbox(){
@@ -389,7 +420,15 @@ $$('[data-split]').forEach(el => {
     const cap = $('figcaption', p);
     fig.innerHTML = '';
 
-    if (img && !img.hidden && img.complete && img.naturalWidth) {
+    const vid = $('video', p);
+    if (vid) {
+      // il video si riapre grande e con i comandi: qui il sonoro lo vuoi
+      const c = document.createElement('video');
+      c.src = vid.src || vid.dataset.src;
+      c.controls = true; c.autoplay = true; c.loop = true; c.playsInline = true;
+      c.className = 'lb__video';
+      fig.appendChild(c);
+    } else if (img && !img.hidden && img.complete && img.naturalWidth) {
       const c = img.cloneNode();
       c.hidden = false; c.loading = 'eager';
       fig.appendChild(c);
@@ -397,7 +436,8 @@ $$('[data-split]').forEach(el => {
       // foto non ancora caricata: mostriamo il segnaposto, non un riquadro rotto
       const box = document.createElement('div');
       box.className = 'frame';
-      box.innerHTML = $('.ph', p).outerHTML;
+      const ph = $('.ph', p);
+      box.innerHTML = ph ? ph.outerHTML : '';
       fig.appendChild(box);
     }
     if (cap) fig.appendChild(cap.cloneNode(true));
@@ -687,34 +727,49 @@ $('#year').textContent = new Date().getFullYear();
     box.innerHTML = '';
     if (!stato.giorno) { box.innerHTML = '<p class="slots__empty">Scegli prima un giorno.</p>'; return; }
 
-    const fasce = fasceDi(stato.giorno.getDay()) || [];
+    const fasce  = fasceDi(stato.giorno.getDay()) || [];
     const durata = stato.svc ? stato.svc.dur : CONFIG.durataDefault;
-    const adesso = new Date();
-    const soglia = adesso.getTime() + CONFIG.anticipoOre * 3600e3;
+    const soglia = Date.now() + CONFIG.anticipoOre * 3600e3;
 
-    let n = 0;
+    const cap = document.createElement('p');
+    cap.className = 'slots__cap';
+    cap.textContent = 'Orari disponibili';
+    box.appendChild(cap);
+
+    // Si disegnano TUTTI gli orari del giorno: quelli ancora prenotabili si
+    // leggono, quelli passati restano lì ma quasi invisibili. Così si capisce
+    // a colpo d'occhio quanto è pieno il giorno.
+    let liberi = 0, totali = 0;
     fasce.forEach(([a, b]) => {
       for (let m = inMin(a); m + durata <= inMin(b); m += CONFIG.passoMinuti) {
         const q = new Date(stato.giorno);
         q.setHours(Math.floor(m / 60), m % 60, 0, 0);
-        if (q.getTime() < soglia) continue;
+        const ok = q.getTime() >= soglia;
 
         const btn = document.createElement('button');
         btn.type = 'button';
         btn.className = 'slot';
-        btn.style.setProperty('--si', n++);
+        btn.style.setProperty('--si', totali++);
         btn.textContent = `${String(Math.floor(m / 60)).padStart(2,'0')}:${String(m % 60).padStart(2,'0')}`;
-        btn.addEventListener('click', () => {
-          stato.ora = btn.textContent;
-          $$('.slot', box).forEach(x => x.classList.remove('is-on'));
-          btn.classList.add('is-on');
-          aggiorna();
-        });
+        if (!ok) {
+          btn.disabled = true;
+          btn.title = 'Orario già passato';
+        } else {
+          liberi++;
+          btn.addEventListener('click', () => {
+            stato.ora = btn.textContent;
+            $$('.slot', box).forEach(x => x.classList.remove('is-on'));
+            btn.classList.add('is-on');
+            aggiorna();
+          });
+        }
         box.appendChild(btn);
       }
     });
 
-    if (!n) box.innerHTML = '<p class="slots__none">Per questo giorno non ci sono più orari liberi. Prova il giorno dopo.</p>';
+    if (!liberi) {
+      box.innerHTML = '<p class="slots__none">Per oggi non ci sono più orari liberi. Prova il giorno dopo.</p>';
+    }
   }
 
   /* ---------- 13.5 passi ---------- */
@@ -751,7 +806,28 @@ $('#year').textContent = new Date().getFullYear();
     return stato.ora ? `${d}, ore ${stato.ora}` : d;
   }
 
+  // la barra in basso ripete sempre cosa stai per prenotare
+  function aggiornaBarra(){
+    const t = $('#dockTitle'), m = $('#dockMeta'), info = $('.dock__info');
+    if (!t) return;
+    if (!stato.svc) {
+      t.textContent = 'Prenota il tuo posto';
+      m.textContent = 'servizio, barbiere, orario';
+      info.classList.remove('is-set');
+      return;
+    }
+    const pezzi = [`${stato.svc.dur} min`, `${stato.svc.da ? 'da ' : ''}${stato.svc.prezzo} €`];
+    if (stato.who) pezzi.push(stato.who);
+    if (stato.giorno && stato.ora) {
+      pezzi.push(stato.giorno.toLocaleDateString('it-IT', { weekday:'short', day:'numeric' }) + ' · ' + stato.ora);
+    }
+    t.textContent = stato.svc.nome;
+    m.textContent = pezzi.join(' · ');
+    info.classList.add('is-set');
+  }
+
   function aggiorna(){
+    aggiornaBarra();
     const set = (id, val) => {
       const el = $(id);
       el.textContent = val || '—';
