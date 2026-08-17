@@ -16,7 +16,10 @@ quattro reel e la GIF del marchio animato.
 | Già dentro | Dove finisce |
 |---|---|
 | `hero.jpg` | apertura del sito |
-| `work-01.jpg` `work-02.jpg` `work-03.jpg` | vetrina |
+| `work-01.jpg` … `work-05.jpg` | vetrina: mullet, frangia, locs, treccine, cornrows |
+| `barbiere-jd.jpg` | la scheda di JD |
+| `atelier.jpg` | sezione "Dove siamo" |
+| `finale.jpg` | sfondo dell'ultimo invito a prenotare |
 | `video-01.mp4` `video-03.mp4` `video-04.mp4` | vetrina, partono da soli senza audio |
 | `video-02.mp4` | sfondo a tutta pagina della frase |
 | `marchio.gif` | l'emblema che gira in sei punti del sito |
@@ -25,9 +28,6 @@ quattro reel e la GIF del marchio animato.
 
 | File | Cosa ci va |
 |---|---|
-| `work-04.jpg` | treccine con schiariture bionde |
-| `work-05.jpg` | cornrows, vista di lato |
-| `barbiere-jd.jpg` | ritratto di JD |
 | `barbiere-baudena.jpg` | ritratto di Baudena |
 | `og-cover.jpg` | 1200 × 630 px, l'anteprima quando si manda il link su WhatsApp |
 | `apple-touch-icon.png` | 180 × 180 px, il logo tondo per la home del telefono |
