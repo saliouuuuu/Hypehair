@@ -132,7 +132,7 @@ $$('[data-split]').forEach(el => {
     <span class="emblem__body">
       ${ricco ? `<video class="emblem__video" src="assets/img/marchio.mp4"
              autoplay muted loop playsinline preload="metadata" disablepictureinpicture></video>
-      <img class="emblem__img" src="assets/img/marchio.gif" alt="">` : ''}
+      <img class="emblem__img" src="assets/img/marchio.webp" alt="" loading="lazy" decoding="async">` : ''}
       <svg class="emblem__svg" viewBox="0 0 200 200" aria-hidden="true">
         ${anello(1, 0,  1,   15)}
         ${anello(2, 30, .93, 17)}
@@ -146,12 +146,19 @@ $$('[data-split]').forEach(el => {
     el.innerHTML = corpo(el.hasAttribute('data-video'));
   });
 
+  // con la linea lenta l'emblema animato non si scarica: resta il disegno
+  const rete = navigator.connection || {};
+  if (rete.saveData === true || /^([23]g|slow-2g)$/.test(rete.effectiveType || '')) {
+    $$('.emblem__video, .emblem__img').forEach(el => el.hidden = true);
+  }
+
   // niente video? si scende alla GIF; niente GIF? si prova il PNG;
   // se manca tutto resta il disegno, e non si vede nessun buco
   $$('.emblem__video').forEach(v => v.addEventListener('error', () => v.hidden = true));
   $$('.emblem__img').forEach(img => {
     img.addEventListener('error', () => {
-      if (img.src.endsWith('.gif')) img.src = 'assets/img/marchio.png';
+      if (img.src.endsWith('.webp')) img.src = 'assets/img/marchio.gif';
+      else if (img.src.endsWith('.gif')) img.src = 'assets/img/marchio.png';
       else img.hidden = true;
     });
   });
@@ -378,15 +385,27 @@ $$('[data-split]').forEach(el => {
   const video = $$('video[data-src]');
   if (!video.length) return;
 
-  // il file si aggancia solo quando manca poco: niente megabyte sprecati
+  // Con "risparmio dati" acceso o con una linea lenta i video non si
+  // scaricano proprio: restano riquadri scuri con la loro didascalia,
+  // e nessuno si mangia il traffico del telefono.
+  const rete = navigator.connection || {};
+  const lenta = rete.saveData === true || /^([23]g|slow-2g)$/.test(rete.effectiveType || '');
+  if (lenta) { video.forEach(v => v.closest('.frame')?.classList.add('is-senza-video')); return; }
+
+  // Il file si aggancia solo quando manca poco, e se ci si allontana
+  // senza averlo guardato lo scarico viene annullato: chi scorre veloce
+  // fino alla prenotazione non si porta a casa nemmeno un megabyte.
   const carica = new IntersectionObserver((voci) => {
     voci.forEach(v => {
-      if (!v.isIntersecting) return;
       const el = v.target;
-      if (!el.src) { el.src = el.dataset.src; el.load(); }
-      carica.unobserve(el);
+      if (v.isIntersecting) {
+        if (!el.src) { el.src = el.dataset.src; el.load(); }
+      } else if (el.src && el.currentTime === 0) {
+        el.removeAttribute('src');
+        el.load();
+      }
     });
-  }, { rootMargin:'400px' });
+  }, { rootMargin:'250px' });
 
   // in vista parte, fuori vista si ferma
   const gioca = new IntersectionObserver((voci) => {

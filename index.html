@@ -18,10 +18,14 @@
 <meta property="og:image:height" content="630">
 <meta name="twitter:card" content="summary_large_image">
 
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<!-- I caratteri sono serviti da qui: nessuna attesa su un altro dominio
+     prima che la pagina si veda. -->
+<link rel="preload" as="font" type="font/woff2" href="assets/fonts/inter-var-latin.woff2" crossorigin>
+<link rel="preload" as="font" type="font/woff2" href="assets/fonts/cormorant-garamond-300-latin.woff2" crossorigin>
+<link rel="stylesheet" href="assets/css/fonts.css">
 <link rel="stylesheet" href="assets/css/style.css">
+<link rel="preload" as="image" href="assets/img/hero-760.webp"
+      imagesrcset="assets/img/hero-760.webp 760w, assets/img/hero-1080.webp 1080w, assets/img/hero-1400.webp 1400w" imagesizes="100vw">
 <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect width='100' height='100' rx='24' fill='%23000'/><path d='M50 14C68 26 74 32 86 50C74 68 68 74 50 86C32 74 26 68 14 50C26 32 32 26 50 14Z' fill='none' stroke='%231fbf74' stroke-width='9'/></svg>">
 <link rel="apple-touch-icon" href="assets/img/apple-touch-icon.png">
 
@@ -82,7 +86,7 @@
 <!-- ═════════════════ APERTURA ═════════════════ -->
 <div class="loader" id="loader" aria-hidden="true">
   <div class="loader__in">
-    <span class="loader__mark" data-emblem data-video data-spin="0"></span>
+    <span class="loader__mark" data-emblem data-spin="0"></span>
     <span class="loader__word"><i data-split>Hype Hair</i></span>
     <span class="loader__city">Cuneo</span>
   </div>
@@ -139,7 +143,10 @@
 <section class="hero" id="top">
   <div class="hero__media" data-parallax="0.18">
     <div class="ph ph--hero" data-file="hero.jpg" data-what="Il salone o una foto del barbiere al lavoro"></div>
-    <img src="assets/img/hero.jpg" alt="" fetchpriority="high" onerror="this.hidden=true">
+    <picture>
+          <source type="image/webp" sizes="100vw" srcset="assets/img/hero-760.webp 760w, assets/img/hero-1080.webp 1080w, assets/img/hero-1400.webp 1400w">
+          <img width="1440" height="1800" decoding="async" src="assets/img/hero.jpg" alt="" fetchpriority="high" onerror="this.hidden=true">
+        </picture>
     <div class="hero__grain" aria-hidden="true"></div>
     <div class="hero__veil" aria-hidden="true"></div>
   </div>
@@ -220,7 +227,10 @@
 
     <figure class="art art--3 art--off" data-reveal style="--d:.06s" data-parallax="0.05" data-lb>
       <div class="frame">
-        <img src="assets/img/work-01.jpg" alt="Mullet con sfumatura bassa e texture in cima" loading="lazy" onerror="this.hidden=true">
+        <picture>
+          <source type="image/webp" sizes="(min-width:900px) 44vw, (min-width:560px) 48vw, 100vw" srcset="assets/img/work-01-760.webp 760w, assets/img/work-01-1400.webp 1400w">
+          <img width="1440" height="1800" decoding="async" src="assets/img/work-01.jpg" alt="Mullet con sfumatura bassa e texture in cima" loading="lazy" onerror="this.hidden=true">
+        </picture>
         <span class="art__no">02</span>
         <figcaption class="art__cap"><b>Mullet &amp; taper</b><span>sfumatura bassa, texture in cima</span></figcaption>
       </div>
@@ -228,7 +238,10 @@
 
     <figure class="art art--2" data-reveal data-parallax="-0.05" data-lb>
       <div class="frame">
-        <img src="assets/img/work-04.jpg" alt="Treccine con schiariture bionde e linea frontale netta" loading="lazy" onerror="this.hidden=true">
+        <picture>
+          <source type="image/webp" sizes="(min-width:900px) 30vw, (min-width:560px) 48vw, 100vw" srcset="assets/img/work-04-760.webp 760w, assets/img/work-04-1179.webp 1179w">
+          <img width="1179" height="1313" decoding="async" src="assets/img/work-04.jpg" alt="Treccine con schiariture bionde e linea frontale netta" loading="lazy" onerror="this.hidden=true">
+        </picture>
         <span class="art__no">03</span>
         <figcaption class="art__cap"><b>Treccine &amp; schiariture</b><span>linea frontale netta</span></figcaption>
       </div>
@@ -236,7 +249,10 @@
 
     <figure class="art art--2" data-reveal data-parallax="-0.06" data-lb>
       <div class="frame frame--4x3">
-        <img src="assets/img/work-02.jpg" alt="Frangia texturizzata con taper basso" loading="lazy" onerror="this.hidden=true">
+        <picture>
+          <source type="image/webp" sizes="(min-width:900px) 30vw, (min-width:560px) 48vw, 100vw" srcset="assets/img/work-02-760.webp 760w, assets/img/work-02-1400.webp 1400w">
+          <img width="1440" height="1800" decoding="async" src="assets/img/work-02.jpg" alt="Frangia texturizzata con taper basso" loading="lazy" onerror="this.hidden=true">
+        </picture>
         <span class="art__no">04</span>
         <figcaption class="art__cap"><b>Frangia texturizzata</b><span>taper basso, linea pulita</span></figcaption>
       </div>
@@ -254,7 +270,10 @@
 
     <figure class="art art--3 art--off" data-reveal style="--d:.12s" data-parallax="0.06" data-lb>
       <div class="frame">
-        <img src="assets/img/work-05.jpg" alt="Cornrows con righe dritte e contorni puliti" loading="lazy" onerror="this.hidden=true">
+        <picture>
+          <source type="image/webp" sizes="(min-width:900px) 44vw, (min-width:560px) 48vw, 100vw" srcset="assets/img/work-05-760.webp 760w, assets/img/work-05-1179.webp 1179w">
+          <img width="1179" height="1336" decoding="async" src="assets/img/work-05.jpg" alt="Cornrows con righe dritte e contorni puliti" loading="lazy" onerror="this.hidden=true">
+        </picture>
         <span class="art__no">06</span>
         <figcaption class="art__cap"><b>Cornrows</b><span>righe dritte, contorni puliti</span></figcaption>
       </div>
@@ -272,7 +291,10 @@
 
     <figure class="art art--3" data-reveal style="--d:.06s" data-parallax="-0.04" data-lb>
       <div class="frame frame--4x3">
-        <img src="assets/img/work-03.jpg" alt="Locs con taper e linea frontale ridisegnata" loading="lazy" onerror="this.hidden=true">
+        <picture>
+          <source type="image/webp" sizes="(min-width:900px) 44vw, (min-width:560px) 48vw, 100vw" srcset="assets/img/work-03-760.webp 760w, assets/img/work-03-1400.webp 1400w">
+          <img width="1440" height="1800" decoding="async" src="assets/img/work-03.jpg" alt="Locs con taper e linea frontale ridisegnata" loading="lazy" onerror="this.hidden=true">
+        </picture>
         <span class="art__no">08</span>
         <figcaption class="art__cap"><b>Locs &amp; taper</b><span>linea frontale ridisegnata</span></figcaption>
       </div>
@@ -307,7 +329,10 @@
     <article class="pro" data-reveal data-tilt>
       <div class="pro__media">
         <div class="ph ph--pro" data-file="barbiere-jd.jpg" data-what="Ritratto verticale di JD"></div>
-        <img src="assets/img/barbiere-jd.jpg" alt="JD, barbiere da Hype Hair" loading="lazy" onerror="this.hidden=true">
+        <picture>
+          <source type="image/webp" sizes="(min-width:820px) 46vw, 100vw" srcset="assets/img/barbiere-jd-760.webp 760w, assets/img/barbiere-jd-1179.webp 1179w">
+          <img width="1179" height="1191" decoding="async" src="assets/img/barbiere-jd.jpg" alt="JD, barbiere da Hype Hair" loading="lazy" onerror="this.hidden=true">
+        </picture>
         <span class="pro__badge">Barbiere</span>
       </div>
       <div class="pro__body">
@@ -323,7 +348,10 @@
     <article class="pro" data-reveal style="--d:.1s" data-tilt>
       <div class="pro__media">
         <div class="ph ph--pro" data-file="barbiere-baudena.jpg" data-what="Ritratto verticale di Baudena"></div>
-        <img src="assets/img/barbiere-baudena.jpg" alt="Baudena, barbiere da Hype Hair" loading="lazy" onerror="this.hidden=true">
+        <picture>
+          <source type="image/webp" sizes="(min-width:820px) 46vw, 100vw" srcset="assets/img/barbiere-baudena-760.webp 760w, assets/img/barbiere-baudena-1179.webp 1179w">
+          <img width="1179" height="1168" decoding="async" src="assets/img/barbiere-baudena.jpg" alt="Baudena, barbiere da Hype Hair" loading="lazy" onerror="this.hidden=true">
+        </picture>
         <span class="pro__badge">Barbiere</span>
       </div>
       <div class="pro__body">
@@ -496,7 +524,10 @@
             <button class="who__card" type="button" data-who="JD">
               <span class="who__img">
                 <span class="ph ph--who" data-file="barbiere-jd.jpg"></span>
-                <img src="assets/img/barbiere-jd.jpg" alt="" loading="lazy" onerror="this.hidden=true">
+                <picture>
+          <source type="image/webp" sizes="96px" srcset="assets/img/barbiere-jd-240.webp 240w">
+          <img width="1179" height="1191" decoding="async" src="assets/img/barbiere-jd.jpg" alt="" loading="lazy" onerror="this.hidden=true">
+        </picture>
               </span>
               <b>JD</b>
               <small>Fade &amp; hair tattoo</small>
@@ -505,7 +536,10 @@
             <button class="who__card" type="button" data-who="Baudena">
               <span class="who__img">
                 <span class="ph ph--who" data-file="barbiere-baudena.jpg"></span>
-                <img src="assets/img/barbiere-baudena.jpg" alt="" loading="lazy" onerror="this.hidden=true">
+                <picture>
+          <source type="image/webp" sizes="96px" srcset="assets/img/barbiere-baudena-240.webp 240w">
+          <img width="1179" height="1168" decoding="async" src="assets/img/barbiere-baudena.jpg" alt="" loading="lazy" onerror="this.hidden=true">
+        </picture>
               </span>
               <b>Baudena</b>
               <small>Forbice &amp; colore</small>
@@ -626,7 +660,10 @@
   </header>
 
   <figure class="posto" data-reveal>
-    <img src="assets/img/atelier.jpg" alt="L'interno di Hype Hair: le sneaker in vetrina e le postazioni" loading="lazy" onerror="this.hidden=true">
+    <picture>
+          <source type="image/webp" sizes="(min-width:1240px) 1160px, 100vw" srcset="assets/img/atelier-760.webp 760w, assets/img/atelier-1080.webp 1080w, assets/img/atelier-1179.webp 1179w">
+          <img width="1179" height="1457" decoding="async" src="assets/img/atelier.jpg" alt="L'interno di Hype Hair: le sneaker in vetrina e le postazioni" loading="lazy" onerror="this.hidden=true">
+        </picture>
     <figcaption>Il salone, com'è davvero</figcaption>
   </figure>
 
@@ -660,7 +697,10 @@
 <!-- ═════════════════ CHIUSURA ═════════════════ -->
 <section class="final">
   <div class="final__media" data-parallax="0.1">
-    <img src="assets/img/finale.jpg" alt="" loading="lazy" onerror="this.hidden=true">
+    <picture>
+          <source type="image/webp" sizes="100vw" srcset="assets/img/finale-760.webp 760w, assets/img/finale-1080.webp 1080w, assets/img/finale-1179.webp 1179w">
+          <img width="1179" height="1212" decoding="async" src="assets/img/finale.jpg" alt="" loading="lazy" onerror="this.hidden=true">
+        </picture>
   </div>
   <span class="final__mark" data-emblem data-video data-spin="200" aria-hidden="true"></span>
   <div class="final__in">

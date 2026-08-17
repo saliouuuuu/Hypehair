@@ -19,6 +19,12 @@
   [headers.values]
     Cache-Control = "public, max-age=3600, must-revalidate"
 
+# I caratteri non cambiano mai: si tengono in cache un anno.
+[[headers]]
+  for = "/assets/fonts/*"
+  [headers.values]
+    Cache-Control = "public, max-age=31536000, immutable"
+
 [[headers]]
   for = "/*"
   [headers.values]

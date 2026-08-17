@@ -37,8 +37,16 @@ quel nome. Il riquadro col segnaposto sparisce da solo.
 **Se vuoi aggiungere altri lavori** manda pure `work-04.jpg`, `video-05.mp4`
 e così via: li aggiungo io al mosaico con la loro didascalia.
 
-> Peso: le foto meglio sotto i 400 KB. I video pesanti si aprono comunque
-> solo quando entrano nello schermo, ma se hai versioni più leggere è meglio.
+**Quando mandi una foto nuova** io ne creo anche le versioni leggere (WebP
+a due misure) che il telefono scarica al posto dell'originale. Tu manda
+pure lo scatto così com'è: al resto penso io.
+
+> **I video sono la cosa più pesante del sito**: i quattro reel messi
+> insieme fanno 21 MB. Non si scaricano tutti — parte solo quello che stai
+> guardando, e se scorri via lo scarico viene annullato — ma chi li guarda
+> tutti si consuma 21 MB di traffico. Se riesci a riesportarli a 720p
+> invece che 1080p diventano un terzo, senza differenze visibili sul
+> telefono. Mandameli e li sostituisco.
 
 ### I dati del salone
 
@@ -165,6 +173,11 @@ pronti: fino a quel momento il vecchio resta al suo posto.
   anche con poca linea
 - **Aperto / chiuso in tempo reale** nella sezione "Dove siamo"
 - Funziona anche a **motion ridotto** e da tastiera, per chi ne ha bisogno
+- **Si apre in un secondo anche con la linea del telefono**: all'apertura
+  scarica 370 KB invece di 2,7 MB, e chi va dritto a prenotare senza
+  guardare i lavori ne scarica 650 KB in tutto
+- Con il **risparmio dati** acceso, o con una linea lenta, i video non si
+  scaricano proprio: restano i riquadri con le didascalie
 
 ---
 
