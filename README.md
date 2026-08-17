@@ -19,6 +19,17 @@ python3 -m http.server 8899
 # poi apri http://localhost:8899
 ```
 
+## Mobile first, davvero
+
+Il foglio di stile parte dal telefono: le regole di base sono quelle dello
+schermo piccolo e le media query sono tutte `min-width` (560 / 820 / 1000),
+mai il contrario. Sul telefono la barra fissa di prenotazione è sempre a
+portata di pollice — e si toglie di mezzo quando sei già dentro il modulo —
+la vetrina va a due colonne, il riepilogo si compatta su due colonne e
+scegliendo il giorno gli orari vengono portati al centro dello schermo.
+Bersagli da dito ≥ 40 px, nessun testo sotto 11,5 px, zero scroll
+orizzontale da 360 px in su.
+
 ## Com'è fatto
 
 - **La prenotazione è il centro del sito.** Quattro passi — servizio,

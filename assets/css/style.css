@@ -134,7 +134,7 @@ body:not(.is-loading) .loader{ opacity:0; visibility:hidden; }
   animation:markIn 1.1s var(--e-out) both;
 }
 .loader__word{ font-family:var(--ff-serif); font-size:clamp(2.2rem,9vw,3.2rem); }
-.loader__city{ font-size:.7rem; letter-spacing:.4em; text-transform:uppercase; color:var(--muted); }
+.loader__city{ font-size:.74rem; letter-spacing:.4em; text-transform:uppercase; color:var(--muted); }
 .loader__bar{ width:min(180px,42vw); height:1px; background:var(--line); overflow:hidden; }
 .loader__bar i{ display:block; height:100%; width:0; background:var(--jade); transition:width .3s linear; }
 
@@ -190,7 +190,7 @@ body.cursor-hot .cursor__ring{ width:56px; height:56px; background:rgba(34,214,1
 .nav.is-stuck::after{ opacity:1; }
 .nav.is-hidden{ transform:translateY(-100%); }
 
-.nav__logo{ display:flex; align-items:center; gap:.6rem; text-decoration:none; margin-right:auto; }
+.nav__logo{ display:flex; align-items:center; gap:.6rem; text-decoration:none; margin-right:auto; padding-block:.25rem; }
 .nav__mark{
   width:38px; height:38px; flex:none;
   border:1.5px solid rgba(243,247,245,.85); border-radius:50%;
@@ -198,9 +198,13 @@ body.cursor-hot .cursor__ring{ width:56px; height:56px; background:rgba(34,214,1
 .nav__mark .emblem__body{ inset:5px; }
 .nav__mark .emblem__halo{ display:none; }
 .nav__logo:hover .nav__mark .emblem__body{ animation-duration:9s; }
-.nav__name{ font-family:var(--ff-serif); font-size:1.22rem; letter-spacing:.08em; text-transform:uppercase; }
+.nav__name{
+  font-family:var(--ff-serif); font-size:1.22rem;
+  letter-spacing:.08em; text-transform:uppercase; white-space:nowrap;
+}
 
-.nav__links{ display:flex; gap:1.9rem; }
+.nav__links{ display:none; gap:1.9rem; }
+.nav .nav__cta{ display:none; }   /* torna dai tablet in su */
 .nav__links a{
   position:relative; text-decoration:none; font-size:.9rem; font-weight:500;
   color:var(--sand-2); transition:color .3s;
@@ -214,7 +218,7 @@ body.cursor-hot .cursor__ring{ width:56px; height:56px; background:rgba(34,214,1
 .nav__links a:hover::after{ transform:scaleX(1); transform-origin:0 50%; }
 
 .burger{
-  display:none; width:44px; height:44px; padding:0;
+  display:block; width:44px; height:44px; padding:0;
   background:none; border:1px solid var(--line); border-radius:50%;
   cursor:pointer; position:relative;
 }
@@ -506,12 +510,10 @@ body.cursor-hot .cursor__ring{ width:56px; height:56px; background:rgba(34,214,1
 /* ---------- 13. Vetrina ---------- */
 .gallery{
   display:grid;
-  grid-template-columns:repeat(auto-fit,minmax(min(100%,270px),1fr));
+  grid-template-columns:repeat(2,1fr);
   gap:clamp(.7rem,2vw,1.4rem);
 }
 .art{ margin:0; position:relative; will-change:transform; }
-.art--tall{ grid-row:span 2; }
-.art--wide{ grid-column:span 2; }
 
 .frame{
   position:relative; overflow:hidden;
@@ -520,8 +522,7 @@ body.cursor-hot .cursor__ring{ width:56px; height:56px; background:rgba(34,214,1
   border:1px solid var(--line-2);
   cursor:pointer;
 }
-.art--wide .frame{ aspect-ratio:16/10; }
-.art--tall .frame{ aspect-ratio:3/5; }
+
 .frame img{ width:100%; height:100%; object-fit:cover; transition:transform 1.1s var(--e-out), filter .6s; }
 .art:hover .frame img{ transform:scale(1.05); }
 .frame::after{
@@ -538,10 +539,10 @@ body.cursor-hot .cursor__ring{ width:56px; height:56px; background:rgba(34,214,1
 }
 .art figcaption{
   display:flex; align-items:baseline; gap:.6rem; flex-wrap:wrap;
-  padding:.75rem .2rem 0;
+  padding:.5rem .2rem 0;
 }
-.art figcaption b{ font-family:var(--ff-serif); font-weight:400; font-size:1.25rem; }
-.art figcaption span{ font-size:.8rem; color:var(--muted); }
+.art figcaption b{ font-family:var(--ff-serif); font-weight:400; font-size:1.05rem; }
+.art figcaption span{ display:none; font-size:.8rem; color:var(--muted); }
 
 .gallery__more{ margin-top:2rem; text-align:center; }
 
@@ -584,7 +585,7 @@ body.cursor-hot .cursor__ring{ width:56px; height:56px; background:rgba(34,214,1
   position:absolute; z-index:2; top:.9rem; left:.9rem;
   padding:.3rem .7rem; border-radius:999px;
   background:rgba(5,8,7,.6); backdrop-filter:blur(8px);
-  border:1px solid var(--line); font-size:.7rem; letter-spacing:.12em; text-transform:uppercase; color:var(--sand-2);
+  border:1px solid var(--line); font-size:.74rem; letter-spacing:.12em; text-transform:uppercase; color:var(--sand-2);
 }
 .pro__body{ padding:clamp(1.2rem,3vw,1.8rem); display:grid; gap:.7rem; }
 .pro__name{ font-size:clamp(2.2rem,5vw,3rem); }
@@ -601,7 +602,7 @@ body.cursor-hot .cursor__ring{ width:56px; height:56px; background:rgba(34,214,1
 .stack{ display:grid; gap:1rem; }
 .stack__card{
   position:sticky;
-  top:calc(var(--nav-h) + 1.2rem + var(--n) * 14px);
+  top:calc(var(--nav-h) + .6rem + var(--n) * 10px);
   border:1px solid var(--line-2); border-radius:var(--r-lg);
   background:linear-gradient(150deg,var(--bg-3),var(--bg-2) 60%);
   padding:clamp(1.5rem,4.5vw,2.6rem);
@@ -665,9 +666,10 @@ body.cursor-hot .cursor__ring{ width:56px; height:56px; background:rgba(34,214,1
 }
 .wiz__steps li{
   display:flex; align-items:center; justify-content:center; gap:.5rem;
-  padding:.9rem .4rem; font-size:.82rem; color:var(--muted);
+  padding:.85rem .2rem; font-size:.82rem; color:var(--muted);
   position:relative; transition:color .4s;
 }
+.wiz__steps li span{ display:none; }
 .wiz__steps li b{
   width:24px; height:24px; flex:none; display:grid; place-content:center;
   border-radius:50%; border:1px solid var(--line);
@@ -683,7 +685,7 @@ body.cursor-hot .cursor__ring{ width:56px; height:56px; background:rgba(34,214,1
 }
 .wiz__steps li.is-on::after{ transform:scaleX(1); }
 
-.wiz__body{ display:grid; grid-template-columns:1fr 300px; }
+.wiz__body{ display:grid; }
 .wiz__panels{ padding:clamp(1.3rem,4vw,2.2rem); min-height:min(58svh,460px); }
 
 .panel{ animation:panelIn .55s var(--e-out) both; }
@@ -695,7 +697,7 @@ body.cursor-hot .cursor__ring{ width:56px; height:56px; background:rgba(34,214,1
 /* servizi */
 .svc{ display:grid; gap:1.4rem; }
 .svc__cat{
-  font-size:.7rem; font-weight:600; letter-spacing:.2em; text-transform:uppercase;
+  font-size:.74rem; font-weight:600; letter-spacing:.2em; text-transform:uppercase;
   color:var(--muted); margin-bottom:.6rem;
 }
 .svc__row{ display:grid; gap:.5rem; grid-template-columns:repeat(auto-fill,minmax(min(100%,220px),1fr)); }
@@ -756,7 +758,7 @@ body.cursor-hot .cursor__ring{ width:56px; height:56px; background:rgba(34,214,1
 .cal__nav:hover{ background:var(--glass-2); }
 .cal__nav[disabled]{ opacity:.25; cursor:not-allowed; }
 .cal__dow,.cal__grid{ display:grid; grid-template-columns:repeat(7,1fr); gap:4px; }
-.cal__dow span{ text-align:center; font-size:.68rem; color:var(--muted); text-transform:uppercase; letter-spacing:.08em; padding-bottom:.4rem; }
+.cal__dow span{ text-align:center; font-size:.74rem; color:var(--muted); text-transform:uppercase; letter-spacing:.08em; padding-bottom:.4rem; }
 .cal__day{
   aspect-ratio:1; display:grid; place-content:center; position:relative;
   border-radius:12px; border:1px solid transparent; background:var(--glass);
@@ -788,7 +790,7 @@ body.cursor-hot .cursor__ring{ width:56px; height:56px; background:rgba(34,214,1
 .slot.is-on{ background:var(--jade); color:#03120b; border-color:var(--jade); font-weight:600; }
 
 /* modulo */
-.form{ display:grid; gap:.9rem; grid-template-columns:1fr 1fr; }
+.form{ display:grid; gap:.9rem; }
 .field{ display:grid; gap:.4rem; }
 .field--full{ grid-column:1/-1; }
 .field > span{ font-size:.82rem; color:var(--sand-2); }
@@ -807,14 +809,15 @@ body.cursor-hot .cursor__ring{ width:56px; height:56px; background:rgba(34,214,1
 
 /* riepilogo */
 .sum{
-  border-left:1px solid var(--line-2);
+  border-top:1px solid var(--line-2);
   padding:clamp(1.3rem,4vw,2.2rem);
   background:rgba(5,8,7,.4);
   display:grid; align-content:start; gap:1rem;
-  position:sticky; top:var(--nav-h); align-self:start;
 }
-.sum__cap{ font-size:.7rem; letter-spacing:.2em; text-transform:uppercase; color:var(--muted); }
-.sum__list{ margin:0; display:grid; gap:.75rem; }
+.sum__cap{ font-size:.74rem; letter-spacing:.2em; text-transform:uppercase; color:var(--muted); }
+/* sul telefono il riepilogo sta stretto: due colonne e niente fronzoli,
+   così fra il calendario e i bottoni non si apre una voragine */
+.sum__list{ margin:0; display:grid; gap:.75rem; grid-template-columns:repeat(2,1fr); }
 .sum__list > div{ display:grid; gap:.15rem; }
 .sum__list dt{ font-size:.74rem; color:var(--muted); letter-spacing:.04em; }
 .sum__list dd{ margin:0; font-size:.95rem; font-weight:500; }
@@ -825,7 +828,7 @@ body.cursor-hot .cursor__ring{ width:56px; height:56px; background:rgba(34,214,1
 }
 .sum__tot span{ font-size:.8rem; color:var(--muted); }
 .sum__tot b{ font-family:var(--ff-serif); font-size:2rem; font-weight:400; }
-.sum__note{ font-size:.76rem; color:var(--muted); }
+.sum__note{ display:none; font-size:.76rem; color:var(--muted); }
 
 .wiz__foot{
   display:flex; justify-content:flex-end; gap:.7rem;
@@ -859,7 +862,7 @@ body.cursor-hot .cursor__ring{ width:56px; height:56px; background:rgba(34,214,1
 
 /* ---------- 19. Numeri ---------- */
 .stats{
-  display:grid; grid-template-columns:repeat(3,1fr); gap:1rem;
+  display:grid; gap:1.6rem;
   border-block:1px solid var(--line-2); padding:clamp(1.6rem,5vw,2.6rem) 0;
 }
 .stat{ text-align:center; display:grid; gap:.2rem; }
@@ -936,7 +939,11 @@ body.cursor-hot .cursor__ring{ width:56px; height:56px; background:rgba(34,214,1
 .foot__top{ display:flex; flex-wrap:wrap; gap:1rem 2rem; align-items:center; justify-content:space-between; }
 .foot__logo{ font-family:var(--ff-serif); font-size:1.8rem; letter-spacing:.08em; text-transform:uppercase; }
 .foot__nav{ display:flex; flex-wrap:wrap; gap:1.3rem; }
-.foot__nav a{ font-size:.88rem; color:var(--sand-2); text-decoration:none; transition:color .3s; }
+.foot__nav a{
+  font-size:.88rem; color:var(--sand-2); text-decoration:none;
+  padding-block:.55rem;            /* si prende con il dito senza mirare */
+  transition:color .3s;
+}
 .foot__nav a:hover{ color:var(--jade); }
 .foot__bot{
   margin-top:1.6rem; padding-top:1.2rem; border-top:1px solid var(--line-2);
@@ -946,13 +953,14 @@ body.cursor-hot .cursor__ring{ width:56px; height:56px; background:rgba(34,214,1
 
 .dock{
   position:fixed; z-index:98; left:0; right:0; bottom:0;
-  display:none; gap:.5rem;
+  display:flex; gap:.5rem;
   padding:.6rem var(--pad) calc(.6rem + env(safe-area-inset-bottom));
   background:rgba(5,8,7,.82); backdrop-filter:blur(16px);
   border-top:1px solid var(--line-2);
   transform:translateY(110%); transition:transform .5s var(--e-out);
 }
 .dock.is-up{ transform:none; }
+.dock.is-up.is-away{ transform:translateY(110%); }   /* dentro la prenotazione sparisce */
 .dock__btn{
   flex:1; display:flex; align-items:center; justify-content:center; gap:.4rem;
   padding:.85rem; border-radius:14px; text-decoration:none;
@@ -982,8 +990,8 @@ body.cursor-hot .cursor__ring{ width:56px; height:56px; background:rgba(34,214,1
   font-size:1.5rem; line-height:1; cursor:pointer;
 }
 .lb__nav{
-  position:absolute; top:50%; transform:translateY(-50%);
-  width:46px; height:46px; border-radius:50%;
+  position:absolute; bottom:1rem;
+  width:52px; height:52px; border-radius:50%;
   border:1px solid var(--line); background:var(--glass);
   font-size:1.6rem; line-height:1; cursor:pointer;
 }
@@ -1001,42 +1009,49 @@ body.cursor-hot .cursor__ring{ width:56px; height:56px; background:rgba(34,214,1
 }
 .toast.is-up{ opacity:1; transform:translate(-50%,0); }
 
-/* ---------- 25. Responsive ---------- */
-@media (max-width:1000px){
-  .wiz__body{ grid-template-columns:1fr; }
+/* ---------- 25. Responsive ----------
+   Tutto quello che sta sopra è pensato per il telefono.
+   Qui si aggiunge quello che serve solo agli schermi più larghi. */
+
+/* telefoni grandi in poi */
+@media (min-width:560px){
+  .sum__note{ display:block; }
+  .gallery{ grid-template-columns:repeat(auto-fit,minmax(min(100%,200px),1fr)); }
+  .art figcaption{ padding-top:.75rem; }
+  .art figcaption b{ font-size:1.25rem; }
+  .art figcaption span{ display:inline; }
+  .wiz__steps li{ padding:.9rem .4rem; }
+  .wiz__steps li span{ display:inline; }
+  .stats{ grid-template-columns:repeat(3,1fr); gap:1rem; }
+  .lb__nav{ top:50%; bottom:auto; transform:translateY(-50%); width:46px; height:46px; }
+  .lb__nav--prev{ left:.7rem; }
+  .lb__nav--next{ right:.7rem; }
+}
+
+/* tablet in poi: torna la navigazione in alto, sparisce la barra in basso */
+@media (min-width:820px){
+  .nav__links{ display:flex; }
+  .nav .nav__cta{ display:inline-flex; }
+  .burger{ display:none; }
+  .dock{ display:none; }
+  .art--tall{ grid-row:span 2; }
+  .art--tall .frame{ aspect-ratio:3/5; }
+  .art--wide{ grid-column:span 2; }
+  .art--wide .frame{ aspect-ratio:16/10; }
+  .form{ grid-template-columns:1fr 1fr; }
+  .stack__card{ top:calc(var(--nav-h) + 1.2rem + var(--n) * 14px); }
+  .foot{ padding-bottom:clamp(2.2rem,6vw,3.4rem); }
+}
+
+/* schermi larghi: il riepilogo diventa una colonna che ti segue */
+@media (min-width:1000px){
+  .gallery{ grid-template-columns:repeat(auto-fit,minmax(min(100%,260px),1fr)); }
+  .wiz__body{ grid-template-columns:1fr 300px; }
   .sum{
-    border-left:0; border-top:1px solid var(--line-2);
-    position:static;
-    grid-template-columns:1fr 1fr; align-items:end;
+    border-top:0; border-left:1px solid var(--line-2);
+    position:sticky; top:var(--nav-h); align-self:start;
   }
-  .sum__cap{ grid-column:1/-1; }
-  .sum__list{ grid-column:1/-1; grid-template-columns:repeat(2,1fr); }
-  .sum__tot{ grid-column:1/-1; }
-}
-
-@media (max-width:820px){
-  .nav__links{ display:none; }
-  .nav__cta{ display:none; }
-  .burger{ display:block; }
-  .dock{ display:flex; }
-  .art--wide{ grid-column:span 1; }
-  .art--wide .frame{ aspect-ratio:4/5; }
-  .art--tall{ grid-row:span 1; }
-  .art--tall .frame{ aspect-ratio:4/5; }
-  .form{ grid-template-columns:1fr; }
-  .stack__card{ top:calc(var(--nav-h) + .6rem + var(--n) * 10px); }
-}
-
-@media (max-width:520px){
-  .gallery{ grid-template-columns:repeat(2,1fr); }
-  .art figcaption{ padding-top:.5rem; }
-  .art figcaption b{ font-size:.95rem; }
-  .art figcaption span{ display:none; }
-  .wiz__steps li span{ display:none; }
-  .wiz__steps li{ padding:.8rem .2rem; }
-  .stats{ grid-template-columns:1fr; gap:1.6rem; }
   .sum__list{ grid-template-columns:1fr; }
-  .lb__nav{ top:auto; bottom:1rem; transform:none; }
 }
 
 /* ---------- 26. Rispetto delle preferenze ---------- */

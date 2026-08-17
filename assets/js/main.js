@@ -217,6 +217,15 @@ $$('[data-split]').forEach(el => {
 
   $$('#menu a').forEach(a => a.addEventListener('click', chiudi));
   addEventListener('keydown', e => { if (e.key === 'Escape' && menu.classList.contains('is-open')) chiudi(); });
+
+  // quando sei già dentro la prenotazione la barra in basso si toglie di
+  // mezzo: sotto ci sono i bottoni del modulo, non deve coprirli
+  const dock = $('#dock'), sez = $('#prenota');
+  if (dock && sez) {
+    new IntersectionObserver(([v]) => {
+      dock.classList.toggle('is-away', v.isIntersecting);
+    }, { threshold:.15 }).observe(sez);
+  }
 })();
 
 /* ============================================================
@@ -653,6 +662,10 @@ $('#year').textContent = new Date().getFullYear();
           b.classList.add('is-on');
           disegnaOrari();
           aggiorna();
+          // sul telefono gli orari nascono sotto il calendario: portiamoceli
+          if (innerWidth < 1000) {
+            $('#slots').scrollIntoView({ behavior: RIDOTTO ? 'auto' : 'smooth', block:'center' });
+          }
         });
       }
       if (+d === +oggi) b.classList.add('is-today');
