@@ -16,6 +16,7 @@ del salone accesa e senza filtri Instagram (li mette già il sito).
 
 | Nome del file        | Cosa deve esserci                                   | Formato consigliato |
 |----------------------|-----------------------------------------------------|---------------------|
+| `marchio.png`        | **Solo l'elemento di vetro verde** del logo, senza la scritta | quadrata, fondo nero o trasparente, 1000 px |
 | `hero.jpg`           | La foto d'apertura: il salone o un barbiere al lavoro | verticale o quadrata, molto larga (2000 px) |
 | `atelier.jpg`        | Foto larga d'atmosfera: mani al lavoro, dettaglio    | orizzontale |
 | `finale.jpg`         | Insegna, vetrina o poltrona vuota                    | orizzontale |
@@ -23,7 +24,18 @@ del salone accesa e senza filtri Instagram (li mette già il sito).
 | `barbiere-baudena.jpg` | Ritratto di Baudena                                | verticale |
 | `work-01.jpg` → `work-09.jpg` | I tagli: fade, hair tattoo, barba, colore, forbice, bimbi, il salone | verticale 4:5 (come Instagram) |
 | `og-cover.jpg`       | L'immagine che si vede quando mandi il link su WhatsApp | 1200 × 630 px |
-| `apple-touch-icon.png` | Il logo su fondo scuro                             | 180 × 180 px |
+| `apple-touch-icon.png` | Il logo tondo completo, su fondo nero              | 180 × 180 px |
+
+**Il marchio.** Il sito è costruito sui colori del logo — nero, bianco e il
+verde iridescente del vetro — e quell'elemento di vetro torna in sei punti:
+schermata d'apertura, tondo in alto a sinistra, sigillo a metà pagina,
+filigrana dietro alla prenotazione, timbro sulla conferma e firma nel footer.
+Gira sempre piano su sé stesso e accelera quando scorri.
+
+Per ora è ridisegnato in SVG (tre nastri sovrapposti). **Appena mandi
+`marchio.png`** — la sola forma di vetro, quella del secondo file che mi hai
+inviato — il sito usa quella vera in tutti e sei i punti, senza toccare
+nient'altro. Il fondo nero del PNG viene tolto in automatico.
 
 **Come si caricano:** metti il file dentro `assets/img/` con esattamente
 quel nome. Il riquadro grigio con la scritta sparisce da solo.

@@ -47,6 +47,20 @@ const $$ = (s, c = document) => [...c.querySelectorAll(s)];
 const RIDOTTO = matchMedia('(prefers-reduced-motion: reduce)').matches;
 const GIORNI  = ['domenica','lunedì','martedì','mercoledì','giovedì','venerdì','sabato'];
 
+/* Un solo giro di scroll per tutti gli effetti della pagina:
+   qui si registrano le funzioni che devono girare mentre si scorre. */
+const _tasks = [];
+let _pending = false;
+function loopScroll(fn){
+  _tasks.push(fn);
+  if (_tasks.length > 1) return;           // ascoltatori registrati una volta sola
+  const run    = () => { _pending = false; _tasks.forEach(t => t()); };
+  const chiedi = () => { if (!_pending) { _pending = true; requestAnimationFrame(run); } };
+  addEventListener('scroll', chiedi, { passive:true });
+  addEventListener('resize', chiedi);
+  chiedi();
+}
+
 /* ============================================================
    1 — Apertura
    ============================================================ */
@@ -90,6 +104,57 @@ $$('[data-split]').forEach(el => {
   // il nome nella schermata di apertura parte subito
   if (el.closest('.loader')) el.classList.add('is-split-in');
 });
+
+/* ============================================================
+   2bis — L'emblema del marchio
+   L'elemento di vetro del logo, ricostruito in SVG. Si monta ovunque
+   ci sia data-emblem. Se in assets/img/ arriva marchio.png (il PNG
+   vero su fondo nero) viene usato quello e l'SVG si fa da parte.
+   data-spin = di quanti gradi gira mentre si scorre la pagina.
+   ============================================================ */
+(function emblemi(){
+  // Il profilo a rombo stondato del marchio. Tre anelli quasi uguali,
+  // ruotati fra loro: sovrapponendosi disegnano il nodo di vetro del logo.
+  const D = 'M100 12C140 40 160 60 188 100C160 140 140 160 100 188C60 160 40 140 12 100C40 60 60 40 100 12Z';
+
+  const anello = (n, rot, scala, spessore) => `
+      <g class="emblem__r emblem__r--${n}">
+        <g transform="translate(100 100) rotate(${rot}) scale(${scala}) translate(-100 -100)">
+          <path class="emblem__p" d="${D}" stroke="url(#hhVetro${n})" stroke-width="${spessore}"/>
+        </g>
+      </g>`;
+
+  const corpo = `
+    <span class="emblem__halo"></span>
+    <span class="emblem__body">
+      <img src="assets/img/marchio.png" alt="" loading="lazy" onerror="this.hidden=true">
+      <svg class="emblem__svg" viewBox="0 0 200 200" aria-hidden="true">
+        ${anello(1, 0,  1,   15)}
+        ${anello(2, 30, .93, 17)}
+        ${anello(3, 60, .84, 13)}
+      </svg>
+    </span>`;
+
+  const tutti = $$('[data-emblem]');
+  tutti.forEach(el => {
+    el.classList.add('emblem');
+    el.innerHTML = corpo;
+  });
+
+  // quelli con data-spin girano seguendo lo scroll
+  const mobili = tutti.filter(el => parseFloat(el.dataset.spin) > 0);
+  if (RIDOTTO || !mobili.length) return;
+
+  loopScroll(() => {
+    mobili.forEach(el => {
+      const r = el.getBoundingClientRect();
+      if (r.bottom < -300 || r.top > innerHeight + 300) return;
+      // 0 quando entra dal basso, 1 quando è uscito in alto
+      const avanz = 1 - (r.top + r.height / 2) / (innerHeight + r.height);
+      el.style.setProperty('--spin', (avanz * parseFloat(el.dataset.spin)).toFixed(2) + 'deg');
+    });
+  });
+})();
 
 /* ============================================================
    3 — Nav, menu, barra di avanzamento
@@ -148,23 +213,7 @@ $$('[data-split]').forEach(el => {
 })();
 
 /* ============================================================
-   5 — Un solo giro di scroll per tutti gli effetti
-   (registra qui le funzioni che devono girare mentre si scorre)
-   ============================================================ */
-const _tasks = [];
-let _pending = false;
-function loopScroll(fn){
-  _tasks.push(fn);
-  if (_tasks.length > 1) return;           // ascoltatori registrati una volta sola
-  const run    = () => { _pending = false; _tasks.forEach(t => t()); };
-  const chiedi = () => { if (!_pending) { _pending = true; requestAnimationFrame(run); } };
-  addEventListener('scroll', chiedi, { passive:true });
-  addEventListener('resize', chiedi);
-  chiedi();
-}
-
-/* ============================================================
-   6 — Manifesto: parole che si accendono
+   5 — Manifesto: parole che si accendono
    ============================================================ */
 (function parole(){
   const blocchi = $$('[data-words]');
@@ -195,7 +244,7 @@ function loopScroll(fn){
 })();
 
 /* ============================================================
-   7 — Parallasse: le foto scorrono più lente del testo
+   6 — Parallasse: le foto scorrono più lente del testo
    ============================================================ */
 (function parallasse(){
   if (RIDOTTO) return;
@@ -214,7 +263,7 @@ function loopScroll(fn){
 })();
 
 /* ============================================================
-   8 — Numeri che salgono
+   7 — Numeri che salgono
    ============================================================ */
 (function numeri(){
   const io = new IntersectionObserver((voci) => {
@@ -242,7 +291,7 @@ function loopScroll(fn){
 })();
 
 /* ============================================================
-   9 — Cursore, magnetici, inclinazione
+   8 — Cursore, magnetici, inclinazione
    ============================================================ */
 (function tocchiFini(){
   if (RIDOTTO || !matchMedia('(hover:hover) and (pointer:fine)').matches) return;
@@ -296,7 +345,7 @@ function loopScroll(fn){
 })();
 
 /* ============================================================
-   10 — Vetrina a schermo intero
+   9 — Vetrina a schermo intero
    ============================================================ */
 (function lightbox(){
   const lb = $('#lb'), fig = $('#lbFig');
@@ -359,7 +408,7 @@ function loopScroll(fn){
 })();
 
 /* ============================================================
-   11 — Orari e "aperto adesso"
+   10 — Orari e "aperto adesso"
    ============================================================ */
 function fasceDi(d){ return CONFIG.orari[d] || null; }
 
@@ -408,7 +457,7 @@ function inMin(hhmm){
 }
 
 /* ============================================================
-   12 — Mappa (si carica solo se la chiedi)
+   11 — Mappa (si carica solo se la chiedi)
    ============================================================ */
 (function mappa(){
   const btn = $('#mapBtn');
@@ -426,7 +475,7 @@ function inMin(hhmm){
 })();
 
 /* ============================================================
-   13 — Contatti nel documento
+   12 — Contatti nel documento
    ============================================================ */
 (function contatti(){
   const wa = CONFIG.whatsapp.replace(/\D/g, '');
@@ -459,7 +508,7 @@ function inMin(hhmm){
 $('#year').textContent = new Date().getFullYear();
 
 /* ============================================================
-   14 — PRENOTAZIONE: il cuore del sito
+   13 — PRENOTAZIONE: il cuore del sito
    ============================================================ */
 (function prenota(){
 
@@ -783,7 +832,7 @@ Confermate voi? Grazie!`;
 })();
 
 /* ============================================================
-   15 — Messaggini
+   14 — Messaggini
    ============================================================ */
 let _toastT;
 function toast(msg){
