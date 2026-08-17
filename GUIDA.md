@@ -17,7 +17,7 @@ quattro reel e la GIF del marchio animato.
 |---|---|
 | `hero.jpg` | apertura del sito |
 | `work-01.jpg` … `work-05.jpg` | vetrina: mullet, frangia, locs, treccine, cornrows |
-| `barbiere-jd.jpg` | la scheda di JD |
+| `barbiere-jd.jpg` `barbiere-baudena.jpg` | le schede di JD e Baudena |
 | `atelier.jpg` | sezione "Dove siamo" |
 | `finale.jpg` | sfondo dell'ultimo invito a prenotare |
 | `video-01.mp4` `video-03.mp4` `video-04.mp4` | vetrina, partono da soli senza audio |
@@ -28,7 +28,6 @@ quattro reel e la GIF del marchio animato.
 
 | File | Cosa ci va |
 |---|---|
-| `barbiere-baudena.jpg` | ritratto di Baudena |
 | `og-cover.jpg` | 1200 × 630 px, l'anteprima quando si manda il link su WhatsApp |
 | `apple-touch-icon.png` | 180 × 180 px, il logo tondo per la home del telefono |
 
