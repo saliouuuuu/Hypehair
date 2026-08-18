@@ -204,8 +204,8 @@ pronti: fino a quel momento il vecchio resta al suo posto.
 - **Aperto / chiuso in tempo reale** nella sezione "Dove siamo"
 - Funziona anche a **motion ridotto** e da tastiera, per chi ne ha bisogno
 - **Si apre in un secondo anche con la linea del telefono**: all'apertura
-  scarica 370 KB invece di 2,7 MB, e chi va dritto a prenotare senza
-  guardare i lavori ne scarica 650 KB in tutto
+  scarica 610 KB invece di 2,7 MB, e chi va dritto a prenotare senza
+  guardare i lavori ne scarica 700 KB in tutto
 - Con il **risparmio dati** acceso, o con una linea lenta, i video non si
   scaricano proprio: restano i riquadri con le didascalie
 

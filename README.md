@@ -35,7 +35,7 @@ Misurato con Chromium su un telefono simulato (390 px, DPR 3):
 
 | | Apertura | Chi va dritto a prenotare | Tutta la pagina |
 |---|---|---|---|
-| **Ora** | 373 KB · LCP 1,3 s | 655 KB | 22 MB (i quattro reel) |
+| **Ora** | 612 KB · LCP 1,4 s | ~700 KB | 22 MB (i quattro reel) |
 | Prima | 2,7 MB · LCP 14 s | — | 24 MB |
 
 Come:
@@ -45,8 +45,9 @@ Come:
 - **Caratteri serviti dal sito** (`assets/fonts/`, Inter variabile + tre
   tagli di Cormorant, solo latino): niente CSS di terze parti che blocca
   il primo render — da solo valeva 12 secondi di LCP
-- **Marchio animato** da GIF 2,4 MB a WebP animato ritagliato da 344 KB,
-  e fuori dalla schermata d'apertura: lì gira il disegno SVG, che non pesa
+- **Marchio animato** da GIF 2,4 MB a un'unica copia WebP da 178 KB,
+  ritagliata a 220 px e condivisa da tutti e sei gli emblemi: si scarica una
+  volta sola, all'apertura, e poi è già in cache
 - **Video** con `src` agganciato solo in prossimità e **annullato** se ci
   si allontana senza guardarli; in pausa fuori campo
 - **Risparmio dati o linea lenta** (`saveData`, `effectiveType`): video ed
@@ -76,10 +77,9 @@ Come:
   una volta sola in `index.html`) e ricompare in sei punti: apertura, nav,
   sigillo di metà pagina, filigrana della prenotazione, conferma, footer.
   Gira di suo e accelera con lo scroll (`data-spin`). Ogni emblema prende il
-  primo file disponibile — `marchio.mp4`, poi `marchio.png`, poi il disegno —
-  e `mix-blend-mode: screen` toglie il fondo: resta solo l'elemento verde,
-  qualunque sfondo abbia il file. I video partono in autoplay muto e si
-  mettono in pausa fuori dallo schermo.
+  primo file disponibile — `marchio-220.webp`, poi `marchio.webp`,
+  `marchio.gif`, `marchio.png`, infine il disegno — e `mix-blend-mode: screen`
+  toglie il fondo: resta solo l'elemento verde, qualunque sfondo abbia il file.
 - **Palette e tipografia dal logo**: nero, bianco e i verdi iridescenti del
   vetro; serif in stile lettering del marchio.
 - **Due versioni, un interruttore.** Il bottone nella nav passa da scuro a
