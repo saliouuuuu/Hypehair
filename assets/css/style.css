@@ -514,18 +514,7 @@ body.cursor-hot .cursor__ring{ width:56px; height:56px; background:var(--glass-2
 }
 [data-reveal].is-in{ opacity:1; transform:none; filter:none; }
 
-/* ---------- 12. Manifesto ---------- */
-.manifesto{ height:190vh; padding-inline:var(--pad); }
-.manifesto__sticky{
-  position:sticky; top:0; height:100svh;
-  display:grid; place-content:center;
-  max-width:var(--maxw); margin-inline:auto;
-}
-.manifesto__text{
-  font-family:var(--ff-serif);
-  font-size:clamp(2rem,6vw,4rem);
-  line-height:1.22; letter-spacing:-.02em;
-}
+/* ---------- 12. Testo che si accende allo scroll ---------- */
 .w{ color:var(--spento); transition:color .35s var(--e); }
 .w.is-lit{ color:var(--sand); }
 

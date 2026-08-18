@@ -127,13 +127,13 @@ $$('[data-split]').forEach(el => {
   // Il marchio è quello vero, ovunque: il disegno SVG qui sotto resta
   // solo come rete di sicurezza se il file non si carica.
   // "screen" toglie il fondo e lascia il vetro verde.
-  // Gli emblemi piccoli (nav, footer, apertura) prendono una copia
-  // ridotta: alla stessa vista pesa la metà.
-  const corpo = (grande) => `
+  // Un file solo per tutti: le filigrane grandi stanno al 10-20% di
+  // opacità, la copia da 220 px lì non si distingue e non costa nulla
+  // perché è già in cache dal tondo della nav.
+  const corpo = () => `
     <span class="emblem__halo"></span>
     <span class="emblem__body">
-      <img class="emblem__img" alt="" decoding="async"
-           ${grande ? 'loading="lazy" src="assets/img/marchio.webp"' : 'src="assets/img/marchio-220.webp"'}>
+      <img class="emblem__img" alt="" decoding="async" src="assets/img/marchio-220.webp">
       <svg class="emblem__svg" viewBox="0 0 200 200" aria-hidden="true">
         ${anello(1, 0,  1,   15)}
         ${anello(2, 30, .93, 17)}
@@ -144,7 +144,7 @@ $$('[data-split]').forEach(el => {
   const tutti = $$('[data-emblem]');
   tutti.forEach(el => {
     el.classList.add('emblem');
-    el.innerHTML = corpo(el.hasAttribute('data-grande'));
+    el.innerHTML = corpo();
   });
 
   // con la linea lenta il marchio animato non si scarica: resta il disegno
