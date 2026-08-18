@@ -35,7 +35,7 @@ Misurato con Chromium su un telefono simulato (390 px, DPR 3):
 
 | | Apertura | Chi va dritto a prenotare | Tutta la pagina |
 |---|---|---|---|
-| **Ora** | 612 KB · LCP 1,4 s | ~700 KB | 22 MB (i quattro reel) |
+| **Ora** | 611 KB · LCP 1,4 s | 611 KB | 22 MB (i quattro reel) |
 | Prima | 2,7 MB · LCP 14 s | — | 24 MB |
 
 Come:
@@ -45,9 +45,11 @@ Come:
 - **Caratteri serviti dal sito** (`assets/fonts/`, Inter variabile + tre
   tagli di Cormorant, solo latino): niente CSS di terze parti che blocca
   il primo render — da solo valeva 12 secondi di LCP
-- **Marchio animato** da GIF 2,4 MB a un'unica copia WebP da 178 KB,
-  ritagliata a 220 px e condivisa da tutti e sei gli emblemi: si scarica una
-  volta sola, all'apertura, e poi è già in cache
+- **Marchio animato** da GIF 2,4 MB a un'unica copia WebP da 199 KB,
+  ritagliata a 200 px, un fotogramma sì e uno no, condivisa da tutti e sei
+  gli emblemi: si scarica una volta sola, all'apertura, e poi è già in cache.
+  Il fondo nero non c'è più: l'alfa è ricavata dalla luce del vetro, così il
+  marchio si appoggia su qualunque sfondo senza trucchi di fusione
 - **Video** con `src` agganciato solo in prossimità e **annullato** se ci
   si allontana senza guardarli; in pausa fuori campo
 - **Risparmio dati o linea lenta** (`saveData`, `effectiveType`): video ed
@@ -57,8 +59,10 @@ Come:
 
 ## Com'è fatto
 
-- **La prenotazione è il centro del sito**, ed è costruita come un
-  onboarding: **una domanda per schermata** — tipo di servizio, servizio,
+- **La prenotazione è la prima cosa dopo l'apertura.** Chi entra per
+  prenotare non deve scorrere niente: hero, poi il modulo. Sotto vengono il
+  marchio che gira, la galleria dei lavori e tutto il resto.
+- **Il modulo è costruito come un onboarding:** **una domanda per schermata** — tipo di servizio, servizio,
   barbiere, giorno, ora, contatti — con avanzamento automatico appena si
   risponde, nessun bottone "avanti", e le risposte date che restano in alto
   come targhette da toccare per correggerle. In fondo produce un messaggio
@@ -77,9 +81,15 @@ Come:
   una volta sola in `index.html`) e ricompare in sei punti: apertura, nav,
   sigillo di metà pagina, filigrana della prenotazione, conferma, footer.
   Gira di suo e accelera con lo scroll (`data-spin`). Ogni emblema prende il
-  primo file disponibile — `marchio-220.webp`, poi `marchio.webp`,
-  `marchio.gif`, `marchio.png`, infine il disegno — e `mix-blend-mode: screen`
-  toglie il fondo: resta solo l'elemento verde, qualunque sfondo abbia il file.
+  primo file disponibile — `marchio-gira-220.webp`, poi `marchio-220.webp`,
+  `marchio.gif`, `marchio.png`, infine il disegno. Il primo ha il fondo
+  trasparente per davvero; ai file di riserva, che il fondo nero ce l'hanno,
+  la classe `.is-opaco` rimette lo `screen` di prima.
+- **La trama a righe del marchio** sta dietro al sigillo di metà pagina:
+  non è un fondale, è una luce. Si accende in `screen` sul nero, si scurisce
+  in `multiply` sulla carta, e la macchia è misurata in pixel — non in
+  percentuale — così sul desktop non diventa un sipario largo quanto lo
+  schermo, e su tutti e quattro i lati sfuma prima di toccare il bordo.
 - **Palette e tipografia dal logo**: nero, bianco e i verdi iridescenti del
   vetro; serif in stile lettering del marchio.
 - **Due versioni, un interruttore.** Il bottone nella nav passa da scuro a

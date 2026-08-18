@@ -124,7 +124,8 @@ $$('[data-split]').forEach(el => {
         </g>
       </g>`;
 
-  // Il marchio è quello vero, ovunque: il disegno SVG qui sotto resta
+  // Il marchio è quello vero — la ripresa che gira su se stessa — ovunque:
+  // il disegno SVG qui sotto resta
   // solo come rete di sicurezza se il file non si carica.
   // "screen" toglie il fondo e lascia il vetro verde.
   // Un file solo per tutti: le filigrane grandi stanno al 10-20% di
@@ -133,7 +134,7 @@ $$('[data-split]').forEach(el => {
   const corpo = () => `
     <span class="emblem__halo"></span>
     <span class="emblem__body">
-      <img class="emblem__img" alt="" decoding="async" src="assets/img/marchio-220.webp">
+      <img class="emblem__img" alt="" decoding="async" src="assets/img/marchio-gira-220.webp">
       <svg class="emblem__svg" viewBox="0 0 200 200" aria-hidden="true">
         ${anello(1, 0,  1,   15)}
         ${anello(2, 30, .93, 17)}
@@ -156,10 +157,13 @@ $$('[data-split]').forEach(el => {
   // se il WebP non passa si prova la GIF, poi il PNG, poi resta il disegno
   $$('.emblem__img').forEach(img => {
     img.addEventListener('error', () => {
-      if (img.src.includes('marchio-220')) img.src = 'assets/img/marchio.webp';
-      else if (img.src.endsWith('.webp')) img.src = 'assets/img/marchio.gif';
+      // i file di riserva hanno il fondo nero pieno: si segnalano con
+      // .is-opaco, che rimette in campo il vecchio trucco dello "screen"
+      if (img.src.includes('marchio-gira-220')) img.src = 'assets/img/marchio-220.webp';
+      else if (img.src.includes('marchio-220')) img.src = 'assets/img/marchio.gif';
       else if (img.src.endsWith('.gif')) img.src = 'assets/img/marchio.png';
-      else img.hidden = true;
+      else { img.hidden = true; return; }
+      img.classList.add('is-opaco');
     });
   });
 
@@ -729,6 +733,24 @@ $('#year').textContent = new Date().getFullYear();
   const ultimo = new Date(oggi); ultimo.setDate(ultimo.getDate() + CONFIG.giorniMax);
   let mese = new Date(oggi.getFullYear(), oggi.getMonth(), 1);
 
+  /* Gli orari di un giorno, con la durata del servizio scelto: la usano sia
+     il calendario (per spegnere i giorni ormai pieni) sia la schermata degli
+     orari. Una regola sola, in un posto solo. */
+  function orariDi(d){
+    const fasce  = fasceDi(d.getDay()) || [];
+    const durata = stato.svc ? stato.svc.dur : CONFIG.durataDefault;
+    const soglia = Date.now() + CONFIG.anticipoOre * 3600e3;
+    const fuori  = [];
+    fasce.forEach(([a, b]) => {
+      for (let m = inMin(a); m + durata <= inMin(b); m += CONFIG.passoMinuti) {
+        const q = new Date(d);
+        q.setHours(Math.floor(m / 60), m % 60, 0, 0);
+        fuori.push({ m, ok: q.getTime() >= soglia });
+      }
+    });
+    return fuori;
+  }
+
   function disegnaMese(){
     label.textContent = mese.toLocaleDateString('it-IT', { month:'long', year:'numeric' });
     grid.innerHTML = '';
@@ -753,9 +775,10 @@ $('#year').textContent = new Date().getFullYear();
       const chiuso  = !fasceDi(d.getDay());
       const passato = d < oggi;
       const troppo  = d > ultimo;
-      if (chiuso || passato || troppo) {
+      const pieno   = !chiuso && !passato && !troppo && !orariDi(d).some(o => o.ok);
+      if (chiuso || passato || troppo || pieno) {
         b.disabled = true;
-        b.title = chiuso ? 'Chiuso' : '';
+        b.title = chiuso ? 'Chiuso' : pieno ? 'Per oggi non c\'è più posto' : '';
       } else {
         b.addEventListener('click', () => {
           stato.giorno = d;
@@ -788,39 +811,29 @@ $('#year').textContent = new Date().getFullYear();
 
     $('#oraEcho').textContent = stato.giorno.toLocaleDateString('it-IT', { weekday:'long', day:'numeric', month:'long' });
 
-    const fasce  = fasceDi(stato.giorno.getDay()) || [];
-    const durata = stato.svc ? stato.svc.dur : CONFIG.durataDefault;
-    const soglia = Date.now() + CONFIG.anticipoOre * 3600e3;
-
     // Si disegnano tutti gli orari del giorno: quelli ancora prenotabili si
     // leggono, quelli passati restano lì ma quasi invisibili.
     let liberi = 0, totali = 0;
-    fasce.forEach(([a, b]) => {
-      for (let m = inMin(a); m + durata <= inMin(b); m += CONFIG.passoMinuti) {
-        const q = new Date(stato.giorno);
-        q.setHours(Math.floor(m / 60), m % 60, 0, 0);
-        const ok = q.getTime() >= soglia;
-
-        const btn = document.createElement('button');
-        btn.type = 'button';
-        btn.className = 'slot';
-        btn.style.setProperty('--si', totali++);
-        btn.textContent = `${String(Math.floor(m / 60)).padStart(2,'0')}:${String(m % 60).padStart(2,'0')}`;
-        if (!ok) {
-          btn.disabled = true;
-          btn.title = 'Orario già passato';
-        } else {
-          liberi++;
-          btn.addEventListener('click', () => {
-            stato.ora = btn.textContent;
-            $$('.slot', box).forEach(x => x.classList.remove('is-on'));
-            btn.classList.add('is-on');
-            aggiorna();
-            avanza();
-          });
-        }
-        box.appendChild(btn);
+    orariDi(stato.giorno).forEach(({ m, ok }) => {
+      const btn = document.createElement('button');
+      btn.type = 'button';
+      btn.className = 'slot';
+      btn.style.setProperty('--si', totali++);
+      btn.textContent = `${String(Math.floor(m / 60)).padStart(2,'0')}:${String(m % 60).padStart(2,'0')}`;
+      if (!ok) {
+        btn.disabled = true;
+        btn.title = 'Orario già passato';
+      } else {
+        liberi++;
+        btn.addEventListener('click', () => {
+          stato.ora = btn.textContent;
+          $$('.slot', box).forEach(x => x.classList.remove('is-on'));
+          btn.classList.add('is-on');
+          aggiorna();
+          avanza();
+        });
       }
+      box.appendChild(btn);
     });
 
     if (!liberi) {
@@ -864,6 +877,7 @@ $('#year').textContent = new Date().getFullYear();
       p.classList.toggle('is-on', on);
       if (on) p.classList.toggle('is-back', stato.step < prima);
     });
+    if (stato.step === 4) disegnaMese();   // la durata scelta cambia i giorni pieni
     $('#wizNum').textContent = stato.step;
     $('#wizFill').style.transform = `scaleX(${stato.step / PASSI})`;
     btnBack.hidden = stato.step === 1;

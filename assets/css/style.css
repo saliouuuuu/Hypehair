@@ -371,14 +371,18 @@ body.cursor-hot .cursor__ring{ width:56px; height:56px; background:var(--glass-2
   will-change:transform;
 }
 .emblem__body{ position:absolute; inset:0; animation:embGira 44s linear infinite; }
-/* "screen" toglie il nero: sullo schermo resta solo l'elemento verde,
-   qualunque sia il fondo del file di partenza. */
+/* Il file del marchio ha il fondo davvero trasparente (l'alfa è ricavata
+   dalla luce del vetro), quindi si appoggia su qualunque sfondo senza
+   trucchi: nero, carta chiara o la trama a righe, è sempre lui. */
 .emblem img{
   width:100%; height:100%; object-fit:cover;   /* ritaglia al centro: via i bordi */
-  mix-blend-mode:screen;                       /* il fondo sparisce, resta il verde */
   background:none;
-  /* il fondo del file non è nero pieno: senza questa sfumatura ai bordi
-     si vedrebbe il quadrato dell'immagine sopra al nero della pagina */
+}
+/* Rete di sicurezza: se si finisce su uno dei vecchi file col fondo nero
+   pieno, si torna al vecchio trucco — "screen" lo toglie e la sfumatura
+   nasconde lo spigolo del quadrato. */
+.emblem img.is-opaco{
+  mix-blend-mode:screen;
   -webkit-mask-image:radial-gradient(circle at 50% 50%, #000 58%, transparent 78%);
           mask-image:radial-gradient(circle at 50% 50%, #000 58%, transparent 78%);
 }
@@ -405,10 +409,22 @@ body.cursor-hot .cursor__ring{ width:56px; height:56px; background:var(--glass-2
 @keyframes embGira{ to{ transform:rotate(360deg) } }
 @keyframes embLuce{ 0%,100%{ opacity:.5; transform:scale(.92) } 50%{ opacity:1; transform:scale(1.08) } }
 
-/* il sigillo di metà pagina */
+/* il sigillo di metà pagina.
+   Dietro c'è la trama a righe del marchio: non è un fondale, è una luce.
+   Sfuma su tutti e quattro i lati, così non si vede mai dove finisce. */
 .sigillo{
+  position:relative; overflow:hidden;
   display:grid; justify-items:center; gap:1.1rem;
-  padding:clamp(3rem,10vw,7rem) var(--pad) 0;
+  padding:clamp(4rem,12vw,8rem) var(--pad) clamp(1rem,4vw,2rem);
+}
+.sigillo__trama{
+  position:absolute; inset:0; z-index:-1;
+  width:100%; height:100%; object-fit:cover; object-position:50% 62%;
+  mix-blend-mode:screen; opacity:.32;
+  /* la macchia di luce è misurata in pixel, non in percentuale: così sul
+     desktop non diventa un sipario largo quanto lo schermo */
+  -webkit-mask-image:radial-gradient(ellipse min(64vw,520px) min(30vh,250px) at 50% 50%, #000 6%, transparent 76%);
+          mask-image:radial-gradient(ellipse min(64vw,520px) min(30vh,250px) at 50% 50%, #000 6%, transparent 76%);
 }
 .sigillo__mark{ width:clamp(120px,26vw,200px); }
 .sigillo__word{
@@ -1213,7 +1229,9 @@ body.cursor-hot .cursor__ring{ width:56px; height:56px; background:var(--glass-2
 .book__mark{
   position:absolute; z-index:-1; pointer-events:none;
   top:2%; right:-14%; width:min(62vw,560px);
-  opacity:.16;
+  /* col fondo trasparente il marchio si vede di più: qui va tenuto basso,
+     è una filigrana dietro al titolo, non un'illustrazione */
+  opacity:.11;
 }
 .book__mark .emblem__halo{ opacity:.5; }
 
@@ -1228,7 +1246,7 @@ body.cursor-hot .cursor__ring{ width:56px; height:56px; background:var(--glass-2
 .final__mark{
   position:absolute; z-index:1; pointer-events:none;
   top:50%; left:50%; transform:translate(-50%,-50%) rotate(var(--spin,0deg));
-  width:min(78vw,620px); opacity:.2;
+  width:min(78vw,620px); opacity:.16;
 }
 
 /* footer */
@@ -1261,21 +1279,24 @@ body.cursor-hot .cursor__ring{ width:56px; height:56px; background:var(--glass-2
 }
 
 /* ---------- 29. Versione chiara: l'emblema e il bottone ----------
-   Il marchio è verde luminoso su nero: in "screen" su carta chiara
-   sparirebbe. Sul chiaro torna dentro al suo disco nero, che poi è
-   esattamente com'è fatto il logo. */
-:root[data-tema="chiaro"] .emblem__body{
+   Col fondo trasparente il marchio sta bene anche sulla carta: niente
+   disco nero, niente emblemi da nascondere. Resta il tondo scuro della
+   nav, che è un elemento del logo, non una toppa. Ai vecchi file col
+   fondo pieno (.is-opaco) il disco serve ancora. */
+:root[data-tema="chiaro"] .emblem__img.is-opaco{
   background:#050505; border-radius:50%; overflow:hidden;
+  -webkit-mask-image:none; mask-image:none; mix-blend-mode:normal;
 }
-:root[data-tema="chiaro"] .emblem__img{ -webkit-mask-image:none; mask-image:none; }
 :root[data-tema="chiaro"] .nav__mark{ background:#050505; }
 :root[data-tema="chiaro"] .emblem__halo{ opacity:.3; }
-/* Il disco nero vale per gli emblemi appoggiati alla pagina. Quelli che
-   stanno sopra una foto restano in "screen", che lì funziona benissimo. */
-:root[data-tema="chiaro"] .final__mark .emblem__body{ background:none; }
-/* la filigrana dietro alla prenotazione sul chiaro diventerebbe un disco
-   grigio in mezzo al testo: meglio toglierla */
-:root[data-tema="chiaro"] .book__mark{ display:none; }
+/* sulla carta il vetro verde si smorza: un filo di colore in più e sta su */
+:root[data-tema="chiaro"] .emblem__img{ filter:saturate(1.14) contrast(1.06); }
+/* e la trama regge un pelo di più, se no non si vede proprio */
+
+
+/* la trama a righe: sul nero la si accende ("screen"), sulla carta la si
+   scurisce ("multiply") e si tiene molto più bassa, se no diventa una tenda */
+:root[data-tema="chiaro"] .sigillo__trama{ mix-blend-mode:multiply; opacity:.24; }
 
 /* il bottone che cambia versione */
 .tema{

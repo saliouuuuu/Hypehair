@@ -22,7 +22,9 @@ quattro reel e la GIF del marchio animato.
 | `finale.jpg` | sfondo dell'ultimo invito a prenotare |
 | `video-01.mp4` `video-03.mp4` `video-04.mp4` | vetrina, partono da soli senza audio |
 | `video-02.mp4` | sfondo a tutta pagina della frase |
-| `marchio.gif` | l'emblema che gira in sei punti del sito |
+| `marchio.gif` | riserva del marchio (resta come rete di sicurezza) |
+| `IMG_4511.GIF` | il marchio che gira: è **questo** che si vede in sei punti del sito |
+| `IMG_4510.JPG` | la trama a righe verdi dietro al marchio di metà pagina |
 
 **Manca ancora** (il posto nel sito c'è già, aspetta solo il file):
 
@@ -78,6 +80,10 @@ Servono queste cose (ora nel sito ci sono i segnaposti):
 
 È il cuore del sito, ed è fatto **una domanda per schermata**: il cliente
 risponde e va avanti da solo, senza vedere tutto insieme.
+
+La prenotazione è **la prima cosa dopo l'apertura**: chi entra per prenotare
+non deve scorrere niente. Sotto vengono il marchio che gira, la galleria dei
+lavori e tutto il resto.
 
 1. **Cosa ti serve?** — capelli, barba & viso, colore
 2. **Quale, di preciso?** — solo i servizi di quel tipo, con prezzo e durata

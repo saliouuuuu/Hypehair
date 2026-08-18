@@ -181,20 +181,171 @@
     </p>
   </div>
 
-  <a class="hero__cue" href="#vetrina" aria-label="Scorri"><span></span></a>
+  <a class="hero__cue" href="#prenota" aria-label="Scorri"><span></span></a>
 </section>
 
-<!-- ═════════════════ NASTRO ═════════════════ -->
-<div class="ticker" aria-hidden="true">
-  <div class="ticker__track">
-    <span>Taglio <b>✦</b> Barba <b>✦</b> Hair tattoo <b>✦</b> Colore <b>✦</b> Sopracciglia <b>✦</b> Pulizia viso <b>✦</b> Taglio bimbo <b>✦</b></span>
-    <span>Taglio <b>✦</b> Barba <b>✦</b> Hair tattoo <b>✦</b> Colore <b>✦</b> Sopracciglia <b>✦</b> Pulizia viso <b>✦</b> Taglio bimbo <b>✦</b></span>
+<!-- ═════════════════ PRENOTAZIONE — il fulcro ═════════════════ -->
+<section class="book" id="prenota">
+  <div class="book__glow" aria-hidden="true"></div>
+  <span class="book__mark" data-emblem data-spin="120" aria-hidden="true"></span>
+
+  <header class="sec__head">
+    <span class="eyebrow" data-reveal>Prenota</span>
+    <h2 class="h2" data-reveal style="--d:.06s">Una domanda <em>alla volta</em></h2>
+    <p class="sec__lead" data-reveal style="--d:.12s">Rispondi e vai avanti da solo. Ci vuole un minuto.</p>
+  </header>
+
+  <div class="wiz" data-reveal>
+    <!-- avanzamento: una barra e il conto dei passi, niente di più -->
+    <div class="wiz__top">
+      <div class="wiz__bar" aria-hidden="true"><i id="wizFill"></i></div>
+      <p class="wiz__count">Passo <b id="wizNum">1</b> di <span id="wizTot">6</span></p>
+    </div>
+
+    <!-- le risposte già date, per tornarci sopra con un tocco -->
+    <div class="crumbs" id="crumbs" aria-label="Le tue scelte"></div>
+
+    <div class="wiz__body">
+      <div class="wiz__panels" id="wizPanels">
+
+        <!-- 1 — di che si tratta -->
+        <section class="panel is-on" data-step="1" aria-label="Che tipo di servizio">
+          <h3 class="panel__q">Cosa ti serve?</h3>
+          <p class="panel__hint">Scegli il tipo, poi entriamo nel dettaglio.</p>
+          <div class="opts" id="catList"><!-- generato da main.js --></div>
+        </section>
+
+        <!-- 2 — quale servizio -->
+        <section class="panel" data-step="2" aria-label="Quale servizio" hidden>
+          <h3 class="panel__q">Quale, di preciso?</h3>
+          <p class="panel__hint" id="catEcho">&nbsp;</p>
+          <div class="opts" id="svcList"><!-- generato da main.js --></div>
+        </section>
+
+        <!-- 3 — con chi -->
+        <section class="panel" data-step="3" aria-label="Con quale barbiere" hidden>
+          <h3 class="panel__q">Con chi ti siedi?</h3>
+          <p class="panel__hint">Se ti va bene chiunque, scegli l'ultima.</p>
+          <div class="who" id="whoList">
+            <button class="who__card" type="button" data-who="JD">
+              <span class="who__img">
+                <img src="assets/img/barbiere-jd-240.webp" alt="" loading="lazy" onerror="this.hidden=true">
+              </span>
+              <b>JD</b>
+              <small>Fade &amp; hair tattoo</small>
+              <i class="who__tick" aria-hidden="true"></i>
+            </button>
+            <button class="who__card" type="button" data-who="Baudena">
+              <span class="who__img">
+                <span class="ph ph--who" data-file="barbiere-baudena.jpg"></span>
+                <img src="assets/img/barbiere-baudena.jpg" alt="" loading="lazy" onerror="this.hidden=true">
+              </span>
+              <b>Baudena</b>
+              <small>Forbice &amp; colore</small>
+              <i class="who__tick" aria-hidden="true"></i>
+            </button>
+            <button class="who__card who__card--any" type="button" data-who="Indifferente">
+              <span class="who__img who__img--any" aria-hidden="true">
+                <svg viewBox="0 0 24 24"><path d="M9 11a3.5 3.5 0 1 0 0-7 3.5 3.5 0 0 0 0 7Zm7.5 0a3 3 0 1 0 0-6 3 3 0 0 0 0 6ZM2 20a7 7 0 0 1 14 0M17 13.5c3 0 5 2.2 5 5.5"/></svg>
+              </span>
+              <b>Indifferente</b>
+              <small>Chi è libero prima</small>
+              <i class="who__tick" aria-hidden="true"></i>
+            </button>
+          </div>
+        </section>
+
+        <!-- 4 — che giorno -->
+        <section class="panel" data-step="4" aria-label="Che giorno" hidden>
+          <h3 class="panel__q">Che giorno?</h3>
+          <p class="panel__hint">I giorni spenti sono quelli di chiusura.</p>
+          <div class="cal">
+            <div class="cal__bar">
+              <button class="cal__nav" type="button" id="calPrev" aria-label="Mese precedente">‹</button>
+              <b id="calLabel">—</b>
+              <button class="cal__nav" type="button" id="calNext" aria-label="Mese successivo">›</button>
+            </div>
+            <div class="cal__dow" aria-hidden="true"><span>lun</span><span>mar</span><span>mer</span><span>gio</span><span>ven</span><span>sab</span><span>dom</span></div>
+            <div class="cal__grid" id="calGrid" role="grid" aria-label="Calendario"></div>
+          </div>
+        </section>
+
+        <!-- 5 — a che ora -->
+        <section class="panel" data-step="5" aria-label="A che ora" hidden>
+          <h3 class="panel__q">A che ora?</h3>
+          <p class="panel__hint" id="oraEcho">&nbsp;</p>
+          <div class="slots" id="slots"></div>
+        </section>
+
+        <!-- 6 — chi sei -->
+        <section class="panel" data-step="6" aria-label="I tuoi dati" hidden>
+          <h3 class="panel__q">Come ti chiami?</h3>
+          <p class="panel__hint">Servono solo per confermarti l'appuntamento.</p>
+
+          <form class="form" id="bookForm" novalidate>
+            <label class="field">
+              <span>Nome e cognome</span>
+              <input type="text" name="nome" id="fNome" autocomplete="name" required placeholder="Mario Rossi">
+            </label>
+            <label class="field">
+              <span>Telefono</span>
+              <input type="tel" name="tel" id="fTel" autocomplete="tel" required inputmode="tel" placeholder="333 1234567">
+            </label>
+            <label class="field field--full">
+              <span>Note <i>(facoltativo)</i></span>
+              <textarea name="note" id="fNote" rows="3" placeholder="Es. sfumatura bassa, barba corta, arrivo dopo il lavoro…"></textarea>
+            </label>
+            <p class="form__err" id="formErr" role="alert" hidden></p>
+            <button class="btn btn--jade btn--lg btn--wide" type="submit" id="fSend">Invia la richiesta</button>
+            <p class="form__legal">Ti risponde direttamente il salone. Nessun pagamento online.</p>
+          </form>
+        </section>
+      </div>
+
+      <!-- riepilogo (solo su schermo largo) -->
+      <aside class="sum" id="sum" aria-live="polite">
+        <span class="sum__cap">Riepilogo</span>
+        <dl class="sum__list">
+          <div><dt>Servizio</dt><dd id="sumSvc">—</dd></div>
+          <div><dt>Barbiere</dt><dd id="sumWho">—</dd></div>
+          <div><dt>Quando</dt><dd id="sumWhen">—</dd></div>
+          <div><dt>Durata</dt><dd id="sumDur">—</dd></div>
+        </dl>
+        <div class="sum__tot"><span>Totale</span><b id="sumTot">—</b></div>
+        <p class="sum__note">Si paga in salone, come sempre.</p>
+      </aside>
+    </div>
+
+    <div class="wiz__foot">
+      <button class="btn btn--ghost" type="button" id="wizBack" hidden>← Indietro</button>
+    </div>
   </div>
-</div>
+
+  <!-- esito -->
+  <div class="done" id="done" hidden>
+    <div class="done__in">
+      <span class="done__mark" data-emblem data-spin="0" aria-hidden="true"></span>
+      <span class="done__tick" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="m5 13 4.5 4.5L19 8"/></svg></span>
+      <h3>Richiesta pronta</h3>
+      <p id="doneMsg">Ti apriamo WhatsApp con il messaggio già scritto: mandalo e ricevi la conferma.</p>
+      <pre class="done__recap" id="doneRecap"></pre>
+      <div class="done__acts">
+        <a class="btn btn--jade btn--lg" id="doneWa" href="#">Apri WhatsApp</a>
+        <button class="btn btn--glass" type="button" id="doneCopy">Copia il messaggio</button>
+        <button class="btn btn--ghost" type="button" id="doneAgain">Ricomincia</button>
+      </div>
+    </div>
+  </div>
+</section>
 
 <!-- ═════════════════ MARCHIO A TUTTA PAGINA ═════════════════ -->
 <div class="sigillo" aria-hidden="true">
-  <span class="sigillo__mark" data-emblem data-spin="180"></span>
+  <!-- la trama a righe del marchio: sta dietro, e sfuma prima di toccare i bordi -->
+  <img class="sigillo__trama" alt="" loading="lazy" decoding="async"
+       width="1080" height="1920" sizes="100vw"
+       src="assets/img/trama-760.webp"
+       srcset="assets/img/trama-760.webp 760w, assets/img/trama-1080.webp 1080w">
+  <span class="sigillo__mark" data-emblem data-spin="90"></span>
   <span class="sigillo__word">Hype Hair — Cuneo</span>
 </div>
 
@@ -301,6 +452,14 @@
     <a class="ilink" data-info="instagram-link" href="#prenota">Altre foto sul nostro Instagram →</a>
   </p>
 </section>
+
+<!-- ═════════════════ NASTRO ═════════════════ -->
+<div class="ticker" aria-hidden="true">
+  <div class="ticker__track">
+    <span>Taglio <b>✦</b> Barba <b>✦</b> Hair tattoo <b>✦</b> Colore <b>✦</b> Sopracciglia <b>✦</b> Pulizia viso <b>✦</b> Taglio bimbo <b>✦</b></span>
+    <span>Taglio <b>✦</b> Barba <b>✦</b> Hair tattoo <b>✦</b> Colore <b>✦</b> Sopracciglia <b>✦</b> Pulizia viso <b>✦</b> Taglio bimbo <b>✦</b></span>
+  </div>
+</div>
 
 <!-- ═════════════════ FRASE IN SOVRAIMPRESSIONE ═════════════════ -->
 <section class="over" aria-label="Il metodo">
@@ -472,160 +631,6 @@
   </div>
 
   <p class="price__note" data-reveal>I prezzi con “da” variano in base a lunghezza e lavoro richiesto: te lo diciamo prima di iniziare, mai dopo.</p>
-</section>
-
-<!-- ═════════════════ PRENOTAZIONE — il fulcro ═════════════════ -->
-<section class="book" id="prenota">
-  <div class="book__glow" aria-hidden="true"></div>
-  <span class="book__mark" data-emblem data-spin="120" aria-hidden="true"></span>
-
-  <header class="sec__head">
-    <span class="eyebrow" data-reveal>Prenota</span>
-    <h2 class="h2" data-reveal style="--d:.06s">Una domanda <em>alla volta</em></h2>
-    <p class="sec__lead" data-reveal style="--d:.12s">Rispondi e vai avanti da solo. Ci vuole un minuto.</p>
-  </header>
-
-  <div class="wiz" data-reveal>
-    <!-- avanzamento: una barra e il conto dei passi, niente di più -->
-    <div class="wiz__top">
-      <div class="wiz__bar" aria-hidden="true"><i id="wizFill"></i></div>
-      <p class="wiz__count">Passo <b id="wizNum">1</b> di <span id="wizTot">6</span></p>
-    </div>
-
-    <!-- le risposte già date, per tornarci sopra con un tocco -->
-    <div class="crumbs" id="crumbs" aria-label="Le tue scelte"></div>
-
-    <div class="wiz__body">
-      <div class="wiz__panels" id="wizPanels">
-
-        <!-- 1 — di che si tratta -->
-        <section class="panel is-on" data-step="1" aria-label="Che tipo di servizio">
-          <h3 class="panel__q">Cosa ti serve?</h3>
-          <p class="panel__hint">Scegli il tipo, poi entriamo nel dettaglio.</p>
-          <div class="opts" id="catList"><!-- generato da main.js --></div>
-        </section>
-
-        <!-- 2 — quale servizio -->
-        <section class="panel" data-step="2" aria-label="Quale servizio" hidden>
-          <h3 class="panel__q">Quale, di preciso?</h3>
-          <p class="panel__hint" id="catEcho">&nbsp;</p>
-          <div class="opts" id="svcList"><!-- generato da main.js --></div>
-        </section>
-
-        <!-- 3 — con chi -->
-        <section class="panel" data-step="3" aria-label="Con quale barbiere" hidden>
-          <h3 class="panel__q">Con chi ti siedi?</h3>
-          <p class="panel__hint">Se ti va bene chiunque, scegli l'ultima.</p>
-          <div class="who" id="whoList">
-            <button class="who__card" type="button" data-who="JD">
-              <span class="who__img">
-                <img src="assets/img/barbiere-jd-240.webp" alt="" loading="lazy" onerror="this.hidden=true">
-              </span>
-              <b>JD</b>
-              <small>Fade &amp; hair tattoo</small>
-              <i class="who__tick" aria-hidden="true"></i>
-            </button>
-            <button class="who__card" type="button" data-who="Baudena">
-              <span class="who__img">
-                <span class="ph ph--who" data-file="barbiere-baudena.jpg"></span>
-                <img src="assets/img/barbiere-baudena.jpg" alt="" loading="lazy" onerror="this.hidden=true">
-              </span>
-              <b>Baudena</b>
-              <small>Forbice &amp; colore</small>
-              <i class="who__tick" aria-hidden="true"></i>
-            </button>
-            <button class="who__card who__card--any" type="button" data-who="Indifferente">
-              <span class="who__img who__img--any" aria-hidden="true">
-                <svg viewBox="0 0 24 24"><path d="M9 11a3.5 3.5 0 1 0 0-7 3.5 3.5 0 0 0 0 7Zm7.5 0a3 3 0 1 0 0-6 3 3 0 0 0 0 6ZM2 20a7 7 0 0 1 14 0M17 13.5c3 0 5 2.2 5 5.5"/></svg>
-              </span>
-              <b>Indifferente</b>
-              <small>Chi è libero prima</small>
-              <i class="who__tick" aria-hidden="true"></i>
-            </button>
-          </div>
-        </section>
-
-        <!-- 4 — che giorno -->
-        <section class="panel" data-step="4" aria-label="Che giorno" hidden>
-          <h3 class="panel__q">Che giorno?</h3>
-          <p class="panel__hint">I giorni spenti sono quelli di chiusura.</p>
-          <div class="cal">
-            <div class="cal__bar">
-              <button class="cal__nav" type="button" id="calPrev" aria-label="Mese precedente">‹</button>
-              <b id="calLabel">—</b>
-              <button class="cal__nav" type="button" id="calNext" aria-label="Mese successivo">›</button>
-            </div>
-            <div class="cal__dow" aria-hidden="true"><span>lun</span><span>mar</span><span>mer</span><span>gio</span><span>ven</span><span>sab</span><span>dom</span></div>
-            <div class="cal__grid" id="calGrid" role="grid" aria-label="Calendario"></div>
-          </div>
-        </section>
-
-        <!-- 5 — a che ora -->
-        <section class="panel" data-step="5" aria-label="A che ora" hidden>
-          <h3 class="panel__q">A che ora?</h3>
-          <p class="panel__hint" id="oraEcho">&nbsp;</p>
-          <div class="slots" id="slots"></div>
-        </section>
-
-        <!-- 6 — chi sei -->
-        <section class="panel" data-step="6" aria-label="I tuoi dati" hidden>
-          <h3 class="panel__q">Come ti chiami?</h3>
-          <p class="panel__hint">Servono solo per confermarti l'appuntamento.</p>
-
-          <form class="form" id="bookForm" novalidate>
-            <label class="field">
-              <span>Nome e cognome</span>
-              <input type="text" name="nome" id="fNome" autocomplete="name" required placeholder="Mario Rossi">
-            </label>
-            <label class="field">
-              <span>Telefono</span>
-              <input type="tel" name="tel" id="fTel" autocomplete="tel" required inputmode="tel" placeholder="333 1234567">
-            </label>
-            <label class="field field--full">
-              <span>Note <i>(facoltativo)</i></span>
-              <textarea name="note" id="fNote" rows="3" placeholder="Es. sfumatura bassa, barba corta, arrivo dopo il lavoro…"></textarea>
-            </label>
-            <p class="form__err" id="formErr" role="alert" hidden></p>
-            <button class="btn btn--jade btn--lg btn--wide" type="submit" id="fSend">Invia la richiesta</button>
-            <p class="form__legal">Ti risponde direttamente il salone. Nessun pagamento online.</p>
-          </form>
-        </section>
-      </div>
-
-      <!-- riepilogo (solo su schermo largo) -->
-      <aside class="sum" id="sum" aria-live="polite">
-        <span class="sum__cap">Riepilogo</span>
-        <dl class="sum__list">
-          <div><dt>Servizio</dt><dd id="sumSvc">—</dd></div>
-          <div><dt>Barbiere</dt><dd id="sumWho">—</dd></div>
-          <div><dt>Quando</dt><dd id="sumWhen">—</dd></div>
-          <div><dt>Durata</dt><dd id="sumDur">—</dd></div>
-        </dl>
-        <div class="sum__tot"><span>Totale</span><b id="sumTot">—</b></div>
-        <p class="sum__note">Si paga in salone, come sempre.</p>
-      </aside>
-    </div>
-
-    <div class="wiz__foot">
-      <button class="btn btn--ghost" type="button" id="wizBack" hidden>← Indietro</button>
-    </div>
-  </div>
-
-  <!-- esito -->
-  <div class="done" id="done" hidden>
-    <div class="done__in">
-      <span class="done__mark" data-emblem data-spin="0" aria-hidden="true"></span>
-      <span class="done__tick" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="m5 13 4.5 4.5L19 8"/></svg></span>
-      <h3>Richiesta pronta</h3>
-      <p id="doneMsg">Ti apriamo WhatsApp con il messaggio già scritto: mandalo e ricevi la conferma.</p>
-      <pre class="done__recap" id="doneRecap"></pre>
-      <div class="done__acts">
-        <a class="btn btn--jade btn--lg" id="doneWa" href="#">Apri WhatsApp</a>
-        <button class="btn btn--glass" type="button" id="doneCopy">Copia il messaggio</button>
-        <button class="btn btn--ghost" type="button" id="doneAgain">Ricomincia</button>
-      </div>
-    </div>
-  </div>
 </section>
 
 <!-- ═════════════════ FIDUCIA ═════════════════ -->
