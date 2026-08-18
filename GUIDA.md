@@ -1,0 +1,243 @@
+# Guida al sito Hype Hair
+
+Tutto quello che serve per far vivere il sito, spiegato senza tecnicismi.
+Il sito è fatto di tre file: `index.html` (i testi), `assets/css/style.css`
+(l'aspetto), `assets/js/main.js` (le cose che si muovono e la prenotazione).
+
+---
+
+## 1. Cosa devi mandarmi
+
+### Le foto e i video
+
+**Quello che hai già mandato è dentro e funziona:** quattro foto dei tagli,
+quattro reel e la GIF del marchio animato.
+
+| Già dentro | Dove finisce |
+|---|---|
+| `hero.jpg` | apertura del sito |
+| `work-01.jpg` … `work-05.jpg` | vetrina: mullet, frangia, locs, treccine, cornrows |
+| `barbiere-jd.jpg` | la scheda di JD |
+| `atelier.jpg` | sezione "Dove siamo" |
+| `finale.jpg` | sfondo dell'ultimo invito a prenotare |
+| `video-01.mp4` `video-03.mp4` `video-04.mp4` | vetrina, partono da soli senza audio |
+| `video-02.mp4` | per ora fuori dal sito (la frase a tutta pagina non c'è più) |
+| `marchio.gif` | riserva del marchio (resta come rete di sicurezza) |
+| `IMG_4511.GIF` | il marchio che gira: è **questo** che si vede in sei punti del sito |
+| `IMG_4510.JPG` | la trama a righe verdi dietro al marchio di metà pagina |
+| `video-02.mp4` | per ora non usato |
+
+**Manca ancora** (il posto nel sito c'è già, aspetta solo il file):
+
+| File | Cosa ci va |
+|---|---|
+| `barbiere-baudena.jpg` | ritratto di Baudena (la foto al bancone era JD) |
+| `og-cover.jpg` | 1200 × 630 px, l'anteprima quando si manda il link su WhatsApp |
+| `apple-touch-icon.png` | 180 × 180 px, il logo tondo per la home del telefono |
+
+**Come si caricano:** metti il file dentro `assets/img/` con esattamente
+quel nome. Il riquadro col segnaposto sparisce da solo.
+
+**Se vuoi aggiungere altri lavori** manda pure `work-04.jpg`, `video-05.mp4`
+e così via: li aggiungo io al mosaico con la loro didascalia.
+
+**Quando mandi una foto nuova** io ne creo anche le versioni leggere (WebP
+a due misure) che il telefono scarica al posto dell'originale. Tu manda
+pure lo scatto così com'è: al resto penso io.
+
+> **I video sono la cosa più pesante del sito**: i quattro reel messi
+> insieme fanno 21 MB. Non si scaricano tutti — parte solo quello che stai
+> guardando, e se scorri via lo scarico viene annullato — ma chi li guarda
+> tutti si consuma 21 MB di traffico. Se riesci a riesportarli a 720p
+> invece che 1080p diventano un terzo, senza differenze visibili sul
+> telefono. Mandameli e li sostituisco.
+
+### I dati del salone
+
+Servono queste cose (ora nel sito ci sono i segnaposti):
+
+- **Numero WhatsApp** del salone → è lì che arrivano le prenotazioni
+- **Numero di telefono** da chiamare (può essere lo stesso)
+- **Indirizzo completo** (via, numero, CAP)
+- **Nome utente Instagram**
+- **Orari veri di apertura**, giorno per giorno, comprese le pause pranzo
+  e il giorno di chiusura
+
+### Da confermare
+
+1. **Prezzi.** Sul sito attuale il listino e il menù della prenotazione non
+   dicono la stessa cosa: nel listino "Taglio con Forbici" sta a 25 €, nella
+   tendina a 30 €; "Hair Tattoo" 27 € contro 25 €. Qui ho messo i prezzi del
+   listino: dimmi quali sono giusti.
+2. **Chi fa cosa.** Sotto JD e Baudena ci sono due descrizioni di comodo
+   ("fade e hair tattoo", "forbice e colore"): scrivimi quelle vere.
+3. **Durata dei servizi.** Ho stimato i minuti di ogni taglio: servono per
+   proporre gli orari giusti. Se un taglio completo da voi dura un'ora,
+   si cambia in un secondo.
+
+---
+
+## 2. Come funziona la prenotazione
+
+È il cuore del sito, ed è fatto **una domanda per schermata**: il cliente
+risponde e va avanti da solo, senza vedere tutto insieme.
+
+La prenotazione è **la prima cosa dopo l'apertura**: chi entra per prenotare
+non deve scorrere niente. Sotto vengono il marchio che gira, la galleria dei
+lavori e tutto il resto.
+
+1. **Cosa ti serve?** — capelli, barba & viso, colore
+2. **Quale, di preciso?** — solo i servizi di quel tipo, con prezzo e durata
+3. **Con chi ti siedi?** — JD, Baudena o "indifferente"
+4. **Che giorno?** — solo il calendario
+5. **A che ora?** — solo gli orari
+6. **Come ti chiami?** — nome e telefono
+
+Non c'è nessun bottone "avanti": appena tocca una risposta passa alla
+domanda dopo. In alto restano le risposte già date come piccole targhette:
+toccandone una ci torna sopra e la cambia.
+
+A quel punto il sito prepara un messaggio già scritto e apre WhatsApp:
+al salone arriva tutto in chiaro, servizio, prezzo, orario e nome.
+Voi rispondete "confermato" e basta.
+
+**Niente pagamenti online, niente account, niente app da scaricare.**
+
+Il cliente può anche saltare avanti: tocca un prezzo nel listino e si
+ritrova già alla domanda "con chi ti siedi?", oppure tocca "Prenota con JD"
+nella sezione Barbieri e il barbiere è già scelto.
+
+### Due cose che il sito non fa (ancora)
+
+**Non aggiunge l'appuntamento al calendario del cliente.** Si può fare: alla
+fine compare un bottone "Aggiungi al calendario" che scarica l'appuntamento
+e lo infila in quello del telefono, iPhone e Android uguale. È mezz'ora di
+lavoro, si fa quando il resto è definitivo.
+
+### Quanto è pieno un giorno
+
+Nel calendario ogni giorno si riempie dal basso in proporzione a quanti
+orari sono già andati: pillola vuota vuol dire giornata intera davanti,
+pillola piena vuol dire che non c'è più posto — e quel giorno non si può
+nemmeno scegliere. **Attenzione:** finché il sito non è collegato a
+un'agenda vera, "pieno" può voler dire solo "già passato". Oggi alle sette
+di sera la pillola di oggi è piena; domani è vuota anche se avete l'agenda
+piena di appuntamenti. Quando collegherete l'agenda, il disegno è già lì.
+
+### Attenzione: gli orari proposti non sanno chi è già prenotato
+
+Il sito propone gli orari in cui il salone è **aperto**, non quelli
+**liberi**: non è collegato a un'agenda. Per questo la conferma la date voi.
+Se un giorno volete l'agenda vera (slot che spariscono quando sono presi),
+si aggancia un servizio tipo Fresha o Treatwell — nel file `main.js` c'è già
+la riga `bookingUrl` pronta per il collegamento.
+
+---
+
+## 3. Cambiare le cose da soli
+
+### I contatti e gli orari
+
+Apri `assets/js/main.js`. Le prime 40 righe sono così:
+
+```js
+const CONFIG = {
+  whatsapp : '',      // qui il numero: 393401234567
+  tel      : '',      // qui: +39 340 123 4567
+  instagram: '',      // qui: hypehair.cuneo
+  ...
+```
+
+Scrivi tra le virgolette e salva. Gli orari sono poco sotto: `null` vuol
+dire chiuso, `[['09:00','13:00'], ['14:30','19:30']]` vuol dire aperto la
+mattina e il pomeriggio con la pausa in mezzo. `0` è domenica, `6` è sabato.
+
+Quando metti il numero WhatsApp, il bottone "Chiama" e quello di WhatsApp
+compaiono da soli in tutto il sito.
+
+### I prezzi
+
+Apri `index.html` e cerca la sezione **LISTINO**. Ogni voce è una riga così:
+
+```html
+<li data-service data-name="Taglio Base" data-price="20" data-dur="30" data-cat="Capelli">
+  <button type="button"><span class="price__n">Taglio Base</span><i class="price__dots"></i><span class="price__v">20 €</span></button>
+  <small>Macchinetta, sfumatura e styling.</small>
+</li>
+```
+
+- `data-price` → il prezzo (solo il numero)
+- `data-dur` → quanto dura in minuti
+- `data-from="1"` → aggiunge il "da" davanti al prezzo
+- il testo dentro `<span class="price__v">` è quello che si legge
+
+**Il modulo di prenotazione legge da qui.** Cambi il prezzo nel listino e
+cambia anche nella prenotazione: non c'è da toccarlo in due posti.
+
+### Chiaro o scuro
+
+In alto, accanto al menu, c'è un bottone con la luna (o il sole): cambia il
+sito dal nero alla carta chiara e viceversa. Serve per far vedere le due
+versioni e decidere quale tenere — la scelta resta salvata sul telefono di
+chi guarda, quindi puoi girare il link a chi vuoi e ognuno prova.
+
+Il sito **nasce scuro**: è la versione pensata per prima. Quando avete
+deciso, si può togliere il bottone e lasciare solo quella scelta.
+
+Una cosa da sapere: **le foto restano scure in tutte e due le versioni** —
+apertura, frase a tutta pagina e chiusura non cambiano, perché lì il testo
+è bianco sopra l'immagine e va bene così in entrambi i casi. Cambia tutto
+il resto: fondo, testi, listino, prenotazione, footer.
+
+### I testi
+
+Sono tutti dentro `index.html`, in chiaro. Cerca la frase che vuoi cambiare
+e riscrivila. Le righe che iniziano con `<!--` sono note per chi lavora al
+sito, non si vedono online.
+
+---
+
+## 4. Mandare il sito online
+
+Il sito non ha bisogno di essere "compilato": si pubblica la cartella così
+com'è. Su Netlify il file `netlify.toml` è già configurato: colleghi il
+repository e ogni modifica salvata va online da sola in un minuto.
+
+Per il dominio `hypehair.it` basta puntarlo al nuovo sito quando siamo
+pronti: fino a quel momento il vecchio resta al suo posto.
+
+---
+
+## 5. Cosa fa il sito che il vecchio non faceva
+
+- **Si sceglie il barbiere** nel percorso di prenotazione, con la faccia e
+  la specialità di ognuno, non in una tendina anonima
+- **Si prenota dal listino**: tocchi il prezzo e sei già dentro
+- **Le foto sono protagoniste**, in una vetrina che si muove allo scroll
+- **Riepilogo sempre in vista** mentre prenoti: servizio, barbiere, orario,
+  totale
+- **Nessun caricamento di pagina**: tutto è su una schermata sola, veloce
+  anche con poca linea
+- **Aperto / chiuso in tempo reale** nella sezione "Dove siamo"
+- Funziona anche a **motion ridotto** e da tastiera, per chi ne ha bisogno
+- **Si apre in un secondo anche con la linea del telefono**: all'apertura
+  scarica 610 KB invece di 2,7 MB, e chi va dritto a prenotare senza
+  guardare i lavori ne scarica 700 KB in tutto
+- Con il **risparmio dati** acceso, o con una linea lenta, i video non si
+  scaricano proprio: restano i riquadri con le didascalie
+
+---
+
+## 6. Domande veloci
+
+**Se cambio una foto devo avvisare qualcuno?**
+No. Sostituisci il file con lo stesso nome e dopo un'ora al massimo si vede
+la nuova ovunque.
+
+**Se sbaglio qualcosa rompo il sito?**
+Ogni modifica resta registrata: si torna indietro in un clic. Ma vale la
+regola: cambia una cosa per volta e guarda com'è venuta.
+
+**Posso aggiungere un terzo barbiere?**
+Sì. Si duplica una scheda nella sezione Barbieri e un bottone nella
+prenotazione. Dimmelo e lo preparo.

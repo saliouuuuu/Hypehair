@@ -1,0 +1,49 @@
+CARICA QUI LE FOTO
+==================
+
+I nomi devono essere ESATTAMENTE questi (tutto minuscolo) e i file
+vanno dentro QUESTA cartella (assets/img/), non nella principale.
+Appena il file è dentro, il segnaposto sul sito sparisce da solo.
+
+
+GIÀ DENTRO — non serve rifare niente
+
+  hero.jpg          apertura
+  work-01.jpg       mullet & taper
+  work-02.jpg       frangia texturizzata
+  work-03.jpg       locs & taper
+  work-04.jpg       treccine & schiariture
+  work-05.jpg       cornrows
+  barbiere-jd.jpg   il ritratto in bianco e nero di JD
+  atelier.jpg       il salone, nella sezione "Dove siamo"
+  finale.jpg        il salone al lavoro, dietro all'ultimo invito
+  video-01.mp4      vetrina
+  video-02.mp4      sfondo della frase a tutta pagina
+  video-03.mp4      vetrina
+  video-04.mp4      vetrina
+  marchio.gif       l'elemento di vetro animato
+
+
+ANCORA DA MANDARE
+
+  barbiere-baudena.jpg   ritratto di Baudena — quello di prima era
+                         un'altra foto di JD, quindi il posto è di nuovo
+                         vuoto
+
+  og-cover.jpg           1200x630, l'anteprima quando mandi il link
+                         su WhatsApp: senza, il link arriva nudo
+  apple-touch-icon.png   180x180, il logo tondo per la home del telefono
+
+
+SE VUOI AGGIUNGERE ALTRI LAVORI
+
+  work-06.jpg, work-07.jpg... e altri video-05.mp4, video-06.mp4:
+  mandali e li metto nel mosaico con la loro didascalia.
+
+  Foto verticali 4:5 (come Instagram): mandale come sono, alle
+  versioni leggere per il telefono ci penso io.
+
+  Video: i reel vanno bene, ma se puoi esportarli a 720p invece che
+  1080p pesano un terzo e sul telefono non si vede la differenza.
+
+Non serve nessun ritocco: filtri e sfumature li mette il sito.

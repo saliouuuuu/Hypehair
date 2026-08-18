@@ -1,0 +1,690 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Hype Hair — Barberia a Cuneo | Prenota online</title>
+<meta name="description" content="Hype Hair, barberia a Cuneo. Taglio, barba, hair tattoo, colore e pulizia viso. Scegli il servizio, scegli il tuo barbiere — JD o Baudena — e prenota in trenta secondi.">
+<meta name="theme-color" content="#050505">
+<meta name="color-scheme" content="dark">
+
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="Hype Hair">
+<meta property="og:title" content="Hype Hair — Barberia a Cuneo">
+<meta property="og:description" content="Taglio, barba e hair tattoo a Cuneo. Scegli il tuo barbiere e prenota online.">
+<meta property="og:locale" content="it_IT">
+<meta property="og:image" content="assets/img/og-cover.jpg">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta name="twitter:card" content="summary_large_image">
+
+<!-- I caratteri sono serviti da qui: nessuna attesa su un altro dominio
+     prima che la pagina si veda. -->
+<link rel="preload" as="font" type="font/woff2" href="assets/fonts/inter-var-latin.woff2" crossorigin>
+<link rel="preload" as="font" type="font/woff2" href="assets/fonts/cormorant-garamond-300-latin.woff2" crossorigin>
+<script>try{if(localStorage.getItem('hh-tema')==='chiaro')document.documentElement.dataset.tema='chiaro';}catch(e){}</script>
+<link rel="stylesheet" href="assets/css/fonts.css">
+<link rel="stylesheet" href="assets/css/style.css">
+<link rel="preload" as="image" href="assets/img/hero-760.webp"
+      imagesrcset="assets/img/hero-760.webp 760w, assets/img/hero-1080.webp 1080w, assets/img/hero-1400.webp 1400w" imagesizes="100vw">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect width='100' height='100' rx='24' fill='%23000'/><path d='M50 14C68 26 74 32 86 50C74 68 68 74 50 86C32 74 26 68 14 50C26 32 32 26 50 14Z' fill='none' stroke='%231fbf74' stroke-width='9'/></svg>">
+<link rel="apple-touch-icon" href="assets/img/apple-touch-icon.png">
+
+<!-- Dati per Google. Indirizzo, telefono e orari vanno confermati dal salone
+     (vedi GUIDA.md → "Cosa devi mandarmi"). -->
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "HairSalon",
+  "name": "Hype Hair",
+  "description": "Barberia a Cuneo: taglio, barba, hair tattoo, colore e trattamenti viso.",
+  "url": "https://hypehair.it/",
+  "priceRange": "€€",
+  "image": "assets/img/og-cover.jpg",
+  "address": {
+    "@type": "PostalAddress",
+    "addressLocality": "Cuneo",
+    "addressRegion": "CN",
+    "addressCountry": "IT"
+  },
+  "areaServed": "Cuneo"
+}
+</script>
+</head>
+<body class="is-loading">
+
+<a class="skip-link" href="#main">Vai al contenuto</a>
+
+<!-- ═════════════════ COLORI DEL MARCHIO ═════════════════
+     Le sfumature del vetro verde del logo, definite una volta sola:
+     tutti gli emblemi della pagina puntano qui. -->
+<svg class="sprite" aria-hidden="true" focusable="false" width="0" height="0">
+  <defs>
+    <linearGradient id="hhVetro1" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0"    stop-color="#0a5f3f"/>
+      <stop offset=".26"  stop-color="#22d67f"/>
+      <stop offset=".46"  stop-color="#56f7ac"/>
+      <stop offset=".64"  stop-color="#17a58a"/>
+      <stop offset=".82"  stop-color="#2a5ce0"/>
+      <stop offset="1"    stop-color="#eafff4"/>
+    </linearGradient>
+    <linearGradient id="hhVetro2" x1="1" y1="0" x2="0" y2="1">
+      <stop offset="0"    stop-color="#eafff4"/>
+      <stop offset=".2"   stop-color="#17a58a"/>
+      <stop offset=".45"  stop-color="#0a5f3f"/>
+      <stop offset=".7"   stop-color="#22d67f"/>
+      <stop offset="1"    stop-color="#2a5ce0"/>
+    </linearGradient>
+    <linearGradient id="hhVetro3" x1="0" y1="1" x2="1" y2="0">
+      <stop offset="0"    stop-color="#22d67f"/>
+      <stop offset=".35"  stop-color="#eafff4"/>
+      <stop offset=".6"   stop-color="#0f7a63"/>
+      <stop offset="1"    stop-color="#56f7ac"/>
+    </linearGradient>
+  </defs>
+</svg>
+
+<!-- ═════════════════ APERTURA ═════════════════ -->
+<div class="loader" id="loader" aria-hidden="true">
+  <div class="loader__in">
+    <span class="loader__mark" data-emblem data-spin="0"></span>
+    <span class="loader__word"><i data-split>Hype Hair</i></span>
+    <span class="loader__city">Cuneo</span>
+  </div>
+  <div class="loader__bar"><i id="loaderBar"></i></div>
+</div>
+
+<!-- cursore: solo desktop con mouse -->
+<div class="cursor" id="cursor" aria-hidden="true"><b class="cursor__dot"></b><b class="cursor__ring"></b></div>
+
+<!-- barra di avanzamento lettura -->
+<div class="progress" id="progress" aria-hidden="true"><i></i></div>
+
+<!-- ═════════════════ NAV ═════════════════ -->
+<header class="nav" id="nav">
+  <a class="nav__logo" href="#top" aria-label="Hype Hair, torna all'inizio">
+    <span class="nav__mark" data-emblem data-spin="0"></span>
+    <span class="nav__name">Hype Hair</span>
+  </a>
+
+  <nav class="nav__links" aria-label="Navigazione principale">
+    <a href="#vetrina">Vetrina</a>
+    <a href="#barbieri">Barbieri</a>
+    <a href="#listino">Listino</a>
+    <a href="#dove">Dove siamo</a>
+  </nav>
+
+  <button class="tema" id="tema" type="button" aria-label="Passa alla versione chiara" title="Chiaro / scuro">
+    <svg class="tema__luna" viewBox="0 0 24 24" aria-hidden="true"><path d="M20 14.5A8.5 8.5 0 1 1 9.5 4a7 7 0 0 0 10.5 10.5Z"/></svg>
+    <svg class="tema__sole" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="4"/><path d="M12 2v2m0 16v2M4.9 4.9l1.4 1.4m11.4 11.4 1.4 1.4M2 12h2m16 0h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"/></svg>
+  </button>
+
+  <a class="btn btn--jade btn--sm nav__cta" href="#prenota">Prenota</a>
+
+  <button class="burger" id="burger" type="button" aria-label="Apri il menu" aria-expanded="false" aria-controls="menu">
+    <span></span><span></span>
+  </button>
+</header>
+
+<!-- ═════════════════ MENU ═════════════════ -->
+<div class="menu" id="menu" inert>
+  <div class="menu__in">
+    <nav class="menu__links" aria-label="Menu">
+      <a href="#vetrina"  style="--i:0"><span>Vetrina</span></a>
+      <a href="#barbieri" style="--i:1"><span>Barbieri</span></a>
+      <a href="#rituale"  style="--i:2"><span>Il rituale</span></a>
+      <a href="#listino"  style="--i:3"><span>Listino</span></a>
+      <a href="#dove"     style="--i:4"><span>Dove siamo</span></a>
+    </nav>
+    <div class="menu__foot" style="--i:5">
+      <a class="btn btn--jade btn--wide" href="#prenota">Prenota ora</a>
+      <p class="menu__note" data-info="indirizzo">Cuneo (CN)</p>
+    </div>
+  </div>
+</div>
+
+<main id="main">
+
+<!-- ═════════════════ HERO ═════════════════ -->
+<section class="hero" id="top">
+  <div class="hero__media" data-parallax="0.18">
+    <div class="ph ph--hero" data-file="hero.jpg" data-what="Il salone o una foto del barbiere al lavoro"></div>
+    <picture>
+          <source type="image/webp" sizes="100vw" srcset="assets/img/hero-760.webp 760w, assets/img/hero-1080.webp 1080w, assets/img/hero-1400.webp 1400w">
+          <img width="1440" height="1800" decoding="async" src="assets/img/hero.jpg" alt="" fetchpriority="high" onerror="this.hidden=true">
+        </picture>
+    <div class="hero__grain" aria-hidden="true"></div>
+    <div class="hero__veil" aria-hidden="true"></div>
+  </div>
+
+  <div class="hero__in">
+    <h1 class="hero__title">
+      <span class="line"><span data-split>Hype</span></span>
+      <span class="line"><em data-split>Hair</em></span>
+    </h1>
+
+    <p class="hero__sub" data-reveal style="--d:.12s">
+      Un taglio non è un servizio. È un pezzo fatto su di te,
+      con la testa di chi ci mette la firma.
+    </p>
+
+    <div class="hero__acts" data-reveal style="--d:.22s">
+      <a class="btn btn--jade btn--lg" href="#prenota" data-magnetic>
+        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M7 3v3M17 3v3M3.5 9h17M5 6h14a1.5 1.5 0 0 1 1.5 1.5v11A1.5 1.5 0 0 1 19 20H5a1.5 1.5 0 0 1-1.5-1.5v-11A1.5 1.5 0 0 1 5 6Z"/><path d="m9 14 2 2 4-4"/></svg>
+        Prenota il tuo posto
+      </a>
+      <a class="btn btn--glass btn--lg" href="#vetrina" data-magnetic>Guarda i lavori</a>
+    </div>
+
+    <p class="hero__hint" data-reveal style="--d:.3s">
+      Scegli il servizio, scegli chi te lo taglia. <b>Meno di un minuto.</b>
+    </p>
+  </div>
+
+  <a class="hero__cue" href="#prenota" aria-label="Scorri"><span></span></a>
+</section>
+
+<!-- ═════════════════ PRENOTAZIONE — il fulcro ═════════════════ -->
+<section class="book" id="prenota">
+  <div class="book__glow" aria-hidden="true"></div>
+  <span class="book__mark" data-emblem data-spin="120" aria-hidden="true"></span>
+
+  <div class="wiz" data-reveal>
+    <!-- avanzamento: una barra e il conto dei passi, niente di più -->
+    <div class="wiz__top">
+      <div class="wiz__bar" aria-hidden="true"><i id="wizFill"></i></div>
+      <p class="wiz__count">Passo <b id="wizNum">1</b> di <span id="wizTot">6</span></p>
+    </div>
+
+    <!-- le risposte già date, per tornarci sopra con un tocco -->
+    <div class="crumbs" id="crumbs" aria-label="Le tue scelte"></div>
+
+    <div class="wiz__body">
+      <div class="wiz__panels" id="wizPanels">
+
+        <!-- 1 — di che si tratta -->
+        <section class="panel is-on" data-step="1" aria-label="Che tipo di servizio">
+          <h3 class="panel__q">Cosa ti serve?</h3>
+          <p class="panel__hint">Scegli il tipo, poi entriamo nel dettaglio.</p>
+          <div class="opts" id="catList"><!-- generato da main.js --></div>
+        </section>
+
+        <!-- 2 — quale servizio -->
+        <section class="panel" data-step="2" aria-label="Quale servizio" hidden>
+          <h3 class="panel__q">Quale, di preciso?</h3>
+          <p class="panel__hint" id="catEcho">&nbsp;</p>
+          <div class="opts" id="svcList"><!-- generato da main.js --></div>
+        </section>
+
+        <!-- 3 — con chi -->
+        <section class="panel" data-step="3" aria-label="Con quale barbiere" hidden>
+          <h3 class="panel__q">Con chi ti siedi?</h3>
+          <p class="panel__hint">Se ti va bene chiunque, scegli l'ultima.</p>
+          <div class="who" id="whoList">
+            <button class="who__card" type="button" data-who="JD">
+              <span class="who__img">
+                <img src="assets/img/barbiere-jd-240.webp" alt="" loading="lazy" onerror="this.hidden=true">
+              </span>
+              <b>JD</b>
+              <small>Fade &amp; hair tattoo</small>
+              <i class="who__tick" aria-hidden="true"></i>
+            </button>
+            <button class="who__card" type="button" data-who="Baudena">
+              <span class="who__img">
+                <span class="ph ph--who" data-file="barbiere-baudena.jpg"></span>
+                <img src="assets/img/barbiere-baudena.jpg" alt="" loading="lazy" onerror="this.hidden=true">
+              </span>
+              <b>Baudena</b>
+              <small>Forbice &amp; colore</small>
+              <i class="who__tick" aria-hidden="true"></i>
+            </button>
+            <button class="who__card who__card--any" type="button" data-who="Indifferente">
+              <span class="who__img who__img--any" aria-hidden="true">
+                <svg viewBox="0 0 24 24"><path d="M9 11a3.5 3.5 0 1 0 0-7 3.5 3.5 0 0 0 0 7Zm7.5 0a3 3 0 1 0 0-6 3 3 0 0 0 0 6ZM2 20a7 7 0 0 1 14 0M17 13.5c3 0 5 2.2 5 5.5"/></svg>
+              </span>
+              <b>Indifferente</b>
+              <small>Chi è libero prima</small>
+              <i class="who__tick" aria-hidden="true"></i>
+            </button>
+          </div>
+        </section>
+
+        <!-- 4 — che giorno -->
+        <section class="panel" data-step="4" aria-label="Che giorno" hidden>
+          <h3 class="panel__q">Che giorno?</h3>
+          <p class="panel__hint">I giorni spenti sono quelli di chiusura.</p>
+          <div class="cal">
+            <div class="cal__bar">
+              <button class="cal__nav" type="button" id="calPrev" aria-label="Mese precedente">‹</button>
+              <b id="calLabel">—</b>
+              <button class="cal__nav" type="button" id="calNext" aria-label="Mese successivo">›</button>
+            </div>
+            <div class="cal__dow" aria-hidden="true"><span>lun</span><span>mar</span><span>mer</span><span>gio</span><span>ven</span><span>sab</span><span>dom</span></div>
+            <div class="cal__grid" id="calGrid" role="grid" aria-label="Calendario"></div>
+          </div>
+        </section>
+
+        <!-- 5 — a che ora -->
+        <section class="panel" data-step="5" aria-label="A che ora" hidden>
+          <h3 class="panel__q">A che ora?</h3>
+          <p class="panel__hint" id="oraEcho">&nbsp;</p>
+          <div class="slots" id="slots"></div>
+        </section>
+
+        <!-- 6 — chi sei -->
+        <section class="panel" data-step="6" aria-label="I tuoi dati" hidden>
+          <h3 class="panel__q">Come ti chiami?</h3>
+          <p class="panel__hint">Servono solo per confermarti l'appuntamento.</p>
+
+          <form class="form" id="bookForm" novalidate>
+            <label class="field">
+              <span>Nome e cognome</span>
+              <input type="text" name="nome" id="fNome" autocomplete="name" required placeholder="Mario Rossi">
+            </label>
+            <label class="field">
+              <span>Telefono</span>
+              <input type="tel" name="tel" id="fTel" autocomplete="tel" required inputmode="tel" placeholder="333 1234567">
+            </label>
+            <label class="field field--full">
+              <span>Note <i>(facoltativo)</i></span>
+              <textarea name="note" id="fNote" rows="3" placeholder="Es. sfumatura bassa, barba corta, arrivo dopo il lavoro…"></textarea>
+            </label>
+            <p class="form__err" id="formErr" role="alert" hidden></p>
+            <button class="btn btn--jade btn--lg btn--wide" type="submit" id="fSend">Invia la richiesta</button>
+            <p class="form__legal">Ti risponde direttamente il salone. Nessun pagamento online.</p>
+          </form>
+        </section>
+      </div>
+
+      <!-- riepilogo (solo su schermo largo) -->
+      <aside class="sum" id="sum" aria-live="polite">
+        <span class="sum__cap">Riepilogo</span>
+        <dl class="sum__list">
+          <div><dt>Servizio</dt><dd id="sumSvc">—</dd></div>
+          <div><dt>Barbiere</dt><dd id="sumWho">—</dd></div>
+          <div><dt>Quando</dt><dd id="sumWhen">—</dd></div>
+          <div><dt>Durata</dt><dd id="sumDur">—</dd></div>
+        </dl>
+        <div class="sum__tot"><span>Totale</span><b id="sumTot">—</b></div>
+        <p class="sum__note">Si paga in salone, come sempre.</p>
+      </aside>
+    </div>
+
+    <div class="wiz__foot">
+      <button class="btn btn--ghost" type="button" id="wizBack" hidden>← Indietro</button>
+    </div>
+  </div>
+
+  <!-- esito -->
+  <div class="done" id="done" hidden>
+    <div class="done__in">
+      <span class="done__mark" data-emblem data-spin="0" aria-hidden="true"></span>
+      <span class="done__tick" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="m5 13 4.5 4.5L19 8"/></svg></span>
+      <h3>Richiesta pronta</h3>
+      <p id="doneMsg">Ti apriamo WhatsApp con il messaggio già scritto: mandalo e ricevi la conferma.</p>
+      <pre class="done__recap" id="doneRecap"></pre>
+      <div class="done__acts">
+        <a class="btn btn--jade btn--lg" id="doneWa" href="#">Apri WhatsApp</a>
+        <button class="btn btn--glass" type="button" id="doneCopy">Copia il messaggio</button>
+        <button class="btn btn--ghost" type="button" id="doneAgain">Ricomincia</button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═════════════════ MARCHIO A TUTTA PAGINA ═════════════════ -->
+<div class="sigillo" aria-hidden="true">
+  <!-- la trama a righe del marchio: sta dietro, e sfuma prima di toccare i bordi -->
+  <img class="sigillo__trama" alt="" loading="lazy" decoding="async"
+       width="1080" height="1920" sizes="100vw"
+       src="assets/img/trama-760.webp"
+       srcset="assets/img/trama-760.webp 760w, assets/img/trama-1080.webp 1080w">
+  <span class="sigillo__mark" data-emblem data-spin="90"></span>
+  <span class="sigillo__word">Hype Hair — Cuneo</span>
+</div>
+
+<!-- ═════════════════ VETRINA ═════════════════ -->
+<section class="sec" id="vetrina">
+  <header class="sec__head">
+    <span class="eyebrow" data-reveal>Vetrina</span>
+    <h2 class="h2" data-reveal style="--d:.06s">I pezzi usciti <em>dalla poltrona</em></h2>
+    <p class="sec__lead" data-reveal style="--d:.12s">Nessun filtro, nessuna posa. Solo teste vere, il giorno del taglio.</p>
+  </header>
+
+  <div class="gallery" id="gallery">
+
+    <!-- I reel arrivano dall'Instagram del salone: partono da soli, senza
+         audio, e solo quando entrano nello schermo. -->
+    <figure class="art art--3" data-reveal data-parallax="-0.04" data-lb>
+      <div class="frame">
+        <video class="art__video" data-src="assets/img/video-01.mp4"
+               muted loop playsinline preload="none" disablepictureinpicture></video>
+        <span class="art__no">01</span>
+        <span class="art__badge" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M8 5.5v13l11-6.5z"/></svg></span>
+        <figcaption class="art__cap"><b>In poltrona</b><span>dal nostro Instagram</span></figcaption>
+      </div>
+    </figure>
+
+    <figure class="art art--3 art--off" data-reveal style="--d:.06s" data-parallax="0.05" data-lb>
+      <div class="frame">
+        <picture>
+          <source type="image/webp" sizes="(min-width:900px) 44vw, (min-width:560px) 48vw, 100vw" srcset="assets/img/work-01-760.webp 760w, assets/img/work-01-1400.webp 1400w">
+          <img width="1440" height="1800" decoding="async" src="assets/img/work-01.jpg" alt="Mullet con sfumatura bassa e texture in cima" loading="lazy" onerror="this.hidden=true">
+        </picture>
+        <span class="art__no">02</span>
+        <figcaption class="art__cap"><b>Mullet &amp; taper</b><span>sfumatura bassa, texture in cima</span></figcaption>
+      </div>
+    </figure>
+
+    <figure class="art art--2" data-reveal data-parallax="-0.05" data-lb>
+      <div class="frame">
+        <picture>
+          <source type="image/webp" sizes="(min-width:900px) 30vw, (min-width:560px) 48vw, 100vw" srcset="assets/img/work-04-760.webp 760w, assets/img/work-04-1179.webp 1179w">
+          <img width="1179" height="1313" decoding="async" src="assets/img/work-04.jpg" alt="Treccine con schiariture bionde e linea frontale netta" loading="lazy" onerror="this.hidden=true">
+        </picture>
+        <span class="art__no">03</span>
+        <figcaption class="art__cap"><b>Treccine &amp; schiariture</b><span>linea frontale netta</span></figcaption>
+      </div>
+    </figure>
+
+    <figure class="art art--2" data-reveal data-parallax="-0.06" data-lb>
+      <div class="frame frame--4x3">
+        <picture>
+          <source type="image/webp" sizes="(min-width:900px) 30vw, (min-width:560px) 48vw, 100vw" srcset="assets/img/work-02-760.webp 760w, assets/img/work-02-1400.webp 1400w">
+          <img width="1440" height="1800" decoding="async" src="assets/img/work-02.jpg" alt="Frangia texturizzata con taper basso" loading="lazy" onerror="this.hidden=true">
+        </picture>
+        <span class="art__no">04</span>
+        <figcaption class="art__cap"><b>Frangia texturizzata</b><span>taper basso, linea pulita</span></figcaption>
+      </div>
+    </figure>
+
+    <figure class="art art--2" data-reveal style="--d:.06s" data-parallax="0.04" data-lb>
+      <div class="frame">
+        <video class="art__video" data-src="assets/img/video-03.mp4"
+               muted loop playsinline preload="none" disablepictureinpicture></video>
+        <span class="art__no">05</span>
+        <span class="art__badge" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M8 5.5v13l11-6.5z"/></svg></span>
+        <figcaption class="art__cap"><b>La sfumatura</b><span>macchinetta e rasoio</span></figcaption>
+      </div>
+    </figure>
+
+    <figure class="art art--3 art--off" data-reveal style="--d:.12s" data-parallax="0.06" data-lb>
+      <div class="frame">
+        <picture>
+          <source type="image/webp" sizes="(min-width:900px) 44vw, (min-width:560px) 48vw, 100vw" srcset="assets/img/work-05-760.webp 760w, assets/img/work-05-1179.webp 1179w">
+          <img width="1179" height="1336" decoding="async" src="assets/img/work-05.jpg" alt="Cornrows con righe dritte e contorni puliti" loading="lazy" onerror="this.hidden=true">
+        </picture>
+        <span class="art__no">06</span>
+        <figcaption class="art__cap"><b>Cornrows</b><span>righe dritte, contorni puliti</span></figcaption>
+      </div>
+    </figure>
+
+    <figure class="art art--3" data-reveal style="--d:.12s" data-parallax="-0.05" data-lb>
+      <div class="frame frame--4x3">
+        <video class="art__video" data-src="assets/img/video-04.mp4"
+               muted loop playsinline preload="none" disablepictureinpicture></video>
+        <span class="art__no">07</span>
+        <span class="art__badge" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M8 5.5v13l11-6.5z"/></svg></span>
+        <figcaption class="art__cap"><b>La rifinitura</b><span>il dettaglio che si nota</span></figcaption>
+      </div>
+    </figure>
+
+    <figure class="art art--3" data-reveal style="--d:.06s" data-parallax="-0.04" data-lb>
+      <div class="frame frame--4x3">
+        <picture>
+          <source type="image/webp" sizes="(min-width:900px) 44vw, (min-width:560px) 48vw, 100vw" srcset="assets/img/work-03-760.webp 760w, assets/img/work-03-1400.webp 1400w">
+          <img width="1440" height="1800" decoding="async" src="assets/img/work-03.jpg" alt="Locs con taper e linea frontale ridisegnata" loading="lazy" onerror="this.hidden=true">
+        </picture>
+        <span class="art__no">08</span>
+        <figcaption class="art__cap"><b>Locs &amp; taper</b><span>linea frontale ridisegnata</span></figcaption>
+      </div>
+    </figure>
+
+  </div>
+
+  <p class="gallery__more" data-reveal>
+    <a class="ilink" data-info="instagram-link" href="#prenota">Altre foto sul nostro Instagram →</a>
+  </p>
+</section>
+
+<!-- ═════════════════ NASTRO ═════════════════ -->
+<div class="ticker" aria-hidden="true">
+  <div class="ticker__track">
+    <span>Taglio <b>✦</b> Barba <b>✦</b> Hair tattoo <b>✦</b> Colore <b>✦</b> Sopracciglia <b>✦</b> Pulizia viso <b>✦</b> Taglio bimbo <b>✦</b></span>
+    <span>Taglio <b>✦</b> Barba <b>✦</b> Hair tattoo <b>✦</b> Colore <b>✦</b> Sopracciglia <b>✦</b> Pulizia viso <b>✦</b> Taglio bimbo <b>✦</b></span>
+  </div>
+</div>
+
+<!-- ═════════════════ BARBIERI ═════════════════ -->
+<section class="sec" id="barbieri">
+  <header class="sec__head">
+    <span class="eyebrow" data-reveal>Chi te lo taglia</span>
+    <h2 class="h2" data-reveal style="--d:.06s">Due mani, <em>due firme</em></h2>
+    <p class="sec__lead" data-reveal style="--d:.12s">Scegli tu con chi sederti. Se non hai preferenze, ti mettiamo con chi è libero prima.</p>
+  </header>
+
+  <div class="crew">
+    <article class="pro" data-reveal data-tilt>
+      <div class="pro__media">
+        <div class="ph ph--pro" data-file="barbiere-jd.jpg" data-what="Ritratto verticale di JD"></div>
+        <picture>
+          <source type="image/webp" sizes="(min-width:820px) 46vw, 100vw" srcset="assets/img/barbiere-jd-760.webp 760w, assets/img/barbiere-jd-1179.webp 1179w">
+          <img width="1179" height="1191" decoding="async" src="assets/img/barbiere-jd.jpg" alt="JD, barbiere da Hype Hair" loading="lazy" onerror="this.hidden=true">
+        </picture>
+        <span class="pro__badge">Barbiere</span>
+      </div>
+      <div class="pro__body">
+        <h3 class="pro__name">JD</h3>
+        <p class="pro__role" data-info="bio-jd">Fade, hair tattoo e disegni a mano libera.</p>
+        <ul class="pro__tags">
+          <li>Sfumature</li><li>Hair tattoo</li><li>Barba</li>
+        </ul>
+        <button class="btn btn--jade btn--wide" type="button" data-book-with="JD">Prenota con JD</button>
+      </div>
+    </article>
+
+    <article class="pro" data-reveal style="--d:.1s" data-tilt>
+      <div class="pro__media">
+        <div class="ph ph--pro" data-file="barbiere-baudena.jpg" data-what="Ritratto verticale di Baudena"></div>
+        <img src="assets/img/barbiere-baudena.jpg" alt="Baudena, barbiere da Hype Hair" loading="lazy" onerror="this.hidden=true">
+        <span class="pro__badge">Barbiere</span>
+      </div>
+      <div class="pro__body">
+        <h3 class="pro__name">Baudena</h3>
+        <p class="pro__role" data-info="bio-baudena">Taglio a forbice, classici e colore.</p>
+        <ul class="pro__tags">
+          <li>Forbice</li><li>Colore</li><li>Classici</li>
+        </ul>
+        <button class="btn btn--jade btn--wide" type="button" data-book-with="Baudena">Prenota con Baudena</button>
+      </div>
+    </article>
+  </div>
+</section>
+
+<!-- ═════════════════ LISTINO ═════════════════ -->
+<section class="sec" id="listino">
+  <header class="sec__head">
+    <span class="eyebrow" data-reveal>Listino</span>
+    <h2 class="h2" data-reveal style="--d:.06s">Tagli <em>&amp; prezzi</em></h2>
+    <p class="sec__lead" data-reveal style="--d:.12s">Prezzi chiari, quelli che paghi alla cassa. Tocca una voce per prenotarla.</p>
+  </header>
+
+  <!-- Da qui il modulo di prenotazione legge servizi, prezzi e durate:
+       modifica solo qui e cambia in tutti e due i posti. -->
+  <div class="price" id="priceList">
+    <div class="price__group" data-reveal>
+      <h3 class="price__cat">Capelli</h3>
+      <ul class="price__list">
+        <li data-service data-name="Taglio Base" data-price="20" data-dur="30" data-cat="Capelli">
+          <button type="button"><span class="price__n">Taglio Base</span><i class="price__dots"></i><span class="price__v">20 €</span></button>
+          <small>Macchinetta, sfumatura e styling.</small>
+        </li>
+        <li data-service data-name="Taglio Completo" data-price="25" data-dur="45" data-cat="Capelli">
+          <button type="button"><span class="price__n">Taglio Completo</span><i class="price__dots"></i><span class="price__v">25 €</span></button>
+          <small>Forbice, sfumatura, lavaggio e prodotti.</small>
+        </li>
+        <li data-service data-name="Taglio con Forbici" data-price="25" data-from="1" data-dur="45" data-cat="Capelli">
+          <button type="button"><span class="price__n">Taglio con Forbici</span><i class="price__dots"></i><span class="price__v">da 25 €</span></button>
+          <small>Tutto a forbice, per capelli medio-lunghi.</small>
+        </li>
+        <li data-service data-name="Taglio Bimbo" data-price="15" data-dur="30" data-cat="Capelli">
+          <button type="button"><span class="price__n">Taglio Bimbo</span><i class="price__dots"></i><span class="price__v">15 €</span></button>
+          <small>Da 8 a 13 anni.</small>
+        </li>
+        <li data-service data-name="Taglio Tattoo" data-price="28" data-from="1" data-dur="45" data-cat="Capelli">
+          <button type="button"><span class="price__n">Taglio Tattoo</span><i class="price__dots"></i><span class="price__v">da 28 €</span></button>
+          <small>Taglio più disegno inciso a mano libera.</small>
+        </li>
+        <li data-service data-name="Taglio Hair Tattoo" data-price="27" data-dur="45" data-cat="Capelli">
+          <button type="button"><span class="price__n">Taglio Hair Tattoo</span><i class="price__dots"></i><span class="price__v">27 €</span></button>
+          <small>Disegno singolo su taglio corto.</small>
+        </li>
+      </ul>
+    </div>
+
+    <div class="price__group" data-reveal style="--d:.08s">
+      <h3 class="price__cat">Barba &amp; viso</h3>
+      <ul class="price__list">
+        <li data-service data-name="Barba" data-price="8" data-dur="15" data-cat="Barba &amp; viso">
+          <button type="button"><span class="price__n">Barba</span><i class="price__dots"></i><span class="price__v">8 €</span></button>
+          <small>Regolata, contornata, panno caldo.</small>
+        </li>
+        <li data-service data-name="Sopracciglia" data-price="5" data-from="1" data-dur="10" data-cat="Barba &amp; viso">
+          <button type="button"><span class="price__n">Sopracciglia</span><i class="price__dots"></i><span class="price__v">da 5 €</span></button>
+          <small>Pulizia e definizione.</small>
+        </li>
+        <li data-service data-name="Pulizia Viso" data-price="35" data-dur="30" data-cat="Barba &amp; viso">
+          <button type="button"><span class="price__n">Pulizia Viso</span><i class="price__dots"></i><span class="price__v">35 €</span></button>
+          <small>Detersione, scrub e maschera.</small>
+        </li>
+        <li data-service data-name="Pulizia Viso con Vapore" data-price="40" data-dur="40" data-cat="Barba &amp; viso">
+          <button type="button"><span class="price__n">Pulizia Viso con Vapore</span><i class="price__dots"></i><span class="price__v">40 €</span></button>
+          <small>Con vaporizzatore, pelle più pulita a fondo.</small>
+        </li>
+      </ul>
+    </div>
+
+    <div class="price__group" data-reveal style="--d:.16s">
+      <h3 class="price__cat">Colore</h3>
+      <ul class="price__list">
+        <li data-service data-name="Colorazione" data-price="45" data-dur="60" data-cat="Colore">
+          <button type="button"><span class="price__n">Colorazione</span><i class="price__dots"></i><span class="price__v">45 €</span></button>
+          <small>Colore o tono su capelli.</small>
+        </li>
+        <li data-service data-name="Taglio &amp; Colorazione" data-price="65" data-dur="90" data-cat="Colore">
+          <button type="button"><span class="price__n">Taglio &amp; Colorazione</span><i class="price__dots"></i><span class="price__v">65 €</span></button>
+          <small>Il pacchetto completo, una seduta sola.</small>
+        </li>
+        <li data-service data-name="Colorazione Barba" data-price="35" data-dur="30" data-cat="Colore">
+          <button type="button"><span class="price__n">Colorazione Barba</span><i class="price__dots"></i><span class="price__v">35 €</span></button>
+          <small>Copertura naturale del bianco.</small>
+        </li>
+      </ul>
+    </div>
+  </div>
+
+  <p class="price__note" data-reveal>I prezzi con “da” variano in base a lunghezza e lavoro richiesto: te lo diciamo prima di iniziare, mai dopo.</p>
+</section>
+
+<!-- ═════════════════ DOVE ═════════════════ -->
+<section class="sec" id="dove">
+  <header class="sec__head">
+    <span class="eyebrow" data-reveal>Dove siamo</span>
+    <h2 class="h2" data-reveal style="--d:.06s">Passa a <em>trovarci</em></h2>
+  </header>
+
+  <figure class="posto" data-reveal>
+    <picture>
+          <source type="image/webp" sizes="(min-width:1240px) 1160px, 100vw" srcset="assets/img/atelier-760.webp 760w, assets/img/atelier-1080.webp 1080w, assets/img/atelier-1179.webp 1179w">
+          <img width="1179" height="1457" decoding="async" src="assets/img/atelier.jpg" alt="L'interno di Hype Hair: le sneaker in vetrina e le postazioni" loading="lazy" onerror="this.hidden=true">
+        </picture>
+    <figcaption>Il salone, com'è davvero</figcaption>
+  </figure>
+
+  <div class="info">
+    <div class="info__card" data-reveal>
+      <div class="open" id="openState"><b class="open__dot"></b><span id="openText">—</span></div>
+      <ul class="hours" id="hours"></ul>
+      <p class="info__note">Solo su appuntamento: gli slot del sabato spariscono per primi.</p>
+    </div>
+
+    <div class="info__card" data-reveal style="--d:.08s">
+      <h3 class="info__t">Hype Hair</h3>
+      <p class="info__addr" data-info="indirizzo-full">Cuneo (CN)<br><i>indirizzo da inserire</i></p>
+      <div class="info__acts">
+        <a class="btn btn--jade" href="#prenota">Prenota</a>
+        <a class="btn btn--glass" data-info="tel-link" href="#prenota">Chiama il salone</a>
+      </div>
+      <a class="ilink" data-info="instagram-link" href="#prenota">Instagram →</a>
+    </div>
+
+    <div class="map" data-reveal style="--d:.16s">
+      <button class="map__facade" id="mapBtn" type="button">
+        <span class="map__pin" aria-hidden="true"></span>
+        <b>Apri la mappa</b>
+        <span data-info="indirizzo">Cuneo (CN)</span>
+      </button>
+    </div>
+  </div>
+</section>
+
+<!-- ═════════════════ CHIUSURA ═════════════════ -->
+<section class="final">
+  <div class="final__media" data-parallax="0.1">
+    <picture>
+          <source type="image/webp" sizes="100vw" srcset="assets/img/finale-760.webp 760w, assets/img/finale-1080.webp 1080w, assets/img/finale-1179.webp 1179w">
+          <img width="1179" height="1212" decoding="async" src="assets/img/finale.jpg" alt="" loading="lazy" onerror="this.hidden=true">
+        </picture>
+  </div>
+  <span class="final__mark" data-emblem data-spin="200" aria-hidden="true"></span>
+  <div class="final__in">
+    <h2 class="h2" data-reveal>La poltrona <em>è libera</em></h2>
+    <p data-reveal style="--d:.08s">Scegli servizio, barbiere e orario. Al resto pensiamo noi.</p>
+    <a class="btn btn--jade btn--lg" href="#prenota" data-reveal style="--d:.16s" data-magnetic>Prenota adesso</a>
+  </div>
+</section>
+
+</main>
+
+<!-- ═════════════════ FOOTER ═════════════════ -->
+<footer class="foot">
+  <div class="foot__top">
+    <span class="foot__logo"><i class="foot__mark" data-emblem data-spin="0" aria-hidden="true"></i>Hype Hair</span>
+    <nav class="foot__nav" aria-label="Link utili">
+      <a href="#vetrina">Vetrina</a>
+      <a href="#barbieri">Barbieri</a>
+      <a href="#listino">Listino</a>
+      <a href="#prenota">Prenota</a>
+    </nav>
+  </div>
+  <div class="foot__bot">
+    <span>© <span id="year">2026</span> Hype Hair · Cuneo (CN)</span>
+    <span class="foot__cred">Sito di Hype Hair</span>
+  </div>
+</footer>
+
+<!-- Barra fissa: bassa, e dice sempre cosa stai per prenotare. -->
+<div class="dock" id="dock">
+  <div class="dock__info">
+    <b id="dockTitle">Prenota il tuo posto</b>
+    <span id="dockMeta">servizio, barbiere, orario</span>
+  </div>
+  <a class="dock__go" href="#prenota" id="dockGo">
+    Prenota
+    <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h13m-5-6 6 6-6 6"/></svg>
+  </a>
+</div>
+
+<!-- lightbox vetrina -->
+<div class="lb" id="lb" hidden>
+  <button class="lb__close" id="lbClose" type="button" aria-label="Chiudi">×</button>
+  <button class="lb__nav lb__nav--prev" id="lbPrev" type="button" aria-label="Precedente">‹</button>
+  <figure class="lb__fig" id="lbFig"></figure>
+  <button class="lb__nav lb__nav--next" id="lbNext" type="button" aria-label="Successiva">›</button>
+</div>
+
+<div class="toast" id="toast" role="status" aria-live="polite"></div>
+
+<script src="assets/js/main.js"></script>
+</body>
+</html>
