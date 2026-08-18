@@ -21,10 +21,11 @@ quattro reel e la GIF del marchio animato.
 | `atelier.jpg` | sezione "Dove siamo" |
 | `finale.jpg` | sfondo dell'ultimo invito a prenotare |
 | `video-01.mp4` `video-03.mp4` `video-04.mp4` | vetrina, partono da soli senza audio |
-| `video-02.mp4` | sfondo a tutta pagina della frase |
+| `video-02.mp4` | per ora fuori dal sito (la frase a tutta pagina non c'è più) |
 | `marchio.gif` | riserva del marchio (resta come rete di sicurezza) |
 | `IMG_4511.GIF` | il marchio che gira: è **questo** che si vede in sei punti del sito |
 | `IMG_4510.JPG` | la trama a righe verdi dietro al marchio di metà pagina |
+| `video-02.mp4` | per ora non usato |
 
 **Manca ancora** (il posto nel sito c'è già, aspetta solo il file):
 
@@ -112,6 +113,16 @@ nella sezione Barbieri e il barbiere è già scelto.
 fine compare un bottone "Aggiungi al calendario" che scarica l'appuntamento
 e lo infila in quello del telefono, iPhone e Android uguale. È mezz'ora di
 lavoro, si fa quando il resto è definitivo.
+
+### Quanto è pieno un giorno
+
+Nel calendario ogni giorno si riempie dal basso in proporzione a quanti
+orari sono già andati: pillola vuota vuol dire giornata intera davanti,
+pillola piena vuol dire che non c'è più posto — e quel giorno non si può
+nemmeno scegliere. **Attenzione:** finché il sito non è collegato a
+un'agenda vera, "pieno" può voler dire solo "già passato". Oggi alle sette
+di sera la pillola di oggi è piena; domani è vuota anche se avete l'agenda
+piena di appuntamenti. Quando collegherete l'agenda, il disegno è già lì.
 
 ### Attenzione: gli orari proposti non sanno chi è già prenotato
 

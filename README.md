@@ -35,7 +35,7 @@ Misurato con Chromium su un telefono simulato (390 px, DPR 3):
 
 | | Apertura | Chi va dritto a prenotare | Tutta la pagina |
 |---|---|---|---|
-| **Ora** | 611 KB · LCP 1,4 s | 611 KB | 22 MB (i quattro reel) |
+| **Ora** | 607 KB · LCP 1,5 s | 664 KB | 12,5 MB (i tre reel) |
 | Prima | 2,7 MB · LCP 14 s | — | 24 MB |
 
 Come:
@@ -46,8 +46,9 @@ Come:
   tagli di Cormorant, solo latino): niente CSS di terze parti che blocca
   il primo render — da solo valeva 12 secondi di LCP
 - **Marchio animato** da GIF 2,4 MB a un'unica copia WebP da 199 KB,
-  ritagliata a 200 px, un fotogramma sì e uno no, condivisa da tutti e sei
-  gli emblemi: si scarica una volta sola, all'apertura, e poi è già in cache.
+  ritagliata a 200 px, un fotogramma sì e uno no, senza il fotogramma nero
+  che la GIF aveva in testa (era lui a far sembrare che l'animazione si
+  fermasse a ogni giro), condivisa da tutti e sei gli emblemi: si scarica una volta sola, all'apertura, e poi è già in cache.
   Il fondo nero non c'è più: l'alfa è ricavata dalla luce del vetro, così il
   marchio si appoggia su qualunque sfondo senza trucchi di fusione
 - **Video** con `src` agganciato solo in prossimità e **annullato** se ci
@@ -100,6 +101,16 @@ Come:
   sopra le foto, che restano scuri di proposito (`--su-foto` per il testo
   che ci sta sopra). Sul chiaro il marchio torna dentro al suo disco nero,
   perché `mix-blend-mode: screen` su carta lo cancellerebbe.
+- **Il calendario dice quanto è pieno un giorno.** Ogni pillola si riempie
+  dal basso in proporzione agli orari già andati; un giorno colmo è un
+  cerchio pieno, spento e non toccabile. Il colore del riempimento è neutro
+  di proposito: il verde vuol dire "c'è posto", e riempire di verde un
+  giorno pieno direbbe il contrario. Finché non c'è un'agenda vera "pieno"
+  può voler dire solo "già passato".
+- **Il bottone verde ha la profondità di un'icona iOS**: filo di luce in
+  alto, ombra corta che lo appoggia, bagliore lungo sotto; alla pressione
+  scende di scatto e risale con la molla. Luce e ombra sono veli neutri
+  sopra al verde di sistema, così il bottone regge in tutte e due le versioni.
 - **Animazioni sobrie**: comparse allo scroll, parallasse leggera, testo che
   si accende parola per parola, schede che si impilano. Tutto disattivato
   automaticamente con `prefers-reduced-motion`.

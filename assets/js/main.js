@@ -264,38 +264,7 @@ $$('[data-split]').forEach(el => {
 })();
 
 /* ============================================================
-   5 — Manifesto: parole che si accendono
-   ============================================================ */
-(function parole(){
-  const blocchi = $$('[data-words]');
-  if (!blocchi.length) return;
-
-  blocchi.forEach(b => {
-    const parole = b.textContent.trim().split(/\s+/);
-    b.textContent = '';
-    parole.forEach(p => {
-      const s = document.createElement('span');
-      s.className = 'w';
-      s.textContent = p + ' ';
-      b.appendChild(s);
-    });
-  });
-
-  const aggiorna = () => {
-    blocchi.forEach(b => {
-      const r = b.getBoundingClientRect();
-      // avanzamento: da quando entra dal basso a quando esce in alto
-      const avanz = (innerHeight * .85 - r.top) / (innerHeight * .55 + r.height * .5);
-      const w = $$('.w', b);
-      const q = Math.round(Math.max(0, Math.min(1, avanz)) * w.length);
-      w.forEach((el, i) => el.classList.toggle('is-lit', i < q));
-    });
-  };
-  loopScroll(aggiorna);
-})();
-
-/* ============================================================
-   6 — Parallasse: le foto scorrono più lente del testo
+   5 — Parallasse: le foto scorrono più lente del testo
    ============================================================ */
 (function parallasse(){
   if (RIDOTTO) return;
@@ -314,35 +283,7 @@ $$('[data-split]').forEach(el => {
 })();
 
 /* ============================================================
-   7 — Numeri che salgono
-   ============================================================ */
-(function numeri(){
-  const io = new IntersectionObserver((voci) => {
-    voci.forEach(v => {
-      if (!v.isIntersecting) return;
-      const el = v.target;
-      io.unobserve(el);
-      const fine = parseFloat(el.dataset.count);
-      const dec  = parseInt(el.dataset.dec || 0, 10);
-      const suf  = el.dataset.suffix || '';
-      if (RIDOTTO) { el.textContent = fine.toFixed(dec) + suf; return; }
-
-      const durata = 1400, t0 = performance.now();
-      const step = (t) => {
-        const p = Math.min(1, (t - t0) / durata);
-        const e = 1 - Math.pow(1 - p, 3);
-        el.textContent = (fine * e).toFixed(dec).replace('.', ',') + suf;
-        if (p < 1) requestAnimationFrame(step);
-      };
-      requestAnimationFrame(step);
-    });
-  }, { threshold:.5 });
-
-  $$('[data-count]').forEach(el => io.observe(el));
-})();
-
-/* ============================================================
-   8 — Cursore, magnetici, inclinazione
+   6 — Cursore, magnetici, inclinazione
    ============================================================ */
 (function tocchiFini(){
   if (RIDOTTO || !matchMedia('(hover:hover) and (pointer:fine)').matches) return;
@@ -396,7 +337,7 @@ $$('[data-split]').forEach(el => {
 })();
 
 /* ============================================================
-   8bis — I video della vetrina
+   6bis — I video della vetrina
    Pesano: non si scaricano finché non stanno per entrare nello schermo,
    partono da soli senza audio e si fermano appena escono.
    ============================================================ */
@@ -443,7 +384,7 @@ $$('[data-split]').forEach(el => {
 })();
 
 /* ============================================================
-   9 — Vetrina a schermo intero
+   7 — Vetrina a schermo intero
    ============================================================ */
 (function lightbox(){
   const lb = $('#lb'), fig = $('#lbFig');
@@ -515,7 +456,7 @@ $$('[data-split]').forEach(el => {
 })();
 
 /* ============================================================
-   10 — Orari e "aperto adesso"
+   8 — Orari e "aperto adesso"
    ============================================================ */
 function fasceDi(d){ return CONFIG.orari[d] || null; }
 
@@ -564,7 +505,7 @@ function inMin(hhmm){
 }
 
 /* ============================================================
-   11 — Mappa (si carica solo se la chiedi)
+   9 — Mappa (si carica solo se la chiedi)
    ============================================================ */
 (function mappa(){
   const btn = $('#mapBtn');
@@ -582,7 +523,7 @@ function inMin(hhmm){
 })();
 
 /* ============================================================
-   12 — Contatti nel documento
+   10 — Contatti nel documento
    ============================================================ */
 (function contatti(){
   const wa = CONFIG.whatsapp.replace(/\D/g, '');
@@ -615,7 +556,7 @@ function inMin(hhmm){
 $('#year').textContent = new Date().getFullYear();
 
 /* ============================================================
-   13 — PRENOTAZIONE: il cuore del sito
+   11 — PRENOTAZIONE: il cuore del sito
    ============================================================ */
 (function prenota(){
 
@@ -635,7 +576,7 @@ $('#year').textContent = new Date().getFullYear();
   const panels  = $$('#wizPanels .panel');
   const btnBack = $('#wizBack');
 
-  /* ---------- 13.1 primo passo: di che si tratta ---------- */
+  /* ---------- 11.1 primo passo: di che si tratta ---------- */
   const cats = [...new Set(SERVIZI.map(s => s.cat))];
   const catBox = $('#catList');
 
@@ -659,7 +600,7 @@ $('#year').textContent = new Date().getFullYear();
     catBox.appendChild(b);
   });
 
-  /* ---------- 13.2 secondo passo: quale servizio ---------- */
+  /* ---------- 11.2 secondo passo: quale servizio ---------- */
   const svcBox = $('#svcList');
 
   function disegnaServizi(){
@@ -703,7 +644,7 @@ $('#year').textContent = new Date().getFullYear();
     });
   });
 
-  /* ---------- 13.3 terzo passo: il barbiere ---------- */
+  /* ---------- 11.3 terzo passo: il barbiere ---------- */
   const whoBox = $('#whoList');
   $$('.who__card', whoBox).forEach(c => {
     c.addEventListener('click', () => {
@@ -727,7 +668,7 @@ $('#year').textContent = new Date().getFullYear();
     });
   });
 
-  /* ---------- 13.4 quarto passo: il giorno ---------- */
+  /* ---------- 11.4 quarto passo: il giorno ---------- */
   const grid = $('#calGrid'), label = $('#calLabel');
   const oggi = new Date(); oggi.setHours(0, 0, 0, 0);
   const ultimo = new Date(oggi); ultimo.setDate(ultimo.getDate() + CONFIG.giorniMax);
@@ -775,10 +716,22 @@ $('#year').textContent = new Date().getFullYear();
       const chiuso  = !fasceDi(d.getDay());
       const passato = d < oggi;
       const troppo  = d > ultimo;
-      const pieno   = !chiuso && !passato && !troppo && !orariDi(d).some(o => o.ok);
-      if (chiuso || passato || troppo || pieno) {
+
+      // Quanti orari restano su quanti ne ha quel giorno: è questo che
+      // riempie la pillola. Finché non c'è un'agenda vera, "pieno" vuol dire
+      // "già passato": oggi alle sette di sera il giorno è quasi tutto andato.
+      const ore    = (chiuso || passato || troppo) ? [] : orariDi(d);
+      const liberi = ore.filter(o => o.ok).length;
+      const colmo  = ore.length > 0 && liberi === 0;
+      if (ore.length) {
+        b.style.setProperty('--pieno', (1 - liberi / ore.length).toFixed(2));
+        b.title = liberi ? `${liberi} orari liberi su ${ore.length}` : 'Non c\'è più posto';
+        if (colmo) b.classList.add('is-colmo');
+      }
+
+      if (chiuso || passato || troppo || colmo) {
         b.disabled = true;
-        b.title = chiuso ? 'Chiuso' : pieno ? 'Per oggi non c\'è più posto' : '';
+        if (chiuso) b.title = 'Chiuso';
       } else {
         b.addEventListener('click', () => {
           stato.giorno = d;
@@ -803,7 +756,7 @@ $('#year').textContent = new Date().getFullYear();
   $('#calNext').addEventListener('click', () => { mese.setMonth(mese.getMonth() + 1); disegnaMese(); });
   disegnaMese();
 
-  /* ---------- 13.5 quinto passo: l'orario ---------- */
+  /* ---------- 11.5 quinto passo: l'orario ---------- */
   function disegnaOrari(){
     const box = $('#slots');
     box.innerHTML = '';
@@ -841,7 +794,7 @@ $('#year').textContent = new Date().getFullYear();
     }
   }
 
-  /* ---------- 13.6 muoversi fra i passi ---------- */
+  /* ---------- 11.6 muoversi fra i passi ---------- */
   function segna(box, scelto, sel = '.opt'){
     $$(sel, box).forEach(x => x.classList.toggle('is-on', x === scelto));
   }
@@ -909,7 +862,7 @@ $('#year').textContent = new Date().getFullYear();
 
   btnBack.addEventListener('click', () => vaiA(stato.step - 1));
 
-  /* ---------- 13.7 riepilogo e barra ---------- */
+  /* ---------- 11.7 riepilogo e barra ---------- */
   function quando(){
     if (!stato.giorno) return null;
     const d = stato.giorno.toLocaleDateString('it-IT', { weekday:'long', day:'numeric', month:'long' });
@@ -954,7 +907,7 @@ $('#year').textContent = new Date().getFullYear();
   }
   vaiA(1);
 
-  /* ---------- 13.8 invio ---------- */
+  /* ---------- 11.8 invio ---------- */
   $('#bookForm').addEventListener('submit', e => {
     e.preventDefault();
     const nome = $('#fNome').value.trim();
@@ -1048,7 +1001,7 @@ Confermate voi? Grazie!`;
 })();
 
 /* ============================================================
-   14 — Messaggini
+   12 — Messaggini
    ============================================================ */
 let _toastT;
 function toast(msg){
