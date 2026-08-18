@@ -124,15 +124,16 @@ $$('[data-split]').forEach(el => {
         </g>
       </g>`;
 
-  // Il marchio vero (video o GIF) va solo sugli emblemi grandi: sui
-  // tondini piccoli resta il disegno, che è più nitido e non pesa nulla.
-  // Video e immagine vanno in "screen": il fondo sparisce e resta il verde.
-  const corpo = (ricco) => `
+  // Il marchio è quello vero, ovunque: il disegno SVG qui sotto resta
+  // solo come rete di sicurezza se il file non si carica.
+  // "screen" toglie il fondo e lascia il vetro verde.
+  // Gli emblemi piccoli (nav, footer, apertura) prendono una copia
+  // ridotta: alla stessa vista pesa la metà.
+  const corpo = (grande) => `
     <span class="emblem__halo"></span>
     <span class="emblem__body">
-      ${ricco ? `<video class="emblem__video" src="assets/img/marchio.mp4"
-             autoplay muted loop playsinline preload="metadata" disablepictureinpicture></video>
-      <img class="emblem__img" src="assets/img/marchio.webp" alt="" loading="lazy" decoding="async">` : ''}
+      <img class="emblem__img" alt="" decoding="async"
+           ${grande ? 'loading="lazy" src="assets/img/marchio.webp"' : 'src="assets/img/marchio-220.webp"'}>
       <svg class="emblem__svg" viewBox="0 0 200 200" aria-hidden="true">
         ${anello(1, 0,  1,   15)}
         ${anello(2, 30, .93, 17)}
@@ -143,34 +144,24 @@ $$('[data-split]').forEach(el => {
   const tutti = $$('[data-emblem]');
   tutti.forEach(el => {
     el.classList.add('emblem');
-    el.innerHTML = corpo(el.hasAttribute('data-video'));
+    el.innerHTML = corpo(el.hasAttribute('data-grande'));
   });
 
-  // con la linea lenta l'emblema animato non si scarica: resta il disegno
+  // con la linea lenta il marchio animato non si scarica: resta il disegno
   const rete = navigator.connection || {};
   if (rete.saveData === true || /^([23]g|slow-2g)$/.test(rete.effectiveType || '')) {
-    $$('.emblem__video, .emblem__img').forEach(el => el.hidden = true);
+    $$('.emblem__img').forEach(el => el.hidden = true);
   }
 
-  // niente video? si scende alla GIF; niente GIF? si prova il PNG;
-  // se manca tutto resta il disegno, e non si vede nessun buco
-  $$('.emblem__video').forEach(v => v.addEventListener('error', () => v.hidden = true));
+  // se il WebP non passa si prova la GIF, poi il PNG, poi resta il disegno
   $$('.emblem__img').forEach(img => {
     img.addEventListener('error', () => {
-      if (img.src.endsWith('.webp')) img.src = 'assets/img/marchio.gif';
+      if (img.src.includes('marchio-220')) img.src = 'assets/img/marchio.webp';
+      else if (img.src.endsWith('.webp')) img.src = 'assets/img/marchio.gif';
       else if (img.src.endsWith('.gif')) img.src = 'assets/img/marchio.png';
       else img.hidden = true;
     });
   });
-
-  // fuori dallo schermo il video si ferma: batteria e CPU ringraziano
-  const video = $$('.emblem__video');
-  if (video.length) {
-    const io = new IntersectionObserver(voci => {
-      voci.forEach(v => v.isIntersecting ? v.target.play?.().catch(() => {}) : v.target.pause?.());
-    }, { rootMargin:'120px' });
-    video.forEach(v => io.observe(v));
-  }
 
   // quelli con data-spin girano seguendo lo scroll
   const mobili = tutti.filter(el => parseFloat(el.dataset.spin) > 0);

@@ -256,7 +256,6 @@ body.cursor-hot .cursor__ring{ width:56px; height:56px; background:rgba(242,238,
   transition:opacity .6s var(--e-out), transform .6s var(--e-out), color .3s;
   transition-delay:calc(var(--i) * .05s);
 }
-.menu__links a i{ font-family:var(--ff-sans); font-style:normal; font-size:.72rem; color:var(--muted); letter-spacing:.15em; }
 .menu.is-open .menu__links a,
 .menu.is-open .menu__foot{ opacity:1; transform:none; }
 .menu__links a:hover{ color:var(--sand); opacity:.7; }
@@ -336,19 +335,18 @@ body.cursor-hot .cursor__ring{ width:56px; height:56px; background:rgba(242,238,
 .emblem__body{ position:absolute; inset:0; animation:embGira 44s linear infinite; }
 /* "screen" toglie il nero: sullo schermo resta solo l'elemento verde,
    qualunque sia il fondo del file di partenza. */
-.emblem video,
 .emblem img{
   width:100%; height:100%; object-fit:cover;   /* ritaglia al centro: via i bordi */
   mix-blend-mode:screen;                       /* il fondo sparisce, resta il verde */
   background:none;
+  /* il fondo del file non è nero pieno: senza questa sfumatura ai bordi
+     si vedrebbe il quadrato dell'immagine sopra al nero della pagina */
+  -webkit-mask-image:radial-gradient(circle at 50% 50%, #000 58%, transparent 78%);
+          mask-image:radial-gradient(circle at 50% 50%, #000 58%, transparent 78%);
 }
-.emblem video{ pointer-events:none; }
-/* prima il video, poi il PNG, poi il disegno: vince il primo che c'è */
-.emblem video:not([hidden]) ~ .emblem__img,
-.emblem video:not([hidden]) ~ .emblem__svg,
+/* col marchio vero il disegno di riserva si fa da parte */
 .emblem__img:not([hidden]) ~ .emblem__svg{ display:none; }
 /* col file vero il marchio si muove già da sé: niente rotazione aggiunta */
-.emblem:has(video:not([hidden])) .emblem__body,
 .emblem:has(.emblem__img:not([hidden])) .emblem__body{ animation:none; }
 .emblem__svg{ position:absolute; inset:0; width:100%; height:100%; }
 .emblem__r{ transform-box:fill-box; transform-origin:50% 50%; }
@@ -411,16 +409,6 @@ body.cursor-hot .cursor__ring{ width:56px; height:56px; background:rgba(242,238,
 }
 
 .hero__in{ position:relative; z-index:4; max-width:min(100%,780px); }
-
-.chip{
-  display:inline-flex; align-items:center; gap:.55rem;
-  padding:.4rem .9rem; border-radius:999px;
-  border:1px solid var(--line); background:var(--glass);
-  backdrop-filter:blur(10px);
-  font-size:.78rem; color:var(--sand-2); letter-spacing:.02em;
-}
-.chip__dot{ width:7px; height:7px; border-radius:50%; background:var(--jade); animation:pulse 2.6s infinite; }
-@keyframes pulse{ 0%,100%{ opacity:1; transform:scale(1) } 50%{ opacity:.35; transform:scale(.75) } }
 
 .hero__title{
   margin:.9rem 0 1.1rem;
@@ -1220,7 +1208,6 @@ body.cursor-hot .cursor__ring{ width:56px; height:56px; background:rgba(242,238,
     backdrop-filter:none; -webkit-backdrop-filter:none;
     background:rgba(8,8,8,.6);
   }
-  .chip{ backdrop-filter:none; -webkit-backdrop-filter:none; background:rgba(20,20,19,.6); }
   .btn--glass{ backdrop-filter:none; -webkit-backdrop-filter:none; }
   .pro__badge{ backdrop-filter:none; -webkit-backdrop-filter:none; background:rgba(8,8,8,.7); }
   /* meno livelli composti da tenere in memoria mentre si scorre */
