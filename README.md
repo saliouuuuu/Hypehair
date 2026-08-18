@@ -56,10 +56,12 @@ Come:
 
 ## Com'è fatto
 
-- **La prenotazione è il centro del sito.** Quattro passi — servizio,
-  barbiere (JD / Baudena / indifferente), giorno e ora, contatti — con
-  riepilogo sempre visibile. In fondo produce un messaggio WhatsApp già
-  scritto per il salone.
+- **La prenotazione è il centro del sito**, ed è costruita come un
+  onboarding: **una domanda per schermata** — tipo di servizio, servizio,
+  barbiere, giorno, ora, contatti — con avanzamento automatico appena si
+  risponde, nessun bottone "avanti", e le risposte date che restano in alto
+  come targhette da toccare per correggerle. In fondo produce un messaggio
+  WhatsApp già scritto per il salone.
 - **Una sola fonte per i prezzi.** Il modulo di prenotazione legge servizi,
   prezzi e durate dal listino in `index.html` (`data-service`, `data-price`,
   `data-dur`): si aggiorna in un posto solo.

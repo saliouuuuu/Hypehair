@@ -601,60 +601,88 @@ $('#year').textContent = new Date().getFullYear();
     li
   }));
 
-  const stato = { svc:null, who:null, giorno:null, ora:null, step:1 };
+  const PASSI = 6;
+  const stato = { cat:null, svc:null, who:null, giorno:null, ora:null, step:1 };
 
   const panels  = $$('#wizPanels .panel');
-  const tappe   = $$('#wizSteps li');
-  const btnNext = $('#wizNext'), btnBack = $('#wizBack');
+  const btnBack = $('#wizBack');
 
-  /* ---------- 13.1 elenco servizi ---------- */
-  const cont = $('#svcList');
-  const perCat = {};
-  SERVIZI.forEach(s => (perCat[s.cat] ||= []).push(s));
+  /* ---------- 13.1 primo passo: di che si tratta ---------- */
+  const cats = [...new Set(SERVIZI.map(s => s.cat))];
+  const catBox = $('#catList');
 
-  Object.entries(perCat).forEach(([cat, lista]) => {
-    const g = document.createElement('div');
-    g.innerHTML = `<p class="svc__cat">${cat}</p><div class="svc__row"></div>`;
-    const row = $('.svc__row', g);
-    lista.forEach(s => {
+  cats.forEach(cat => {
+    const lista = SERVIZI.filter(s => s.cat === cat);
+    const min = Math.min(...lista.map(s => s.prezzo));
+    const b = document.createElement('button');
+    b.type = 'button';
+    b.className = 'opt';
+    b.innerHTML = `<b>${cat}</b>
+      <span>${lista.slice(0,3).map(s => s.nome).join(' · ')}${lista.length > 3 ? '…' : ''}</span>
+      <i>da ${min} €</i>`;
+    b.addEventListener('click', () => {
+      stato.cat = cat;
+      if (stato.svc && stato.svc.cat !== cat) scegliServizio(null);
+      disegnaServizi();
+      segna(catBox, b);
+      avanza();
+    });
+    b.dataset.cat = cat;
+    catBox.appendChild(b);
+  });
+
+  /* ---------- 13.2 secondo passo: quale servizio ---------- */
+  const svcBox = $('#svcList');
+
+  function disegnaServizi(){
+    svcBox.innerHTML = '';
+    $('#catEcho').textContent = stato.cat || '\u00a0';
+    SERVIZI.filter(s => s.cat === stato.cat).forEach(s => {
       const b = document.createElement('button');
       b.type = 'button';
-      b.className = 'svc__btn';
-      b.innerHTML = `<b>${s.nome}</b><span>${s.da ? 'da ' : ''}${s.prezzo} € · ${s.dur} min</span>`;
-      b.addEventListener('click', () => scegliServizio(s));
-      s.btn = b;
-      row.appendChild(b);
+      b.className = 'opt';
+      b.innerHTML = `<b>${s.nome}</b><span>${s.dur} minuti</span>
+                     <i>${s.da ? 'da ' : ''}${s.prezzo} €</i>`;
+      if (stato.svc === s) b.classList.add('is-on');
+      b.addEventListener('click', () => {
+        scegliServizio(s);
+        segna(svcBox, b);
+        avanza();
+      });
+      svcBox.appendChild(b);
     });
-    cont.appendChild(g);
-  });
+  }
 
   function scegliServizio(s){
     stato.svc = s;
-    SERVIZI.forEach(x => {
-      x.btn.classList.toggle('is-on', x === s);
-      x.li.classList.toggle('is-picked', x === s);
-    });
+    SERVIZI.forEach(x => x.li.classList.toggle('is-picked', x === s));
     stato.ora = null;                 // la durata cambia: gli orari vanno rifatti
     if (stato.giorno) disegnaOrari();
     aggiorna();
   }
 
-  // dal listino: tocchi un prezzo e parte la prenotazione
+  // dal listino: tocchi un prezzo e la prenotazione riparte da "con chi"
   SERVIZI.forEach(s => {
     $('button', s.li).addEventListener('click', () => {
+      stato.cat = s.cat;
+      disegnaServizi();
       scegliServizio(s);
-      vaiA(2);
-      $('#prenota').scrollIntoView({ behavior: RIDOTTO ? 'auto' : 'smooth', block:'start' });
+      $$('.opt', catBox).forEach(x => x.classList.toggle('is-on', x.dataset.cat === s.cat));
+      $$('.opt', svcBox).forEach(x => x.classList.toggle('is-on', $('b', x).textContent === s.nome));
+      vaiA(3);
+      portaSu();
       toast(`${s.nome} selezionato`);
     });
   });
 
-  /* ---------- 13.2 barbiere ---------- */
-  $$('#whoList .who__card').forEach(c => {
+  /* ---------- 13.3 terzo passo: il barbiere ---------- */
+  const whoBox = $('#whoList');
+  $$('.who__card', whoBox).forEach(c => {
     c.addEventListener('click', () => {
       stato.who = c.dataset.who;
-      $$('#whoList .who__card').forEach(x => x.classList.toggle('is-on', x === c));
+      segna(whoBox, c, '.who__card');
       aggiorna();
+      avanza();
     });
   });
 
@@ -663,15 +691,15 @@ $('#year').textContent = new Date().getFullYear();
     b.addEventListener('click', () => {
       const chi = b.dataset.bookWith;
       stato.who = chi;
-      $$('#whoList .who__card').forEach(x => x.classList.toggle('is-on', x.dataset.who === chi));
-      vaiA(stato.svc ? 3 : 1);
-      $('#prenota').scrollIntoView({ behavior: RIDOTTO ? 'auto' : 'smooth', block:'start' });
+      $$('.who__card', whoBox).forEach(x => x.classList.toggle('is-on', x.dataset.who === chi));
+      vaiA(stato.svc ? 4 : 1);
+      portaSu();
       toast(`Prenoti con ${chi}`);
       aggiorna();
     });
   });
 
-  /* ---------- 13.3 calendario ---------- */
+  /* ---------- 13.4 quarto passo: il giorno ---------- */
   const grid = $('#calGrid'), label = $('#calLabel');
   const oggi = new Date(); oggi.setHours(0, 0, 0, 0);
   const ultimo = new Date(oggi); ultimo.setDate(ultimo.getDate() + CONFIG.giorniMax);
@@ -712,10 +740,7 @@ $('#year').textContent = new Date().getFullYear();
           b.classList.add('is-on');
           disegnaOrari();
           aggiorna();
-          // sul telefono gli orari nascono sotto il calendario: portiamoceli
-          if (innerWidth < 1000) {
-            $('#slots').scrollIntoView({ behavior: RIDOTTO ? 'auto' : 'smooth', block:'center' });
-          }
+          avanza();
         });
       }
       if (+d === +oggi) b.classList.add('is-today');
@@ -731,24 +756,20 @@ $('#year').textContent = new Date().getFullYear();
   $('#calNext').addEventListener('click', () => { mese.setMonth(mese.getMonth() + 1); disegnaMese(); });
   disegnaMese();
 
-  /* ---------- 13.4 orari liberi ---------- */
+  /* ---------- 13.5 quinto passo: l'orario ---------- */
   function disegnaOrari(){
     const box = $('#slots');
     box.innerHTML = '';
     if (!stato.giorno) { box.innerHTML = '<p class="slots__empty">Scegli prima un giorno.</p>'; return; }
 
+    $('#oraEcho').textContent = stato.giorno.toLocaleDateString('it-IT', { weekday:'long', day:'numeric', month:'long' });
+
     const fasce  = fasceDi(stato.giorno.getDay()) || [];
     const durata = stato.svc ? stato.svc.dur : CONFIG.durataDefault;
     const soglia = Date.now() + CONFIG.anticipoOre * 3600e3;
 
-    const cap = document.createElement('p');
-    cap.className = 'slots__cap';
-    cap.textContent = 'Orari disponibili';
-    box.appendChild(cap);
-
-    // Si disegnano TUTTI gli orari del giorno: quelli ancora prenotabili si
-    // leggono, quelli passati restano lì ma quasi invisibili. Così si capisce
-    // a colpo d'occhio quanto è pieno il giorno.
+    // Si disegnano tutti gli orari del giorno: quelli ancora prenotabili si
+    // leggono, quelli passati restano lì ma quasi invisibili.
     let liberi = 0, totali = 0;
     fasce.forEach(([a, b]) => {
       for (let m = inMin(a); m + durata <= inMin(b); m += CONFIG.passoMinuti) {
@@ -771,6 +792,7 @@ $('#year').textContent = new Date().getFullYear();
             $$('.slot', box).forEach(x => x.classList.remove('is-on'));
             btn.classList.add('is-on');
             aggiorna();
+            avanza();
           });
         }
         box.appendChild(btn);
@@ -778,38 +800,78 @@ $('#year').textContent = new Date().getFullYear();
     });
 
     if (!liberi) {
-      box.innerHTML = '<p class="slots__none">Per oggi non ci sono più orari liberi. Prova il giorno dopo.</p>';
+      box.innerHTML = '<p class="slots__none">Per questo giorno non ci sono più orari liberi. Torna indietro e scegline un altro.</p>';
     }
   }
 
-  /* ---------- 13.5 passi ---------- */
+  /* ---------- 13.6 muoversi fra i passi ---------- */
+  function segna(box, scelto, sel = '.opt'){
+    $$(sel, box).forEach(x => x.classList.toggle('is-on', x === scelto));
+  }
+
+  // dopo una risposta si va avanti da soli: è il senso di questo modulo
+  function avanza(){
+    if (stato.step >= PASSI) return;
+    setTimeout(() => { vaiA(stato.step + 1); inquadra(); }, RIDOTTO ? 0 : 260);
+  }
+
+  function portaSu(){
+    $('#prenota').scrollIntoView({ behavior: RIDOTTO ? 'auto' : 'smooth', block:'start' });
+  }
+
+  // dopo una risposta la domanda nuova deve essere sotto gli occhi,
+  // non mezza fuori schermo
+  function inquadra(){
+    const w = $('.wiz');
+    if (!w) return;
+    const r = w.getBoundingClientRect();
+    const alto = parseInt(getComputedStyle(document.documentElement).getPropertyValue('--nav-h')) || 68;
+    if (r.top < alto || r.top > innerHeight * 0.45) {
+      w.scrollIntoView({ behavior: RIDOTTO ? 'auto' : 'smooth', block:'start' });
+    }
+  }
+
   function vaiA(n){
-    stato.step = Math.max(1, Math.min(4, n));
+    const prima = stato.step;
+    stato.step = Math.max(1, Math.min(PASSI, n));
     panels.forEach(p => {
       const on = +p.dataset.step === stato.step;
       p.hidden = !on;
       p.classList.toggle('is-on', on);
+      if (on) p.classList.toggle('is-back', stato.step < prima);
     });
-    tappe.forEach((t, i) => {
-      t.classList.toggle('is-on', i + 1 === stato.step);
-      t.classList.toggle('is-done', i + 1 < stato.step);
-    });
+    $('#wizNum').textContent = stato.step;
+    $('#wizFill').style.transform = `scaleX(${stato.step / PASSI})`;
     btnBack.hidden = stato.step === 1;
-    btnNext.hidden = stato.step === 4;
+    disegnaBriciole();
     aggiorna();
   }
 
-  function completo(n){
-    if (n === 1) return !!stato.svc;
-    if (n === 2) return !!stato.who;
-    if (n === 3) return !!(stato.giorno && stato.ora);
-    return true;
+  /* le risposte già date restano visibili: un tocco e ci torni sopra */
+  function disegnaBriciole(){
+    const box = $('#crumbs');
+    const voci = [
+      { p:2, testo: stato.svc ? stato.svc.nome : null },
+      { p:3, testo: stato.who },
+      { p:4, testo: stato.giorno ? stato.giorno.toLocaleDateString('it-IT', { weekday:'short', day:'numeric', month:'short' }) : null },
+      { p:5, testo: stato.ora }
+    ].filter(v => v.testo && v.p < stato.step);
+
+    box.innerHTML = '';
+    voci.forEach(v => {
+      const b = document.createElement('button');
+      b.type = 'button';
+      b.className = 'crumb';
+      b.innerHTML = `${v.testo}<i aria-hidden="true">×</i>`;
+      b.setAttribute('aria-label', `Cambia: ${v.testo}`);
+      b.addEventListener('click', () => vaiA(v.p));
+      box.appendChild(b);
+    });
   }
 
-  btnNext.addEventListener('click', () => { if (completo(stato.step)) vaiA(stato.step + 1); });
   btnBack.addEventListener('click', () => vaiA(stato.step - 1));
 
-  /* ---------- 13.6 riepilogo ---------- */
+  /* ---------- 13.7 riepilogo e barra ---------- */
   function quando(){
     if (!stato.giorno) return null;
     const d = stato.giorno.toLocaleDateString('it-IT', { weekday:'long', day:'numeric', month:'long' });
@@ -851,13 +913,10 @@ $('#year').textContent = new Date().getFullYear();
     $('#sumTot').textContent = stato.svc
       ? (stato.svc.da ? 'da ' : '') + stato.svc.prezzo + ' €'
       : '—';
-
-    btnNext.disabled = !completo(stato.step);
-    btnNext.textContent = stato.step === 3 ? 'Ci siamo →' : 'Continua →';
   }
-  aggiorna();
+  vaiA(1);
 
-  /* ---------- 13.7 invio ---------- */
+  /* ---------- 13.8 invio ---------- */
   $('#bookForm').addEventListener('submit', e => {
     e.preventDefault();
     const nome = $('#fNome').value.trim();
@@ -890,8 +949,7 @@ $('#year').textContent = new Date().getFullYear();
 
 Confermate voi? Grazie!`;
 
-    const recap = $('#doneRecap');
-    recap.textContent = testo;
+    $('#doneRecap').textContent = testo;
 
     const wa = window.__wa;
     const link = $('#doneWa');
@@ -901,9 +959,8 @@ Confermate voi? Grazie!`;
       link.hidden = false;
       $('#doneMsg').textContent = 'Ti apriamo WhatsApp con il messaggio già scritto: mandalo e ricevi la conferma.';
     } else {
-      // numero non ancora inserito: si copia e si manda a mano
       link.hidden = true;
-      $('#doneMsg').textContent = 'Copia il messaggio qui sotto e mandalo al salone: ti confermano loro l’orario.';
+      $('#doneMsg').textContent = 'Copia il messaggio qui sotto e mandalo al salone: ti confermano loro l\u2019orario.';
     }
 
     if (CONFIG.bookingUrl) {
@@ -938,15 +995,17 @@ Confermate voi? Grazie!`;
   });
 
   $('#doneAgain').addEventListener('click', () => {
-    stato.svc = stato.who = stato.giorno = stato.ora = null;
-    SERVIZI.forEach(s => { s.btn.classList.remove('is-on'); s.li.classList.remove('is-picked'); });
-    $$('#whoList .who__card').forEach(x => x.classList.remove('is-on'));
+    stato.cat = stato.svc = stato.who = stato.giorno = stato.ora = null;
+    SERVIZI.forEach(s => s.li.classList.remove('is-picked'));
+    $$('.opt', catBox).forEach(x => x.classList.remove('is-on'));
+    $$('.who__card', whoBox).forEach(x => x.classList.remove('is-on'));
+    svcBox.innerHTML = '';
     $('#bookForm').reset();
     disegnaMese(); disegnaOrari();
     $('#done').hidden = true;
     $('.wiz').hidden = false;
     vaiA(1);
-    $('#prenota').scrollIntoView({ behavior: RIDOTTO ? 'auto' : 'smooth', block:'start' });
+    portaSu();
   });
 })();
 

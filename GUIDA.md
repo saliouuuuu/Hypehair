@@ -76,12 +76,19 @@ Servono queste cose (ora nel sito ci sono i segnaposti):
 
 ## 2. Come funziona la prenotazione
 
-È il cuore del sito. Il cliente fa quattro cose:
+È il cuore del sito, ed è fatto **una domanda per schermata**: il cliente
+risponde e va avanti da solo, senza vedere tutto insieme.
 
-1. sceglie il **servizio** (dal listino o dai bottoni)
-2. sceglie il **barbiere** — JD, Baudena o "indifferente"
-3. sceglie **giorno e ora**, tra quelli in cui il salone è aperto
-4. lascia **nome e telefono**
+1. **Cosa ti serve?** — capelli, barba & viso, colore
+2. **Quale, di preciso?** — solo i servizi di quel tipo, con prezzo e durata
+3. **Con chi ti siedi?** — JD, Baudena o "indifferente"
+4. **Che giorno?** — solo il calendario
+5. **A che ora?** — solo gli orari
+6. **Come ti chiami?** — nome e telefono
+
+Non c'è nessun bottone "avanti": appena tocca una risposta passa alla
+domanda dopo. In alto restano le risposte già date come piccole targhette:
+toccandone una ci torna sopra e la cambia.
 
 A quel punto il sito prepara un messaggio già scritto e apre WhatsApp:
 al salone arriva tutto in chiaro, servizio, prezzo, orario e nome.
@@ -89,9 +96,16 @@ Voi rispondete "confermato" e basta.
 
 **Niente pagamenti online, niente account, niente app da scaricare.**
 
-Il cliente può anche partire dal listino: tocca "Taglio Completo" e la
-prenotazione si apre già compilata. Oppure dalla scheda di un barbiere:
-"Prenota con JD" e il barbiere è già scelto.
+Il cliente può anche saltare avanti: tocca un prezzo nel listino e si
+ritrova già alla domanda "con chi ti siedi?", oppure tocca "Prenota con JD"
+nella sezione Barbieri e il barbiere è già scelto.
+
+### Due cose che il sito non fa (ancora)
+
+**Non aggiunge l'appuntamento al calendario del cliente.** Si può fare: alla
+fine compare un bottone "Aggiungi al calendario" che scarica l'appuntamento
+e lo infila in quello del telefono, iPhone e Android uguale. È mezz'ora di
+lavoro, si fa quando il resto è definitivo.
 
 ### Attenzione: gli orari proposti non sanno chi è già prenotato
 
