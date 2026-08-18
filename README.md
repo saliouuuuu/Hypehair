@@ -82,6 +82,14 @@ Come:
   mettono in pausa fuori dallo schermo.
 - **Palette e tipografia dal logo**: nero, bianco e i verdi iridescenti del
   vetro; serif in stile lettering del marchio.
+- **Due versioni, un interruttore.** Il bottone nella nav passa da scuro a
+  chiaro; la scelta resta in `localStorage` e viene applicata da uno script
+  in `<head>` prima del primo disegno, così non si vede il lampo. Tutti i
+  colori passano da gettoni CSS ridefiniti sotto `:root[data-tema="chiaro"]`
+  — nel foglio non è rimasto nessun colore scritto a mano, tranne gli scrim
+  sopra le foto, che restano scuri di proposito (`--su-foto` per il testo
+  che ci sta sopra). Sul chiaro il marchio torna dentro al suo disco nero,
+  perché `mix-blend-mode: screen` su carta lo cancellerebbe.
 - **Animazioni sobrie**: comparse allo scroll, parallasse leggera, testo che
   si accende parola per parola, schede che si impilano. Tutto disattivato
   automaticamente con `prefers-reduced-motion`.

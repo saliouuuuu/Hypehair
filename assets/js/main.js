@@ -179,6 +179,30 @@ $$('[data-split]').forEach(el => {
 })();
 
 /* ============================================================
+   2ter — Chiaro o scuro
+   Il sito nasce scuro. Il bottone in alto serve a far vedere l'altra
+   versione e a scegliere: la preferenza resta salvata sul telefono.
+   ============================================================ */
+(function tema(){
+  const btn = $('#tema');
+  if (!btn) return;
+  const meta = $('meta[name="theme-color"]');
+
+  const applica = (chiaro) => {
+    document.documentElement.dataset.tema = chiaro ? 'chiaro' : 'scuro';
+    btn.setAttribute('aria-label', chiaro ? 'Passa alla versione scura' : 'Passa alla versione chiara');
+    if (meta) meta.content = chiaro ? '#f7f5f0' : '#050505';
+    try { localStorage.setItem('hh-tema', chiaro ? 'chiaro' : 'scuro'); } catch {}
+  };
+
+  applica(document.documentElement.dataset.tema === 'chiaro');
+
+  btn.addEventListener('click', () => {
+    applica(document.documentElement.dataset.tema !== 'chiaro');
+  });
+})();
+
+/* ============================================================
    3 — Nav, menu, barra di avanzamento
    ============================================================ */
 (function nav(){

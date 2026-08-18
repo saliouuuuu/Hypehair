@@ -5,27 +5,39 @@
    ============================================================ */
 
 /* ---------- 1. Variabili ----------
-   Nero quasi assoluto, bianco caldo, e il verde del marchio tenuto da
-   parte: si accende solo dove c'è qualcosa da fare (prenota, scegli,
-   conferma). Tutto il resto è bianco su nero. */
+   Il sito nasce scuro: nero quasi assoluto, bianco caldo, e il verde del
+   marchio solo dove c'è un'azione. Sotto c'è la stessa tavolozza ribaltata
+   per la versione chiara: si passa dall'una all'altra col bottone in alto.
+
+   Una regola da ricordare: quello che sta SOPRA UNA FOTO non cambia mai
+   (--su-foto), perché le foto restano scure in tutte e due le versioni. */
 :root{
-  /* fondali: il nero del logo, praticamente pieno */
+  /* fondali */
   --bg:        #050505;
   --bg-2:      #0b0b0a;
   --bg-3:      #131312;
-  /* bianco caldo, mai freddo */
+  /* testi */
   --sand:      #f2eee6;
   --sand-2:    #b8b2a6;
   --muted:     #857f74;
+  /* righe, vetri, cose spente */
   --line:      rgba(242,238,230,.13);
   --line-2:    rgba(242,238,230,.06);
   --glass:     rgba(242,238,230,.04);
   --glass-2:   rgba(242,238,230,.08);
-  /* verde: SOLO per le azioni e le scelte fatte */
+  --spento:    var(--spento);
+  --dots:      rgba(242,238,230,.25);
+  --vetro:     rgba(5,5,5,.84);        /* nav e barra in basso */
+  --anello:    rgba(242,238,230,.85);  /* il cerchio attorno al marchio */
+  --glow:      rgba(242,238,230,.05);
+  /* verde: solo per le azioni e le scelte fatte */
   --jade:      #1fbf74;
   --jade-2:    #17a462;
   --jade-soft: rgba(31,191,116,.1);
-  --nero-su-verde:#04140c;
+  --su-jade:   #04140c;                /* il testo sopra al verde */
+  /* sopra le foto, sempre uguale */
+  --su-foto:   #f2eee6;
+  --su-foto-2: rgba(242,238,230,.74);
   /* i verdi del vetro: vivono dentro l'emblema, non nell'interfaccia */
   --teal:      #0f6b52;
   --teal-2:    #17a58a;
@@ -48,6 +60,32 @@
   --nav-h:     68px;
   --dock-h:    58px;
 }
+
+/* ---------- 1bis. Versione chiara ----------
+   Carta calda invece del nero, inchiostro invece del bianco, e un verde
+   più profondo perché quello acceso su fondo chiaro non si legge. */
+:root[data-tema="chiaro"]{
+  --bg:        #f7f5f0;
+  --bg-2:      #efece4;
+  --bg-3:      #e6e2d8;
+  --sand:      #15150f;
+  --sand-2:    #4d4a42;
+  --muted:     #6a665e;
+  --line:      rgba(21,21,15,.16);
+  --line-2:    rgba(21,21,15,.08);
+  --glass:     rgba(21,21,15,.035);
+  --glass-2:   rgba(21,21,15,.07);
+  --spento:    rgba(21,21,15,.2);
+  --dots:      rgba(21,21,15,.25);
+  --vetro:     rgba(247,245,240,.88);
+  --anello:    rgba(21,21,15,.8);
+  --glow:      rgba(21,21,15,.05);
+  --jade:      #0f8a4f;
+  --jade-2:    #0b6f3f;
+  --jade-soft: rgba(15,138,79,.1);
+  --su-jade:   #ffffff;
+}
+:root[data-tema="chiaro"] body::after{ opacity:.035; }   /* meno grana sulla carta */
 
 /* ---------- 2. Base ---------- */
 *,*::before,*::after{ box-sizing:border-box; }
@@ -100,7 +138,7 @@ button{ font:inherit; color:inherit; }
 
 .skip-link{
   position:fixed; top:-100px; left:12px; z-index:200;
-  background:var(--jade); color:var(--nero-su-verde);
+  background:var(--jade); color:var(--su-jade);
   padding:.7rem 1.1rem; border-radius:12px; font-weight:600;
   text-decoration:none; transition:top .25s var(--e);
 }
@@ -160,11 +198,11 @@ body.has-cursor .cursor{ opacity:1; }
 }
 .cursor__dot{ width:5px; height:5px; background:var(--sand); }
 .cursor__ring{
-  width:34px; height:34px; border:1px solid rgba(242,238,230,.4);
+  width:34px; height:34px; border:1px solid var(--sand-2);
   left:var(--rx,0); top:var(--ry,0);
   transition:width .3s var(--e), height .3s var(--e), background .3s;
 }
-body.cursor-hot .cursor__ring{ width:56px; height:56px; background:rgba(242,238,230,.08); }
+body.cursor-hot .cursor__ring{ width:56px; height:56px; background:var(--glass-2); }
 
 .progress{ position:fixed; top:0; left:0; right:0; height:2px; z-index:105; pointer-events:none; }
 .progress i{
@@ -184,7 +222,7 @@ body.cursor-hot .cursor__ring{ width:56px; height:56px; background:rgba(242,238,
 }
 .nav::after{
   content:''; position:absolute; inset:0; z-index:-1;
-  background:rgba(5,8,7,.72);
+  background:var(--vetro);
   backdrop-filter:saturate(150%) blur(16px);
   -webkit-backdrop-filter:saturate(150%) blur(16px);
   border-bottom:1px solid var(--line-2);
@@ -196,7 +234,7 @@ body.cursor-hot .cursor__ring{ width:56px; height:56px; background:rgba(242,238,
 .nav__logo{ display:flex; align-items:center; gap:.6rem; text-decoration:none; margin-right:auto; padding-block:.25rem; }
 .nav__mark{
   width:38px; height:38px; flex:none;
-  border:1.5px solid rgba(243,247,245,.85); border-radius:50%;
+  border:1.5px solid var(--anello); border-radius:50%;
 }
 .nav__mark .emblem__body{ inset:5px; }
 .nav__mark .emblem__halo{ display:none; }
@@ -282,7 +320,7 @@ body.cursor-hot .cursor__ring{ width:56px; height:56px; background:rgba(242,238,
 .btn:active{ transform:scale(.97); }
 .btn[disabled]{ opacity:.4; cursor:not-allowed; }
 
-.btn--jade{ background:var(--jade); color:var(--nero-su-verde); }
+.btn--jade{ background:var(--jade); color:var(--su-jade); }
 .btn--jade:hover{ background:var(--jade-2); }
 .btn--glass{ background:var(--glass); color:var(--sand); border-color:var(--line); backdrop-filter:blur(10px); }
 .btn--glass:hover{ background:var(--glass-2); }
@@ -298,7 +336,7 @@ body.cursor-hot .cursor__ring{ width:56px; height:56px; background:rgba(242,238,
 .ph{
   position:absolute; inset:0;
   background:
-    radial-gradient(120% 90% at 30% 20%, rgba(242,238,230,.05), transparent 60%),
+    radial-gradient(120% 90% at 30% 20%, var(--glass-2), transparent 60%),
     var(--bg-2);
   display:grid; place-content:center; gap:.4rem; text-align:center;
   padding:1.2rem;
@@ -408,7 +446,7 @@ body.cursor-hot .cursor__ring{ width:56px; height:56px; background:rgba(242,238,
   background:radial-gradient(85% 55% at 50% 100%, rgba(242,238,230,.06), transparent 72%);
 }
 
-.hero__in{ position:relative; z-index:4; max-width:min(100%,780px); }
+.hero__in{ position:relative; z-index:4; max-width:min(100%,780px); color:var(--su-foto); }
 
 .hero__title{
   margin:.9rem 0 1.1rem;
@@ -418,14 +456,14 @@ body.cursor-hot .cursor__ring{ width:56px; height:56px; background:rgba(242,238,
 .hero__title .line{ display:block; overflow:hidden; }
 .hero__title em{ font-style:italic; color:var(--jade); }
 
-.hero__sub{ color:var(--sand-2); font-size:clamp(1rem,1.9vw,1.2rem); max-width:44ch; text-wrap:pretty; }
+.hero__sub{ color:var(--su-foto-2); font-size:clamp(1rem,1.9vw,1.2rem); max-width:44ch; text-wrap:pretty; }
 .hero__acts{ display:flex; flex-wrap:wrap; gap:.7rem; margin-top:1.7rem; }
-.hero__hint{ margin-top:1.1rem; font-size:.85rem; color:var(--muted); }
-.hero__hint b{ color:var(--sand-2); font-weight:600; }
+.hero__hint{ margin-top:1.1rem; font-size:.85rem; color:var(--su-foto-2); }
+.hero__hint b{ color:var(--su-foto); font-weight:600; }
 
 .hero__cue{
   position:absolute; left:50%; bottom:1.4rem; z-index:4;
-  width:26px; height:42px; border:1px solid var(--line); border-radius:14px;
+  width:26px; height:42px; border:1px solid rgba(242,238,230,.3); border-radius:14px;
   transform:translateX(-50%);
 }
 .hero__cue span{
@@ -488,7 +526,7 @@ body.cursor-hot .cursor__ring{ width:56px; height:56px; background:rgba(242,238,
   font-size:clamp(2rem,6vw,4rem);
   line-height:1.22; letter-spacing:-.02em;
 }
-.w{ color:rgba(243,247,245,.14); transition:color .35s var(--e); }
+.w{ color:var(--spento); transition:color .35s var(--e); }
 .w.is-lit{ color:var(--sand); }
 
 /* ---------- 13. Vetrina ----------
@@ -514,7 +552,7 @@ body.cursor-hot .cursor__ring{ width:56px; height:56px; background:rgba(242,238,
 /* dietro ai video, finché non partono, un fondo che non sembri un buco */
 .frame:has(video){
   background:
-    radial-gradient(90% 70% at 50% 30%, rgba(242,238,230,.055), transparent 65%),
+    radial-gradient(90% 70% at 50% 30%, var(--glass-2), transparent 65%),
     var(--bg-2);
 }
 .frame video{ opacity:0; transition:opacity .6s var(--e); }
@@ -538,7 +576,7 @@ body.cursor-hot .cursor__ring{ width:56px; height:56px; background:rgba(242,238,
 
 .art__no{
   position:absolute; top:1rem; left:1.15rem; z-index:4;
-  font-family:var(--ff-serif); font-size:.95rem; color:var(--sand);
+  font-family:var(--ff-serif); font-size:.95rem; color:var(--su-foto);
   opacity:.7; letter-spacing:.08em;
 }
 
@@ -550,7 +588,7 @@ body.cursor-hot .cursor__ring{ width:56px; height:56px; background:rgba(242,238,
   background:rgba(5,5,5,.45); border:1px solid rgba(242,238,230,.18);
   backdrop-filter:blur(10px); -webkit-backdrop-filter:blur(10px);
 }
-.art__badge svg{ width:13px; height:13px; fill:var(--sand); }
+.art__badge svg{ width:13px; height:13px; fill:var(--su-foto); }
 
 /* la lastra di vetro con la didascalia */
 .art__cap{
@@ -568,7 +606,8 @@ body.cursor-hot .cursor__ring{ width:56px; height:56px; background:rgba(242,238,
   font-family:var(--ff-serif); font-weight:400;
   font-size:clamp(1.1rem,2.6vw,1.4rem); line-height:1.15;
 }
-.art__cap span{ font-size:.78rem; color:var(--sand-2); }
+.art__cap b{ color:var(--su-foto); }
+.art__cap span{ font-size:.78rem; color:var(--su-foto-2); }
 .art:hover .art__cap{ transform:translateY(-3px); background:rgba(10,10,9,.55); }
 
 .gallery__more{ margin-top:clamp(2rem,5vw,3rem); text-align:center; }
@@ -587,7 +626,7 @@ body.cursor-hot .cursor__ring{ width:56px; height:56px; background:rgba(242,238,
   background:linear-gradient(180deg,var(--bg) 2%,rgba(5,5,5,.62) 32%,rgba(5,5,5,.66) 68%,var(--bg) 98%);
 }
 .over__text{
-  position:relative; z-index:2;
+  position:relative; z-index:2; color:var(--su-foto);
   max-width:16ch; margin-inline:auto; text-align:center;
   font-family:var(--ff-serif); font-style:italic;
   font-size:clamp(2.4rem,8vw,5.8rem); line-height:1.08;
@@ -614,8 +653,8 @@ body.cursor-hot .cursor__ring{ width:56px; height:56px; background:rgba(242,238,
 .pro__badge{
   position:absolute; z-index:2; top:.9rem; left:.9rem;
   padding:.3rem .7rem; border-radius:999px;
-  background:rgba(5,8,7,.6); backdrop-filter:blur(8px);
-  border:1px solid var(--line); font-size:.74rem; letter-spacing:.12em; text-transform:uppercase; color:var(--sand-2);
+  background:rgba(5,5,5,.6); backdrop-filter:blur(8px);
+  border:1px solid rgba(242,238,230,.18); font-size:.74rem; letter-spacing:.12em; text-transform:uppercase; color:var(--su-foto-2);
 }
 .pro__body{ padding:clamp(1.2rem,3vw,1.8rem); display:grid; gap:.7rem; }
 .pro__name{ font-size:clamp(2.2rem,5vw,3rem); }
@@ -637,7 +676,7 @@ body.cursor-hot .cursor__ring{ width:56px; height:56px; background:rgba(242,238,
   background:linear-gradient(150deg,var(--bg-3),var(--bg-2) 60%);
   padding:clamp(1.5rem,4.5vw,2.6rem);
   display:grid; gap:.6rem;
-  box-shadow:0 -1px 0 rgba(243,247,245,.05), 0 24px 60px -30px rgba(0,0,0,.9);
+  box-shadow:0 -1px 0 var(--line-2), 0 24px 60px -30px rgba(0,0,0,.45);
 }
 .stack__no{ font-family:var(--ff-serif); color:var(--muted); font-size:.9rem; letter-spacing:.1em; }
 .stack__card h3{ font-size:clamp(1.9rem,5vw,2.8rem); }
@@ -663,7 +702,7 @@ body.cursor-hot .cursor__ring{ width:56px; height:56px; background:rgba(242,238,
 }
 .price__list button:hover{ color:var(--sand); }
 .price__n{ font-family:var(--ff-serif); font-size:clamp(1.25rem,3vw,1.6rem); white-space:nowrap; }
-.price__dots{ flex:1; border-bottom:1px dotted rgba(243,247,245,.25); transform:translateY(-4px); }
+.price__dots{ flex:1; border-bottom:1px dotted var(--dots); transform:translateY(-4px); }
 .price__v{ font-weight:600; font-size:1rem; white-space:nowrap; }
 .price__list li.is-picked .price__v{ color:var(--jade); }
 .price__list li.is-picked .price__n{ color:var(--sand); }
@@ -679,13 +718,13 @@ body.cursor-hot .cursor__ring{ width:56px; height:56px; background:rgba(242,238,
 }
 .book__glow{
   position:absolute; inset:4% 0 auto; height:50%; z-index:-1;
-  background:radial-gradient(55% 55% at 50% 0%, rgba(242,238,230,.05), transparent 72%);
+  background:radial-gradient(55% 55% at 50% 0%, var(--glow), transparent 72%);
 }
 
 .wiz{
   scroll-margin-top:calc(var(--nav-h) + 14px);
   border:1px solid var(--line); border-radius:var(--r-lg);
-  background:linear-gradient(180deg, rgba(15,24,21,.9), rgba(5,8,7,.9));
+  background:linear-gradient(180deg, var(--bg-2), var(--bg));
   backdrop-filter:blur(14px);
   overflow:hidden;
   box-shadow:0 40px 90px -50px rgba(0,0,0,.95);
@@ -793,7 +832,7 @@ body.cursor-hot .cursor__ring{ width:56px; height:56px; background:rgba(242,238,
 .who__card.is-on .who__tick{ background:var(--jade); border-color:var(--jade); }
 .who__card.is-on .who__tick::after{
   content:''; position:absolute; inset:0; margin:auto; width:5px; height:9px;
-  border:solid var(--nero-su-verde); border-width:0 1.6px 1.6px 0; transform:rotate(45deg) translate(-1px,-1px);
+  border:solid var(--su-jade); border-width:0 1.6px 1.6px 0; transform:rotate(45deg) translate(-1px,-1px);
 }
 
 /* calendario: numeri e basta. Niente scatole, niente griglia da gestionale.
@@ -825,14 +864,14 @@ body.cursor-hot .cursor__ring{ width:56px; height:56px; background:rgba(242,238,
   transition:background .3s var(--e), color .3s var(--e);
 }
 .cal__day:hover:not([disabled]){ background:var(--glass-2); }
-.cal__day[disabled]{ color:rgba(242,238,230,.14); cursor:default; }
+.cal__day[disabled]{ color:var(--spento); cursor:default; }
 .cal__day.is-off{ visibility:hidden; }
 .cal__day.is-today::after{
   content:''; position:absolute; bottom:14%; left:50%; transform:translateX(-50%);
   width:3px; height:3px; border-radius:50%; background:var(--sand-2);
 }
-.cal__day.is-on{ background:var(--jade); color:var(--nero-su-verde); font-weight:600; }
-.cal__day.is-on::after{ background:var(--nero-su-verde); }
+.cal__day.is-on{ background:var(--jade); color:var(--su-jade); font-weight:600; }
+.cal__day.is-on::after{ background:var(--su-jade); }
 
 /* orari: quelli liberi si leggono, quelli passati quasi spariscono */
 .slots{ display:flex; flex-wrap:wrap; gap:.5rem; }
@@ -855,7 +894,7 @@ body.cursor-hot .cursor__ring{ width:56px; height:56px; background:rgba(242,238,
   border-color:transparent; color:rgba(242,238,230,.16);
   cursor:default; text-decoration:line-through;
 }
-.slot.is-on{ background:var(--jade); color:var(--nero-su-verde); border-color:var(--jade); font-weight:600; }
+.slot.is-on{ background:var(--jade); color:var(--su-jade); border-color:var(--jade); font-weight:600; }
 
 /* modulo */
 .form{ display:grid; gap:.9rem; }
@@ -883,7 +922,7 @@ body.cursor-hot .cursor__ring{ width:56px; height:56px; background:rgba(242,238,
   display:none;
   border-top:1px solid var(--line-2);
   padding:clamp(1.3rem,4vw,2.2rem);
-  background:rgba(5,5,5,.4);
+  background:transparent;
   align-content:start; gap:1rem;
 }
 .sum__cap{ font-size:.74rem; letter-spacing:.2em; text-transform:uppercase; color:var(--muted); }
@@ -907,7 +946,7 @@ body.cursor-hot .cursor__ring{ width:56px; height:56px; background:rgba(242,238,
   min-height:60px; align-items:center;
   padding:1rem clamp(1.3rem,4vw,2.2rem);
   border-top:1px solid var(--line-2);
-  background:rgba(5,8,7,.5);
+  background:var(--bg-2);
 }
 
 
@@ -923,11 +962,11 @@ body.cursor-hot .cursor__ring{ width:56px; height:56px; background:rgba(242,238,
   width:46px; height:46px; border-radius:50%; display:grid; place-content:center;
   background:var(--jade);
 }
-.done__tick svg{ width:22px; height:22px; fill:none; stroke:var(--nero-su-verde); stroke-width:2.2; stroke-linecap:round; stroke-linejoin:round; }
+.done__tick svg{ width:22px; height:22px; fill:none; stroke:var(--su-jade); stroke-width:2.2; stroke-linecap:round; stroke-linejoin:round; }
 .done__in h3{ font-size:clamp(1.85rem,4.5vw,2.5rem); }
 .done__recap{
   width:100%; margin:0; padding:1rem; border-radius:14px;
-  background:rgba(5,8,7,.6); border:1px solid var(--line-2);
+  background:var(--bg); border:1px solid var(--line-2);
   font-family:ui-monospace,SFMono-Regular,Menlo,monospace; font-size:.82rem;
   white-space:pre-wrap; color:var(--sand-2); line-height:1.7;
 }
@@ -985,9 +1024,9 @@ body.cursor-hot .cursor__ring{ width:56px; height:56px; background:rgba(242,238,
   position:relative; border:0; cursor:pointer;
   display:grid; place-content:center; gap:.3rem; text-align:center; padding:2rem;
   background:
-    radial-gradient(80% 80% at 50% 40%, rgba(242,238,230,.07), transparent 70%),
-    repeating-linear-gradient(0deg, rgba(243,247,245,.05) 0 1px, transparent 1px 26px),
-    repeating-linear-gradient(90deg, rgba(243,247,245,.05) 0 1px, transparent 1px 26px),
+    radial-gradient(80% 80% at 50% 40%, var(--glass-2), transparent 70%),
+    repeating-linear-gradient(0deg, var(--line-2) 0 1px, transparent 1px 26px),
+    repeating-linear-gradient(90deg, var(--line-2) 0 1px, transparent 1px 26px),
     var(--bg-2);
   transition:filter .4s;
 }
@@ -1012,8 +1051,8 @@ body.cursor-hot .cursor__ring{ width:56px; height:56px; background:rgba(242,238,
 }
 .final__media{ position:absolute; inset:-10% 0; z-index:0; will-change:transform; }
 .final__media img{ width:100%; height:100%; object-fit:cover; position:relative; z-index:1; }
-.final__in{ position:relative; z-index:2; display:grid; gap:1rem; justify-items:center; }
-.final__in p{ color:var(--sand-2); max-width:38ch; }
+.final__in{ position:relative; z-index:2; display:grid; gap:1rem; justify-items:center; color:var(--su-foto); }
+.final__in p{ color:var(--su-foto-2); max-width:38ch; }
 
 /* ---------- 22. Footer + dock ---------- */
 .foot{
@@ -1041,7 +1080,7 @@ body.cursor-hot .cursor__ring{ width:56px; height:56px; background:rgba(242,238,
   display:flex; align-items:center; gap:1rem;
   min-height:var(--dock-h);
   padding:.42rem var(--pad) calc(.42rem + env(safe-area-inset-bottom));
-  background:rgba(5,5,5,.86);
+  background:var(--vetro);
   backdrop-filter:blur(18px) saturate(140%);
   -webkit-backdrop-filter:blur(18px) saturate(140%);
   border-top:1px solid var(--line-2);
@@ -1063,7 +1102,7 @@ body.cursor-hot .cursor__ring{ width:56px; height:56px; background:rgba(242,238,
 .dock__go{
   flex:none; display:inline-flex; align-items:center; gap:.45rem;
   padding:.62rem 1.15rem; border-radius:999px;
-  background:var(--jade); color:var(--nero-su-verde);
+  background:var(--jade); color:var(--su-jade);
   font-size:.9rem; font-weight:600; text-decoration:none;
   transition:background .3s var(--e), transform .3s var(--e-out);
 }
@@ -1103,7 +1142,7 @@ body.cursor-hot .cursor__ring{ width:56px; height:56px; background:rgba(242,238,
   position:fixed; z-index:140; left:50%; bottom:calc(5.5rem + env(safe-area-inset-bottom));
   transform:translate(-50%,20px);
   padding:.75rem 1.2rem; border-radius:999px;
-  background:var(--sand); color:var(--nero-su-verde); font-size:.85rem; font-weight:600;
+  background:var(--sand); color:var(--su-jade); font-size:.85rem; font-weight:600;
   opacity:0; pointer-events:none;
   transition:opacity .4s var(--e), transform .4s var(--e-out);
 }
@@ -1231,3 +1270,65 @@ body.cursor-hot .cursor__ring{ width:56px; height:56px; background:rgba(242,238,
   /* meno livelli composti da tenere in memoria mentre si scorre */
   .art{ will-change:auto; }
 }
+
+/* ---------- 29. Versione chiara: l'emblema e il bottone ----------
+   Il marchio è verde luminoso su nero: in "screen" su carta chiara
+   sparirebbe. Sul chiaro torna dentro al suo disco nero, che poi è
+   esattamente com'è fatto il logo. */
+:root[data-tema="chiaro"] .emblem__body{
+  background:#050505; border-radius:50%; overflow:hidden;
+}
+:root[data-tema="chiaro"] .emblem__img{ -webkit-mask-image:none; mask-image:none; }
+:root[data-tema="chiaro"] .nav__mark{ background:#050505; }
+:root[data-tema="chiaro"] .emblem__halo{ opacity:.3; }
+/* Il disco nero vale per gli emblemi appoggiati alla pagina. Quelli che
+   stanno sopra una foto restano in "screen", che lì funziona benissimo. */
+:root[data-tema="chiaro"] .final__mark .emblem__body{ background:none; }
+/* la filigrana dietro alla prenotazione sul chiaro diventerebbe un disco
+   grigio in mezzo al testo: meglio toglierla */
+:root[data-tema="chiaro"] .book__mark{ display:none; }
+
+/* il bottone che cambia versione */
+.tema{
+  width:40px; height:40px; flex:none; display:grid; place-content:center;
+  border:1px solid var(--line); border-radius:50%;
+  background:none; color:var(--sand-2); cursor:pointer;
+  transition:color .3s, border-color .3s, background .3s;
+}
+.tema:hover{ color:var(--sand); background:var(--glass); }
+.tema svg{ width:18px; height:18px; fill:none; stroke:currentColor; stroke-width:1.6; stroke-linecap:round; stroke-linejoin:round; }
+.tema__sole{ display:none; }
+:root[data-tema="chiaro"] .tema__sole{ display:block; }
+:root[data-tema="chiaro"] .tema__luna{ display:none; }
+
+/* nel menu del telefono lo stesso bottone, ma con la scritta */
+.tema--menu{
+  width:auto; height:auto; border-radius:999px;
+  grid-auto-flow:column; align-items:center; gap:.55rem;
+  padding:.7rem 1.2rem; font-size:.9rem; font-weight:600; color:var(--sand);
+}
+
+/* ---------- 30. Sopra la foto valgono le regole della foto ----------
+   Finché la nav non si appoggia al suo vetro sta sopra l'immagine di
+   apertura: lì i colori del tema non contano, si legge chiaro su scuro
+   in tutte e due le versioni. Stessa cosa per il bottone secondario
+   della hero. */
+.nav:not(.is-stuck) .nav__name,
+.nav:not(.is-stuck) .nav__links a,
+.nav:not(.is-stuck) .tema{ color:var(--su-foto); }
+.nav:not(.is-stuck) .tema,
+.nav:not(.is-stuck) .burger{ border-color:rgba(242,238,230,.32); }
+.nav:not(.is-stuck) .burger span{ background:var(--su-foto); }
+.nav:not(.is-stuck) .nav__mark{ border-color:rgba(242,238,230,.85); }
+
+.hero .btn--glass{
+  color:var(--su-foto);
+  border-color:rgba(242,238,230,.28);
+  background:rgba(242,238,230,.09);
+}
+.hero .btn--glass:hover{ background:rgba(242,238,230,.16); }
+
+/* il verde acceso resta acceso quando sta sopra una foto */
+.hero__title em,
+.over__text em,
+.final__in .h2 em{ color:#1fbf74; }

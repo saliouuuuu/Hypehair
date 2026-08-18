@@ -157,6 +157,21 @@ Apri `index.html` e cerca la sezione **LISTINO**. Ogni voce è una riga così:
 **Il modulo di prenotazione legge da qui.** Cambi il prezzo nel listino e
 cambia anche nella prenotazione: non c'è da toccarlo in due posti.
 
+### Chiaro o scuro
+
+In alto, accanto al menu, c'è un bottone con la luna (o il sole): cambia il
+sito dal nero alla carta chiara e viceversa. Serve per far vedere le due
+versioni e decidere quale tenere — la scelta resta salvata sul telefono di
+chi guarda, quindi puoi girare il link a chi vuoi e ognuno prova.
+
+Il sito **nasce scuro**: è la versione pensata per prima. Quando avete
+deciso, si può togliere il bottone e lasciare solo quella scelta.
+
+Una cosa da sapere: **le foto restano scure in tutte e due le versioni** —
+apertura, frase a tutta pagina e chiusura non cambiano, perché lì il testo
+è bianco sopra l'immagine e va bene così in entrambi i casi. Cambia tutto
+il resto: fondo, testi, listino, prenotazione, footer.
+
 ### I testi
 
 Sono tutti dentro `index.html`, in chiaro. Cerca la frase che vuoi cambiare
